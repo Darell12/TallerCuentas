@@ -7,7 +7,7 @@
 body {
     background-color: #242629;
 }
-.container {
+.containerH {
     height: 80px;
     display: flex;
     flex-direction: row;
@@ -15,4 +15,19 @@ body {
     justify-content: space-between;
     background-color: #16161a;
     color: #fffffe;
+}
+
+.container-nav {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #16161a;
+    color: #fffffe;
+}
+
+.boton-nav {
+    height: 50%;
+    align-items: center;
 }
