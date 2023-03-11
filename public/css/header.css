@@ -31,3 +31,8 @@ body {
     height: 50%;
     align-items: center;
 }
+
+.logosena img{
+    width: 80px;
+    height: 80px;
+}
