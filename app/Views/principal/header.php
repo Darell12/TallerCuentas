@@ -56,20 +56,23 @@
             Empleados
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item disabled" href="#">Cargos</a></li>
+            <li><a class="dropdown-item" href="empleados">Administrar</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link text-light disabled">Cargos</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Paises
+            Ubicación
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Departamentos</a></li>
-            <li><a class="dropdown-item" href="#">Municipios</a></li>
+            <li><a class="dropdown-item" href="paises">Pais</a></li>
+            <li><a class="dropdown-item" href="departamentos">Departamentos</a></li>
+            <li><a class="dropdown-item" href="municipios">Municipios</a></li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-

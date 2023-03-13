@@ -1,0 +1,12 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.titulo_Vista{
+  color:  #660808;  
+  text-align:center;
+}
+.regresar_Btn{
+  height:2rem;
+  width:7rem;
+}

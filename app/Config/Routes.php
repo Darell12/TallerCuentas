@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 
 $routes->get('/', 'Principal::index');
 
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
