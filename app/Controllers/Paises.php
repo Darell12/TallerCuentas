@@ -20,4 +20,15 @@ class Paises extends BaseController
         echo view('/principal/header', $data);
         echo view('/paises/paises', $data);
     }
+    public function insertar()
+    {
+        if ($this->request->getMethod() == "post" ) {
+            
+            $this->paises->save([    
+                'codigo' => $this->request->getPost('codigo'),          
+                'nombre' => $this->request->getPost('nombre')
+            ]);
+            return redirect()->to(base_url('/paises'));
+        } 
+    }
 }

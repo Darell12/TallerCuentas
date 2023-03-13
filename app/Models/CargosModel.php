@@ -4,9 +4,9 @@ namespace App\Models; //Reservamos el espacio de nombre de la ruta app\models
 
 use CodeIgniter\Model;
 
-class MunicipiosModel extends Model
+class CargosModel extends Model
 {
-    protected $table = 'municipios'; /* nombre de la tabla modelada/*/
+    protected $table = 'cargos'; /* nombre de la tabla modelada/*/
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true; /* Si la llave primaria se genera con autoincremento*/
@@ -14,7 +14,7 @@ class MunicipiosModel extends Model
     protected $returnType = 'array'; /* forma en que se retornan los datos */
     protected $useSoftDeletes = false; /* si hay eliminacion fisica de registro */
 
-    protected $allowedFields = ['nombre', 'estado', 'id_dpto', 'fecha_crea']; /* relacion de campos de la tabla */
+    protected $allowedFields = ['nombre', 'estado','fecha_crea']; /* relacion de campos de la tabla */
 
     protected $useTimestamps = true; /*tipo de tiempo a utilizar */
     protected $createdField = 'fecha_crea'; /*fecha automatica para la creacion */
@@ -25,11 +25,10 @@ class MunicipiosModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
-    public function obtenerMunicipios()
+    public function obtenerCargos()
     {
-        $this->select('municipios.*, departamentos.nombre as Departamento');
-        $this->join('departamentos','departamentos.id = municipios.id_dpto');
-        $this->where('municipios.estado', 'A');
+        $this->select('cargos.*');
+        $this->where('estado', 'A');
         $datos = $this->findAll();
         return $datos;
     }

@@ -16,7 +16,7 @@ class Departamentos extends BaseController
     {
         $departamentos = $this->departamentos->obtenerDepartamentos();
 
-        $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $departamentos];
+        $data = ['titulo' => 'Administrar Departamentos', 'nombre' => 'Darell E', 'datos' => $departamentos];
         echo view('/principal/header', $data);
         echo view('/departamentos/departamentos', $data);
     }

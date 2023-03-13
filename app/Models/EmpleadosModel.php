@@ -27,8 +27,11 @@ class EmpleadosModel extends Model
 
     public function obtenerEmpleados()
     {
-        $this->select('empleados.*');
-        $this->where('estado', 'A');
+        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario');
+        $this->join('municipios','municipios.id = empleados.id_municipio');
+        $this->join('cargos','cargos.id = empleados.id_cargo');
+        $this->join('salarios','salarios.id = empleados.id');
+        $this->where('empleados.estado', 'A');
         $datos = $this->findAll();
         return $datos;
     }

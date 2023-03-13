@@ -16,8 +16,10 @@
 </head>
 
 <header class="containerH">
-        <img src="<?php echo base_url(); ?>img/cuentasclaras.png" alt="">
-
+  <a href="<?php echo base_url();?>" class="logosena">
+    <img src="<?php echo base_url(); ?>img/cuentasclaras.png" alt="" class="">
+  </a>
+  
     <div class="titulo">
         <h1 style="text-align:center"><?php echo $titulo; ?></h1>
         <h6 style="text-align:center "><?php echo $nombre; ?></h2>   
@@ -28,29 +30,17 @@
         
 </header>
 
-
-
-<!-- Barra de Navegacion -->
+<!-- NAVBAR RENPONSIVE -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <div class="container-fluid">
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-light">
-      <!-- <li class="nav-item">
-          <a class="nav-link text-light" href="#">Paises</a>
+    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active text-light" aria-current="page" href="<?php echo base_url()?>x">Inicio</a>
         </li>
-      <li class="nav-item">
-          <a class="nav-link text-light" href="#">Municipios</a>
-        </li>
-      <li class="nav-item">
-          <a class="nav-link text-light" href="#">Departamentos</a>
-        </li>
-      <li class="nav-item">
-          <a class="nav-link text-light" href="#">Empleados</a>
-        </li>
-      <li class="nav-item">
-          <a class="nav-link text-light disable" href="#">Cargos</a>
-        </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Empleados
@@ -60,7 +50,7 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="" class="nav-link text-light disabled">Cargos</a>
+          <a href="cargos" class="nav-link text-light">Cargos</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

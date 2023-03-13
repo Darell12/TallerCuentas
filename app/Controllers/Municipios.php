@@ -16,7 +16,7 @@ class Municipios extends BaseController
     {
         $municipios = $this->municipios->obtenerMunicipios();
 
-        $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $municipios];
+        $data = ['titulo' => 'Administrar Municipios', 'nombre' => 'Darell E', 'datos' => $municipios];
         echo view('/principal/header', $data);
         echo view('/municipios/municipios', $data);
     }
