@@ -32,5 +32,17 @@ class PaisesModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
-
+    public function obtenerPaisesEliminados()
+    {
+        $this->select('paises.*');
+        $this->where('estado', 'I');
+        $datos = $this->findAll();
+        return $datos;
+    }
+    public function traer_Pais($id){
+        $this->select('paises.*');
+        $this->where('id', $id);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
 }

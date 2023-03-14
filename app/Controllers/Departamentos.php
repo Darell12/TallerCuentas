@@ -9,6 +9,7 @@ use App\Models\PaisesModel;
 class Departamentos extends BaseController
 {
     protected $departamentos;
+    protected $paises;
     public function __construct()
     {
         $this->departamentos = new DepartamentosModel();

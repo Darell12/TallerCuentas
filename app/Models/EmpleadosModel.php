@@ -30,7 +30,7 @@ class EmpleadosModel extends Model
         $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario');
         $this->join('municipios','municipios.id = empleados.id_municipio');
         $this->join('cargos','cargos.id = empleados.id_cargo');
-        $this->join('salarios','salarios.id = empleados.id');
+        $this->join('salarios','salarios.id = empleados.id', 'left');
         $this->where('empleados.estado', 'A');
         $this->orderBy('empleados.nombres', 'ASC'); // ordena por el nombre de los empleados en orden alfabético ascendente
         $datos = $this->findAll();

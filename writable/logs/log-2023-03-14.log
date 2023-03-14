@@ -1,30 +1,7 @@
-ERROR - 2023-03-14 01:26:43 --> mysqli_sql_exception: Unknown column 'departamento.nombre' in 'order clause' in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
-Stack trace:
-#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `departa...', 0)
-#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `departa...')
-#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `departa...')
-#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `departa...', Array, false)
-#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
-#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
-#6 C:\xampp\htdocs\TallerCuentas\app\Models\DepartamentosModel.php(34): CodeIgniter\BaseModel->findAll()
-#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Departamentos.php(19): App\Models\DepartamentosModel->obtenerDepartamentos()
-#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Departamentos->index()
-#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Departamentos))
-#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
-#12 {main}
-CRITICAL - 2023-03-14 01:26:43 --> Unknown column 'departamento.nombre' in 'order clause'
-in SYSTEMPATH\Database\BaseConnection.php on line 645.
- 1 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `departamentos`.*, `paises`.`nombre` as `PNombre`
-FROM `departamentos`
-JOIN `paises` ON `paises`.`id` = `departamentos`.`id_pais`
-WHERE `departamentos`.`estado` = :departamentos.estado:
-ORDER BY `departamento`.`nombre` ASC', [...], false)
- 2 SYSTEMPATH\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
- 3 SYSTEMPATH\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
- 4 APPPATH\Models\DepartamentosModel.php(34): CodeIgniter\BaseModel->findAll()
- 5 APPPATH\Controllers\Departamentos.php(19): App\Models\DepartamentosModel->obtenerDepartamentos()
- 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Departamentos->index()
- 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Departamentos))
- 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-14 16:42:28 --> Undefined property: App\Controllers\Paises::$paises
+in APPPATH\Controllers\Paises.php on line 18.
+ 1 APPPATH\Controllers\Paises.php(18): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Paises::$paises', 'APPPATH\\Controllers\\Paises.php', 18)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Paises->index()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Paises))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

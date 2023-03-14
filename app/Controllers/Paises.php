@@ -7,28 +7,93 @@ use App\Models\PaisesModel;
 
 class Paises extends BaseController
 {
-    protected $paises;
+    protected $pais;
     public function __construct()
     {
-        $this->paises = new PaisesModel();
+        $this->pais = new PaisesModel();
+        $this->eliminados = new PaisesModel();
     }
     public function index()
     {
-        $paises = $this->paises->obtenerPaises();
+        $pais = $this->pais->obtenerPaises();
 
-        $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $paises];
+        $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $pais];
         echo view('/principal/header', $data);
         echo view('/paises/paises', $data);
     }
+
+    public function eliminados()
+    {
+        $eliminados = $this->eliminados->obtenerPaisesEliminados();
+
+        $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $eliminados];
+        echo view('/principal/header', $data);
+        echo view('/paises/eliminados', $data);
+    }
+    public function cambiarEstado($id)
+    {
+        $registro = $this->pais->find($id); // Buscar registro a actualizar
+    
+        if (!$registro) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('No se encontró el registro solicitado.');
+        }
+    
+        // Cambiar valor del campo "estado"
+        $estado_actual = $registro['estado'];
+        
+    
+        $datos_actualizados = [
+            'estado' => 'I'
+        ];
+    
+        $this->pais->update($id, $datos_actualizados); // Actualizar registro
+    
+        return redirect()->to(base_url('/paises'));
+    }
+    public function Restaurar($id)
+    {
+        $registro = $this->pais->find($id); // Buscar registro a actualizar
+    
+        if (!$registro) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('No se encontró el registro solicitado.');
+        }
+    
+        // Cambiar valor del campo "estado"
+        $estado_actual = $registro['estado'];
+        
+    
+        $datos_actualizados = [
+            'estado' => 'A'
+        ];
+    
+        $this->pais->update($id, $datos_actualizados); // Actualizar registro
+    
+        return redirect()->to(base_url('/paises/elimidos'));
+    }
+    public function buscar_Pais($id)
+    {
+        $returnData = array();
+        $pais_ = $this->pais->traer_Pais($id);
+        if (!empty($pais_)) {
+            array_push($returnData, $pais_);
+        }
+        echo json_encode($returnData);
+    }
     public function insertar()
     {
-        if ($this->request->getMethod() == "post" ) {
-            
-            $this->paises->save([    
-                'codigo' => $this->request->getPost('codigo'),          
-                'nombre' => $this->request->getPost('nombre')
-            ]);
+        $tp=$this->request->getPost('tp');
+        if ($this->request->getMethod() == "post") {
+            if ($tp == 1) {
+                $this->pais->save([
+                    'codigo' => $this->request->getPost('codigo'),
+                    'nombre' => $this->request->getPost('nombre')
+                ]);
+            } else {
+                $this->pais->update($this->request->getPost('codigo'),[                    
+                    'nombre' => $this->request->getPost('nombre')
+                ]);
+            }
             return redirect()->to(base_url('/paises'));
-        } 
+        }
     }
 }

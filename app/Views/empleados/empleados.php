@@ -38,7 +38,7 @@
                             <th class="text-center"><?php echo $valor['NCargo']; ?></th>
                             <th class="text-center">$ <?php echo $valor['salario']; ?></th>
                             <th class="text-center"><?php echo $valor['estado']; ?></th>
-                            <th class="grid grid" colspan="2">
+                            <th class="grid grid text-center" colspan="2">
                                 <button class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
   <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
 </svg></button>
@@ -121,30 +121,35 @@
     </div>
   </form>
     <!--   Modal agregar   --->
-    <form method="POST" action="<?php echo base_url(); ?>/clientes/insertar" autocomplete="off">
+    <form method="POST" action="<?php echo base_url(); ?>/empleados/insertar" autocomplete="off">
       <div class="modal" tabindex="-1" role="dialog" id="modalAgregar">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title">Agregar CLientes</h4>
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                  <h4 class="modal-title">Agregar Empleados</h4>
                 </div>
                 <div class="modal-body">
                   <div class="form-group">
-                  <label for="idcliente" class="col-form-label">Id Cliente</label>
-                  <input type="text" class="form-control" id="idcliente" name="idcliente">
-                  <label for="nombrecliente" class="col-form-label">Nombres</label>
-                  <input type="text" class="form-control" id="nombrecliente" name="nombrecliente">
-                  <label for="apellidocliente" class="col-form-label">Apellidos</label>
-                  <input type="text" class="form-control" id="apellidocliente"  name="apellidocliente">
-                  <label for="nacimientoCliente" class="col-form-label">Fecha de Nacimiento  </label>
-                  <input type="text" class="form-control" id="nacimientoCliente" name="nacimientoCliente">
+                  <label for="idcliente" class="col-form-label">Nombres</label>
+                  <input type="text" class="form-control" id="nombres" name="nombres">
+                  <label for="nombrecliente" class="col-form-label">Apellidos</label>
+                  <input type="text" class="form-control" id="apellidos" name="apellidos">
+                  <label for="apellidocliente" class="col-form-label">Fecha de Nacimiento</label>
+                  <input type="text" class="form-control" id="nacimiento"  name="nacimineto">
+                  <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
+                  <select name="municipio" id="municipio" class="form-select form-select-lg mb-3">
+                    <option value="">-Seleccione un Municipio-</option>
+                      <?php foreach ($municipios as $x => $valor) { ?>
+                        <option value="<?php echo $valor['id'] ?>" name="municipio"><?php echo $valor['nombre'] ?></option>
+                      <?php } ?>
+                  </select>
                   <label for="cargo" class="col-form-label">Cargo</label>
-                  <input type="text" class="form-control" id="cargo" name="cargo">
-                  <label for="Municipio" class="col-form-label">Municipio</label>
-                  <input type="text" class="form-control" id="Municipio" name="Municipio">
+                  <select name="cargo" id="cargo" class="form-select form-select-lg mb-3">
+                    <option value="">-Seleccione un Cargo-</option>
+                      <?php foreach ($cargos as $x => $valor) { ?>
+                        <option value="<?php echo $valor['id'] ?>" name="cargo"><?php echo $valor['nombre'] ?></option>
+                      <?php } ?>
+                  </select>
                   </div>
                 </div>
                 <div class="modal-footer">
