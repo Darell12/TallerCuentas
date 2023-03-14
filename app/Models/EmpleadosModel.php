@@ -32,6 +32,7 @@ class EmpleadosModel extends Model
         $this->join('cargos','cargos.id = empleados.id_cargo');
         $this->join('salarios','salarios.id = empleados.id');
         $this->where('empleados.estado', 'A');
+        $this->orderBy('empleados.nombres', 'ASC'); // ordena por el nombre de los empleados en orden alfabético ascendente
         $datos = $this->findAll();
         return $datos;
     }

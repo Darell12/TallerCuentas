@@ -27,8 +27,10 @@ class DepartamentosModel extends Model
 
     public function obtenerDepartamentos()
     {
-        $this->select('departamentos.*');
-        $this->where('estado', 'A');
+        $this->select('departamentos.*, paises.nombre as PNombre');
+        $this->join('paises','paises.id = departamentos.id_pais');
+        $this->where('departamentos.estado', 'A');
+        $this->orderBy('departamentos.nombre', 'ASC');
         $datos = $this->findAll();
         return $datos;
     }
