@@ -48,7 +48,7 @@
             Empleados
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="empleados">Administrar</a></li>
+            <li><a class="dropdown-item" href="<?php echo base_url()?>empleados">Administrar</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -59,9 +59,9 @@
             Ubicación
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="paises">Pais</a></li>
-            <li><a class="dropdown-item" href="departamentos">Departamentos</a></li>
-            <li><a class="dropdown-item" href="municipios">Municipios</a></li>
+            <li><a class="dropdown-item" href="<?php echo base_url()?>paises">Pais</a></li>
+            <li><a class="dropdown-item" href="<?php echo base_url()?>departamentos">Departamentos</a></li>
+            <li><a class="dropdown-item" href="<?php echo base_url()?>municipios">Municipios</a></li>
           </ul>
         </li>
       </ul>

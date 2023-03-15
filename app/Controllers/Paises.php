@@ -22,7 +22,7 @@ class Paises extends BaseController
         echo view('/paises/paises', $data);
     }
 
-    public function eliminados()
+    public function eliminados() //Mostrar vista de Paises Eliminados
     {
         $eliminados = $this->eliminados->obtenerPaisesEliminados();
 
@@ -33,57 +33,27 @@ class Paises extends BaseController
         echo view('/principal/header', $data);
         echo view('/paises/eliminados', $data);
         }
-        
-
-
     }
-    public function cambiarEstado($id)
+
+    public function cambiarEstado() //Eliminaer el pais cambiando el estado = Borrado Logico
     {
-        $registro = $this->pais->find($id); // Buscar registro a actualizar
-    
-        if (!$registro) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('No se encontró el registro solicitado.');
-        }
-    
-        // Cambiar valor del campo "estado"
-        $estado_actual = $registro['estado'];
-        
-    
-        $datos_actualizados = [
-            'estado' => 'I'
-        ];
-    
-        $this->pais->update($id, $datos_actualizados); // Actualizar registro
+        $this->pais->update($this->request->getPost('id'),[                    
+            'estado' => $this->request->getPost('estado')
+        ]);
     
         return redirect()->to(base_url('/paises'));
     }
-    public function Restaurar($id)
+
+    public function Restaurar() //Restaurar pais cambiando el estado
     {
-        $eliminados = $this->eliminados->obtenerPaisesEliminados();
-        $registro = $this->pais->find($id); // Buscar registro a actualizar
+        $this->pais->update($this->request->getPost('id'),[                    
+            'estado' => $this->request->getPost('estado')
+        ]);
     
-        if (!$registro) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('No se encontró el registro solicitado.');
-        }
-    
-        // Cambiar valor del campo "estado"
-        $estado_actual = $registro['estado'];
-        
-    
-        $datos_actualizados = [
-            'estado' => 'A'
-        ];
-    
-        $this->pais->update($id, $datos_actualizados); // Actualizar registro
-        
-        if(!$eliminados){
-           return redirect()->to(base_url('/paises/eliminados'));
-        }else{
-            return redirect()->to(base_url('/paises'));
-        }
-        
+        return redirect()->to(base_url('/paises/eliminados'));   
     }
-    public function buscar_Pais($id)
+
+    public function buscar_Pais($id) //Funcion para buscar un pais en especifico y devolverlo 
     {
         $returnData = array();
         $pais_ = $this->pais->traer_Pais($id);
@@ -92,16 +62,17 @@ class Paises extends BaseController
         }
         echo json_encode($returnData);
     }
-    public function insertar()
+
+    public function insertar() // Funcion para insertar y actualizar registros
     {
         $tp=$this->request->getPost('tp');
         if ($this->request->getMethod() == "post") {
-            if ($tp == 1) {
+            if ($tp == 1) { //tp 1 = Guardar
                 $this->pais->save([
                     'codigo' => $this->request->getPost('codigo'),
                     'nombre' => $this->request->getPost('nombre')
                 ]);
-            } else {
+            } else { //tp 2 = actualizar
                 $this->pais->update($this->request->getPost('id'),[                    
                     'nombre' => $this->request->getPost('nombre'),
                     'codigo' => $this->request->getPost('codigo')

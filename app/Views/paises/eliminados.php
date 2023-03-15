@@ -27,7 +27,7 @@
                             <th class="text-center"><?php echo $valor['nombre']; ?></th>
                             <th class="text-center"><?php echo $valor['estado']; ?></th>
                             <th class="grid grid text-center" colspan="2">
-                            <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#PaisRestaurar" onclick="Restaurar(<?php echo $valor['id']?>);"><i class="bi bi-arrow-clockwise"></i></button>
+                            <button type="button"class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#PaisRestaurar" onclick="Restaurar(<?php echo $valor['id']?>);"><i class="bi bi-arrow-clockwise"></i></button>
                             </th>
                             
                         </tr>
@@ -37,8 +37,8 @@
         </table>
     </div>
 
-    <form method="PUT" action="<?php echo base_url('/paises/Restaurar/'); ?><?php echo $valor['id'];?>" class="form-check-inline">
-<div class="modal fade" id="Restaurar" tabindex="-1" aria-labelledby="PaisModalElimiar" aria-hidden="true" data-bs-backdrop="static">
+    <form method="POST" action="<?php echo base_url('/paises/Restaurar'); ?>" class="form-check-inline">
+<div class="modal fade" id="Restaurar" tabindex="-1" aria-labelledby="Resturar" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -46,10 +46,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <span><h3 class="text-center"><?php echo $valor['nombre'];?></h3></span>
+        <span><h3 class="text-center" id="PaisRestaurar"></h3></span>
+        <input type="text" id="idR" name="id" hidden> 
+        <input type="text" id="estado" name="estado" hidden>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+      <a href="<?php echo base_url('/paises/eliminados')?>"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+
+        <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button> -->
         <button type="submit" class="btn btn-outline-success">Restaurar</button>
       </div>
     </div>
@@ -68,8 +72,9 @@
         url: dataURL,
         dataType: "json",
         success: function(rs) {        
-          $("#id").val(rs[0]['id'])  
-          $("#PaisEliminar").text(rs[0]['nombre']);
+          $("#idR").val(rs[0]['id'])  
+          $("#estado").val('A')  
+          $("#PaisRestaurar").text(rs[0]['nombre']);
           $("#Restaurar").modal("show");
         }
       })

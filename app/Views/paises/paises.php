@@ -35,7 +35,6 @@
                               <i class="bi bi-pencil"></i>
                                                       
                             </button>
-                            
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#PaisModalElimiar" onclick="EliminarValid(<?php echo $valor['id']?>);"><i class="bi bi-trash3"></i></button>
                             </th>
                             
@@ -74,7 +73,7 @@
     </form>
 
 <!-- MODAL ELIMINAR PAIS -->
-<form method="PUT" action="<?php echo base_url('/paises/cambiarEstado/'); ?><?php echo $valor['id'];?>" class="form-check-inline">
+<form method="POST" action="<?php echo base_url('/paises/cambiarEstado'); ?>" class="form-check-inline">
 <div class="modal fade" id="PaisModalElimiar" tabindex="-1" aria-labelledby="PaisModalElimiar" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -84,6 +83,8 @@
       </div>
       <div class="modal-body">
         <span><h3 class="text-center" id="PaisEliminar"></h3></span>
+        <input type="text" id="idE" name="id" hidden>
+        <input type="text" id="estado" name="estado" hidden>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -119,6 +120,7 @@
           $("#id").val('');
           $("#codigo").val('');
           $("#nombre").val('');
+          
           $("#btn_Guardar").text('Guardar');
            $("#tituloModal").text('Agregar Nuevo País');
           $("#PaisModal").modal("show");
@@ -127,12 +129,14 @@
 
   function EliminarValid(id){
  dataURL = "<?php echo base_url('/paises/buscar_Pais'); ?>" + "/" + id;
+ console.log(id)
       $.ajax({
         type: "POST",
         url: dataURL,
         dataType: "json",
         success: function(rs) {        
-          $("#id").val(rs[0]['id'])  
+          $("#idE").val(rs[0]['id'])
+          $("#estado").val('I');  
           $("#PaisEliminar").text(rs[0]['nombre']);
           $("#PaisModalElimiar").modal("show");
         }

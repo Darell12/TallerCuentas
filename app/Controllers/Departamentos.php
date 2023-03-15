@@ -35,4 +35,13 @@ class Departamentos extends BaseController
             return redirect()->to(base_url('/departamentos'));
         } 
     }
+    function obtenerDepartamentosPais($id) 
+    {
+        $dataArray = array();
+        $departamentos = $this->departamentos->obtenerDepartamentosPais($id);
+        if (!empy($departamentos)) {
+            array_push($dataArray, $departamentos);
+        }
+        echo json_encode($departamentos);
+    }
 }

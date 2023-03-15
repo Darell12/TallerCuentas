@@ -1,56 +1,11 @@
-CRITICAL - 2023-03-15 00:57:51 --> syntax error, unexpected token "}", expecting "," or ";"
-in APPPATH\Controllers\Paises.php on line 31.
- 1 SYSTEMPATH\Router\Router.php(507): CodeIgniter\Router\AutoRouter->getRoute('paises')
- 2 SYSTEMPATH\Router\Router.php(206): CodeIgniter\Router\Router->autoRoute('paises')
- 3 SYSTEMPATH\CodeIgniter.php(815): CodeIgniter\Router\Router->handle('paises')
- 4 SYSTEMPATH\CodeIgniter.php(449): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
- 5 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 6 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
-CRITICAL - 2023-03-15 00:58:07 --> Invalid file: "/errors/no_eliminados.php"
-in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
- 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('/errors/no_eliminados.php')
- 2 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/errors/no_eliminados', [], true)
- 3 APPPATH\Controllers\Paises.php(30): view('/errors/no_eliminados')
- 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Paises->eliminados()
- 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Paises))
- 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
-CRITICAL - 2023-03-15 01:06:17 --> syntax error, unexpected token "}", expecting ";"
-in APPPATH\Controllers\Paises.php on line 80.
- 1 SYSTEMPATH\Router\Router.php(507): CodeIgniter\Router\AutoRouter->getRoute('paises')
- 2 SYSTEMPATH\Router\Router.php(206): CodeIgniter\Router\Router->autoRoute('paises')
- 3 SYSTEMPATH\CodeIgniter.php(815): CodeIgniter\Router\Router->handle('paises')
- 4 SYSTEMPATH\CodeIgniter.php(449): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
- 5 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 6 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
-CRITICAL - 2023-03-15 01:06:26 --> syntax error, unexpected token "}", expecting ";"
-in APPPATH\Controllers\Paises.php on line 80.
- 1 SYSTEMPATH\Router\Router.php(507): CodeIgniter\Router\AutoRouter->getRoute('paises')
- 2 SYSTEMPATH\Router\Router.php(206): CodeIgniter\Router\Router->autoRoute('paises')
- 3 SYSTEMPATH\CodeIgniter.php(815): CodeIgniter\Router\Router->handle('paises')
- 4 SYSTEMPATH\CodeIgniter.php(449): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
- 5 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 6 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
-CRITICAL - 2023-03-15 01:06:27 --> syntax error, unexpected token "}", expecting ";"
-in APPPATH\Controllers\Paises.php on line 80.
- 1 SYSTEMPATH\Router\Router.php(507): CodeIgniter\Router\AutoRouter->getRoute('paises')
- 2 SYSTEMPATH\Router\Router.php(206): CodeIgniter\Router\Router->autoRoute('paises')
- 3 SYSTEMPATH\CodeIgniter.php(815): CodeIgniter\Router\Router->handle('paises')
- 4 SYSTEMPATH\CodeIgniter.php(449): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
- 5 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 6 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
-CRITICAL - 2023-03-15 01:06:27 --> syntax error, unexpected token "}", expecting ";"
-in APPPATH\Controllers\Paises.php on line 80.
- 1 SYSTEMPATH\Router\Router.php(507): CodeIgniter\Router\AutoRouter->getRoute('paises')
- 2 SYSTEMPATH\Router\Router.php(206): CodeIgniter\Router\Router->autoRoute('paises')
- 3 SYSTEMPATH\CodeIgniter.php(815): CodeIgniter\Router\Router->handle('paises')
- 4 SYSTEMPATH\CodeIgniter.php(449): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
- 5 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 6 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
-CRITICAL - 2023-03-15 01:07:15 --> Undefined variable $eliminados
-in APPPATH\Controllers\Paises.php on line 78.
- 1 APPPATH\Controllers\Paises.php(78): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $eliminados', 'APPPATH\\Controllers\\Paises.php', 78)
- 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Paises->Restaurar('8')
- 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Paises))
- 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-15 14:19:27 --> Undefined variable $paises
+in APPPATH\Views\municipios\municipios.php on line 57.
+ 1 APPPATH\Views\municipios\municipios.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $paises', 'APPPATH\\Views\\municipios\\municipios.php', 57)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\municipios\\municipios.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/municipios/municipios', [], true)
+ 5 APPPATH\Controllers\Municipios.php(21): view('/municipios/municipios', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
