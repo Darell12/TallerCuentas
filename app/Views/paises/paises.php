@@ -5,10 +5,6 @@
     </div>
     <div>
         <button type="button" onclick="seleccionaPais(<?php echo 1 . ',' . 1 ?>);" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#PaisModal">Agregar</button>
-        <!-- Cuerpo Modal -->
-        
-
-
         <a href="<?php echo base_url('/paises/eliminados'); ?>"><button type="button" class="btn btn-secondary">Eliminados</button></a>
         <a href="<?php echo base_url('/principal'); ?>" class="btn btn-primary regresar_Btn">Regresar</a>
     </div>
@@ -40,7 +36,7 @@
                                                       
                             </button>
                             
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#PaisModalElimiar"><i class="bi bi-trash3"></i></button>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#PaisModalElimiar" onclick="EliminarValid(<?php echo $valor['id']?>);"><i class="bi bi-trash3"></i></button>
                             </th>
                             
                         </tr>
@@ -55,7 +51,7 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir Pais</h1>
+              <h1 class="modal-title fs-5" id="tituloModal">Añadir Pais</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -65,6 +61,7 @@
                 <label for="codigo" class="col-form-label">Codigo:</label>
                 <input type="text" class="form-control" pattern="[0-9]{4}" name="codigo" id="codigo">
                 <input type="text" id="tp" name="tp" hidden>
+                <input type="text" id="id" name="id" hidden>
               </div>
             </div>
             <div class="modal-footer">
@@ -86,7 +83,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <span><h3 class="text-center"><?php echo $valor['nombre'];?></h3></span>
+        <span><h3 class="text-center" id="PaisEliminar"></h3></span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -109,12 +106,36 @@
         dataType: "json",
         success: function(rs) {        
           $("#tp").val(2);  
+          $("#id").val(rs[0]['id'])  
           $("#codigo").val(rs[0]['codigo']);
           $("#nombre").val(rs[0]['nombre']);
           $("#btn_Guardar").text('Actualizar');
+          $("#tituloModal").text('Actualizar el país ' + rs[0]['nombre']);
           $("#PaisModal").modal("show");
         }
       })
-    }else{$("#tp").val(1);}
+    }else{
+      $("#tp").val(1);
+          $("#id").val('');
+          $("#codigo").val('');
+          $("#nombre").val('');
+          $("#btn_Guardar").text('Guardar');
+           $("#tituloModal").text('Agregar Nuevo País');
+          $("#PaisModal").modal("show");
+    }
   };
+
+  function EliminarValid(id){
+ dataURL = "<?php echo base_url('/paises/buscar_Pais'); ?>" + "/" + id;
+      $.ajax({
+        type: "POST",
+        url: dataURL,
+        dataType: "json",
+        success: function(rs) {        
+          $("#id").val(rs[0]['id'])  
+          $("#PaisEliminar").text(rs[0]['nombre']);
+          $("#PaisModalElimiar").modal("show");
+        }
+      })
+  }
 </script>

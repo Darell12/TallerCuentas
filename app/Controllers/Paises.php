@@ -26,9 +26,16 @@ class Paises extends BaseController
     {
         $eliminados = $this->eliminados->obtenerPaisesEliminados();
 
+        if (!$eliminados) {
+           echo view('/errors/html/no_eliminados');
+        } else {
         $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $eliminados];
         echo view('/principal/header', $data);
         echo view('/paises/eliminados', $data);
+        }
+        
+
+
     }
     public function cambiarEstado($id)
     {
@@ -52,6 +59,7 @@ class Paises extends BaseController
     }
     public function Restaurar($id)
     {
+        $eliminados = $this->eliminados->obtenerPaisesEliminados();
         $registro = $this->pais->find($id); // Buscar registro a actualizar
     
         if (!$registro) {
@@ -67,8 +75,13 @@ class Paises extends BaseController
         ];
     
         $this->pais->update($id, $datos_actualizados); // Actualizar registro
-    
-        return redirect()->to(base_url('/paises/elimidos'));
+        
+        if(!$eliminados){
+           return redirect()->to(base_url('/paises/eliminados'));
+        }else{
+            return redirect()->to(base_url('/paises'));
+        }
+        
     }
     public function buscar_Pais($id)
     {
@@ -89,8 +102,9 @@ class Paises extends BaseController
                     'nombre' => $this->request->getPost('nombre')
                 ]);
             } else {
-                $this->pais->update($this->request->getPost('codigo'),[                    
-                    'nombre' => $this->request->getPost('nombre')
+                $this->pais->update($this->request->getPost('id'),[                    
+                    'nombre' => $this->request->getPost('nombre'),
+                    'codigo' => $this->request->getPost('codigo')
                 ]);
             }
             return redirect()->to(base_url('/paises'));
