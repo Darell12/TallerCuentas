@@ -36,7 +36,7 @@ class DepartamentosModel extends Model
     }
     public function obtenerDepartamentosPais($id)
     {
-        $this->select('departamentos,*');
+        $this->select('departamentos.*');
         $this->where('id_pais', $id);
         $datos = $this->findAll();
         return $datos;

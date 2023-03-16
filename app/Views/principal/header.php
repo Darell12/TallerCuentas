@@ -15,6 +15,11 @@
      <link rel="stylesheet" href="<?php echo base_url() ?>/bootstrap-icons/bootstrap-icons.css">  <!-- Bootstrap 5 hoja de estilos iconos -->
      <script src="<?php echo base_url() ?>/css/jquery-3.6.0.js"></script>
      <script src="<?php echo base_url() ?>/bootstrap/bootstrap.bundle.min.js"></script>
+
+
+
+
+
 </head>
 
 <header class="containerH">
