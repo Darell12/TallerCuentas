@@ -80,7 +80,7 @@
 
 </div>
 
-    <script>
+<script>
  $(document).ready(function() {
     //Cambio del select paises
     $('#selectPais').on('change', () => {

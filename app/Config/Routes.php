@@ -31,6 +31,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 
 $routes->get('/', 'Principal::index');
+$routes->get('/eliminados_paises', 'paises::eliminados');
 // $routes->get('/paises/cambiarEstado/(:num)', 'Paises::cambiarEstado/$1');
 
 

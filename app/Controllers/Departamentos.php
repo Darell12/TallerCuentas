@@ -14,6 +14,7 @@ class Departamentos extends BaseController
     {
         $this->departamentos = new DepartamentosModel();
         $this->paises = new PaisesModel();
+        $this->eliminados = new DepartamentosModel();
     }
     public function index()
     {
@@ -24,16 +25,60 @@ class Departamentos extends BaseController
         echo view('/principal/header', $data);
         echo view('/departamentos/departamentos', $data);
     }
-    public function insertar()
+    public function eliminados() //Mostrar vista de Paises Eliminados
     {
-        if ($this->request->getMethod() == "post" ) {
-            
-            $this->departamentos->save([    
-                'id_pais' => $this->request->getPost('pais'),          
-                'nombre' => $this->request->getPost('nombre')
-            ]);
-            return redirect()->to(base_url('/departamentos'));
-        } 
+        $eliminados = $this->eliminados->obtenerDptosEliminados();
+
+        if (!$eliminados) {
+           echo view('/errors/html/no_eliminados');
+        } else {
+        $data = ['titulo' => 'Administrar Dptos Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
+        echo view('/principal/header', $data);
+        echo view('/departamentos/eliminados', $data);
+        }
     }
 
+    public function insertar() // Funcion para insertar y actualizar registros
+    {
+        $tp=$this->request->getPost('tp');
+        if ($this->request->getMethod() == "post") {
+            if ($tp == 1) { //tp 1 = Guardar
+                $this->departamentos->save([
+                    'id_pais' => $this->request->getPost('pais'),
+                    'nombre' => $this->request->getPost('nombre')
+                ]);
+            } else { //tp 2 = actualizar
+                $this->departamentos->update($this->request->getPost('id'),[                    
+                    'id_pais' => $this->request->getPost('pais'),
+                    'nombre' => $this->request->getPost('nombre')
+                ]);
+            }
+            return redirect()->to(base_url('/departamentos'));
+        }
+    }
+    public function buscar_Dpto($id) //Funcion para buscar un pais en especifico y devolverlo 
+    {
+        $returnData = array();
+        $departamentos_ = $this->departamentos->traer_Dpto($id);
+        if (!empty($departamentos_)) {
+            array_push($returnData, $departamentos_);
+        }
+        echo json_encode($returnData);
+    }
+    public function cambiarEstado() //Eliminaer el pais cambiando el estado = Borrado Logico
+    {
+        $this->departamentos->update($this->request->getPost('id'),[                    
+            'estado' => $this->request->getPost('estado')
+        ]);
+    
+        return redirect()->to(base_url('/departamentos'));
+    }
+        public function Restaurar() //Restaurar pais cambiando el estado
+    {
+        $this->departamentos->update($this->request->getPost('id'),[                    
+            'estado' => $this->request->getPost('estado')
+        ]);
+    
+        return redirect()->to(base_url('/departamentos/eliminados'));   
+    }
 }

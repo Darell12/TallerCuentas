@@ -41,5 +41,20 @@ class DepartamentosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
+    public function traer_Dpto($id){
+        $this->select('departamentos.*, paises.nombre as PNombre');
+        $this->join('paises','paises.id = departamentos.id_pais');
+        $this->where('departamentos.id', $id);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function obtenerDptosEliminados()
+    {
+        $this->select('departamentos.*, paises.nombre as PNombre');
+        $this->join('paises','paises.id = departamentos.id_pais');
+        $this->where('departamentos.estado', 'I');
+        $datos = $this->findAll();
+        return $datos;
+    }
 
 }

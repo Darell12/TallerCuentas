@@ -5,7 +5,7 @@
     </div>
     <div>
         <button type="button" onclick="seleccionaPais(<?php echo 1 . ',' . 1 ?>);" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#PaisModal">Agregar</button>
-        <a href="<?php echo base_url('/paises/eliminados'); ?>"><button type="button" class="btn btn-secondary">Eliminados</button></a>
+        <a href="<?php echo base_url('/eliminados_paises'); ?>"><button type="button" class="btn btn-secondary">Eliminados</button></a>
         <a href="<?php echo base_url('/principal'); ?>" class="btn btn-primary regresar_Btn">Regresar</a>
     </div>
 

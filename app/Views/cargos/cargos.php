@@ -67,5 +67,8 @@
   </div>
 </div> 
 </form>
+<label for="year">Selecciona un año:</label>
+<input type="number" id="year" name="year" min="1900" max="2100" required>
 
+<!-- <input type="number" min="1900" max="2099" step="1" value="2016" /> -->
 </div>

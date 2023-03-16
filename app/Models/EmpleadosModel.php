@@ -14,7 +14,7 @@ class EmpleadosModel extends Model
     protected $returnType = 'array'; /* forma en que se retornan los datos */
     protected $useSoftDeletes = false; /* si hay eliminacion fisica de registro */
 
-    protected $allowedFields = ['nombres', 'apellidos', 'id_municipio','naciminento','id_cargo','estado','fecha_crea']; /* relacion de campos de la tabla */
+    protected $allowedFields = ['nombres', 'apellidos', 'id_municipio','nacimiento','id_cargo','estado','fecha_crea']; /* relacion de campos de la tabla */
 
     protected $useTimestamps = true; /*tipo de tiempo a utilizar */
     protected $createdField = 'fecha_crea'; /*fecha automatica para la creacion */
@@ -32,9 +32,18 @@ class EmpleadosModel extends Model
         $this->join('cargos','cargos.id = empleados.id_cargo');
         $this->join('salarios','salarios.id = empleados.id', 'left');
         $this->where('empleados.estado', 'A');
-        $this->orderBy('empleados.nombres', 'ASC'); // ordena por el nombre de los empleados en orden alfabético ascendente
+        $this->orderBy('empleados.id', 'ASC'); // ordena por el nombre de los empleados en orden alfabético ascendente
         $datos = $this->findAll();
         return $datos;
     }
-
+    public function obtenerEmpleadoId($id){
+        $this->select('empleados.*');
+        $this->where('id', $id);
+        $datos = $this->first();
+        return $datos;
+    }
+    public function obtenerUltimo(){
+        $id = $this->getInsertID();
+        return $id;
+    }
 }

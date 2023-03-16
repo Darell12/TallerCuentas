@@ -29,7 +29,7 @@ class Paises extends BaseController
         if (!$eliminados) {
            echo view('/errors/html/no_eliminados');
         } else {
-        $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $eliminados];
+        $data = ['titulo' => 'Administrar Paises Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
         echo view('/principal/header', $data);
         echo view('/paises/eliminados', $data);
         }
