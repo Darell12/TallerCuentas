@@ -4,7 +4,7 @@
     
   </div>
     <div>
-          <button type="button" class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar</button>
+          <button type="button" class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalAgregar" onclick="seleccionarEmp(<?php echo 1 . ',' . 1 ?>);">Agregar</button>
     <button type="button" class="btn btn-secondary">Eliminados</button>
     </div>
 
@@ -39,7 +39,7 @@
                             <th class="text-center">$ <?php echo $valor['salario']; ?></th>
                             <th class="text-center"><?php echo $valor['estado']; ?></th>
                             <th class="grid grid text-center" colspan="2">
-                                <button class="btn btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-outline-primary" onclick="seleccionarEmp(<?php echo $valor['id'] . ',' . 2 ?>);"><i class="bi bi-pencil"></i></button>
                                 <button class="btn btn-outline-danger">
                                 <i class="bi bi-trash3"></i>
 </button>
@@ -51,35 +51,7 @@
           </tbody>
         </table>
       </div>
-          <!-- Modal Confirmar Eliminacion-->
-    <div class="modal fade" id="modal-confirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div style="background: linear-gradient(90deg, #838da0, #b4c1d9);" class="modal-content">
-                <div class="modal-header">
-                    <h5 style="color:#98040a;font-size:20px;font-weight:bold;" class="modal-title" id="exampleModalLabel">Eliminación de Registro</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div style="text-align:center;font-weight:bold;" class="modal-body">
-
-                    <p>Seguro Desea Eliminar el Registro ?</p>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">No</button>
-                    <a class="btn btn-danger btn-ok">Si</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php if (isset($validation)) { ?>
-        <div class="alert alert-danger">
-            <?php echo $validation->listErrors(); ?>
-        </div>
-    <?php } ?>
-    <!--   Modal Editar   --->
-    
+          
     <!--   Modal agregar   --->
     <form method="POST" action="<?php echo base_url(); ?>/empleados/insertar" autocomplete="off">
       <div class="modal" tabindex="-1" role="dialog" id="modalAgregar">
@@ -91,14 +63,14 @@
                 <div class="modal-body">
                   <div class="form-group">
                   <label for="idcliente" class="col-form-label">Nombres</label>
-                  <input type="text" class="form-control" id="nombres" name="nombres">
+                  <input type="text" class="form-control" id="nombres" name="nombres" required>
                   <label for="nombrecliente" class="col-form-label">Apellidos</label>
-                  <input type="text" class="form-control" id="apellidos" name="apellidos">
+                  <input type="text" class="form-control" id="apellidos" name="apellidos" required>
                   <div class="mb-3">
                             <label for="periodo" class="col-form-label">Periodo (Salario):</label>
                             <div class="flex ">
-                                <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento">
-                                    <option selected>-- Seleccionar Año --</option>
+                                <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento" required>
+                                    <option id="Seleccionado">-- Seleccionar Año --</option>
                                     <?php $years = range(strftime("%Y", time()), 1940); ?>
                                     <?php foreach ($years as $year) : ?>
                                         <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
@@ -107,38 +79,42 @@
                             </div>
                         </div>
                   <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
-                  <select name="municipio" id="municipio" class="form-select form-select-lg mb-3">
-                    <option value="">-Seleccione un Municipio-</option>
+                  <select name="municipio" id="municipio" class="form-select form-select-lg mb-3" required>
+                    <option id="MunicipioSeleccionado">-Seleccione un Municipio-</option>
                       <?php foreach ($municipios as $x => $valor) { ?>
-                        <option value="<?php echo $valor['id'] ?>" name="municipio"><?php echo $valor['nombre'] ?></option>
+                        <option value="<?php echo $valor['id'] ?>" name="municipio" id="municipio"><?php echo $valor['nombre'] ?></option>
                       <?php } ?>
                   </select>
                   <label for="cargo" class="col-form-label">Cargo</label>
-                  <select name="cargo" id="cargo" class="form-select form-select-lg mb-3">
-                    <option value="">-Seleccione un Cargo-</option>
+                  <select name="cargo" id="cargo" class="form-select form-select-lg mb-3" required>
+                    <option id="CargoSeleccionado">-Seleccione un Cargo-</option>
                       <?php foreach ($cargos as $x => $valor) { ?>
-                        <option value="<?php echo $valor['id'] ?>" name="cargo"><?php echo $valor['nombre'] ?></option>
+                        <option value="<?php echo $valor['id'] ?>" name="cargo" id="cargo"><?php echo $valor['nombre'] ?></option>
                       <?php } ?>
                   </select>
 
                   </div>
                   <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Salario:</label>
+                            <label for="message-text" class="col-form-label">Salario $:</label>
                             <div class="flex ">
-                                <label for="salario">$</label>
-                                <input type="number" name="salario" class="form-control" id="salario">
+                                <input type="number" name="salario" class="form-control" id="salario" required>
+                                
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="periodo" class="col-form-label">Periodo (Salario):</label>
                             <div class="flex ">
                                 <select class="form-select" name="periodo" aria-label="periodo" id="periodo">
-                                    <option selected>-- Seleccionar Año --</option>
+                                    <option id="PeriodoSeleccionado">-- Seleccionar Año --</option>
                                     <?php $years = range(strftime("%Y", time()), 1940); ?>
                                     <?php foreach ($years as $year) : ?>
                                         <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <input type="text" id="salario_id" name="salario_id" hidden>
+                                <input type="text" id="tp" name="tp" hidden>
+                                <input type="text" id="id" name="id" hidden>
+
                             </div>
                         </div>
                 </div>
@@ -155,3 +131,69 @@
 </div>
 
 
+<script>
+  function seleccionarEmp(id, tp) {
+    if (tp == 2) {
+      dataURL = "<?php echo base_url('/empleados/buscar_Emp'); ?>" + "/" + id;
+      $.ajax({
+        type: "POST",
+        url: dataURL,
+        dataType: "json",
+        success: function(rs) {    
+          console.log(rs)    
+          $("#tp").val(2);  
+          $("#id").val(rs[0]['id'])  
+          $("#codigo").val(rs[0]['codigo']);
+          $("#nombres").val(rs[0]['nombres']);
+          $("#apellidos").val(rs[0]['apellidos']);
+          $("#MunicipioSeleccionado").val(rs[0]['id_municipio']);
+          $("#MunicipioSeleccionado").text(rs[0]['NMuni']);
+          $("#Seleccionado").text(rs[0]['nacimiento']);
+          $("#Seleccionado").val(rs[0]['nacimiento']);
+          $("#CargoSeleccionado").val(rs[0]['id_cargo']);
+          $("#CargoSeleccionado").text(rs[0]['NCargo']);
+          $("#salario").val(rs[0]['salario']);
+          $("#PeriodoSeleccionado").text(rs[0]['periodo']);
+          $("#PeriodoSeleccionado").text(rs[0]['periodo']);
+          $("#salario_id").val(rs[0]['salario_id']);
+          
+          $("#btn_Guardar").text('Actualizar');
+          $("#tituloModal").text('Actualizar el país ' + rs[0]['nombre']);
+          $("#modalAgregar").modal("show");
+        }
+      })
+    }else{
+      console.log("Else")
+      $("#tp").val(1);
+          $("#id").val("")  
+          $("#codigo").val("");
+          $("#nombres").val("");
+          $("#apellidos").val("");
+          $("#MunicipioSeleccionado").val("");
+          $("#Seleccionado").val("");
+          $("#CargoSeleccionado").val("");
+          $("#salario").val("");
+          $("#PeriodoSeleccionado").val("");
+          $("#salario_id").val("");
+          $("#btn_Guardar").text('Guardar');
+           $("#tituloModal").text('Agregar Nuevo País');
+          $("#PaisModal").modal("show");
+    }
+  };
+
+  function EliminarValid(id){
+ dataURL = "<?php echo base_url('/paises/buscar_Pais'); ?>" + "/" + id;
+ console.log(id)
+      $.ajax({
+        type: "POST",
+        url: dataURL,
+        dataType: "json",
+        success: function(rs) {        
+          $("#idE").val(rs[0]['id'])
+          $("#estado").val('I');  
+          $("#PaisEliminar").text(rs[0]['nombre']);
+          $("#PaisModalElimiar").modal("show");
+        }
+      })
+  }
+</script>

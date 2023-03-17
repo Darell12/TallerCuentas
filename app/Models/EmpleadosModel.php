@@ -30,9 +30,9 @@ class EmpleadosModel extends Model
         $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario');
         $this->join('municipios','municipios.id = empleados.id_municipio');
         $this->join('cargos','cargos.id = empleados.id_cargo');
-        $this->join('salarios','salarios.id = empleados.id', 'left');
+        $this->join('salarios','salarios.id_empleado = empleados.id', 'left');
         $this->where('empleados.estado', 'A');
-        $this->orderBy('empleados.id', 'ASC'); // ordena por el nombre de los empleados en orden alfabético ascendente
+        // $this->orderBy('id'); // ordena por el nombre de los empleados en orden alfabético ascendente
         $datos = $this->findAll();
         return $datos;
     }
@@ -45,5 +45,14 @@ class EmpleadosModel extends Model
     public function obtenerUltimo(){
         $id = $this->getInsertID();
         return $id;
+    }
+    public function traer_Emp($id){
+        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario, salarios.periodo as periodo, salarios.id as salario_id');
+        $this->join('municipios','municipios.id = empleados.id_municipio');
+        $this->join('cargos','cargos.id = empleados.id_cargo');
+        $this->join('salarios','salarios.id_empleado = empleados.id', 'left');
+        $this->where('empleados.id', $id);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
     }
 }

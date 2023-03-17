@@ -29,6 +29,9 @@ class Empleados extends BaseController
         $cargos = $this->cargos->obtenerCargos();
 
         $data = ['titulo' => 'Administrar Empleados', 'nombre' => 'Darell E', 'datos' => $empleados, 'municipios' => $municipios, 'cargos' => $cargos];
+        foreach ($empleados as $key => $value) {
+            echo ' Empleado: '. $value['nombres'] . ' Salarion que llega: ' . $value['salario'];
+        }
         echo view('/principal/header', $data);
         echo view('/empleados/empleados', $data);
     }
@@ -43,8 +46,9 @@ class Empleados extends BaseController
     }
     public function insertar()
     {
+         $tp=$this->request->getPost('tp');
         if ($this->request->getMethod() == "post" ) {
-            
+             if ($tp == 1) { 
             $this->empleados->save([              
                 'nombres' => $this->request->getPost('nombres'),
                 'apellidos' => $this->request->getPost('apellidos'),
@@ -61,7 +65,24 @@ class Empleados extends BaseController
                 'periodo' => $this->request->getPost('periodo')
             ]);
 
+        }else {
+            $this->empleados->update($this->request->getPost('id'),[              
+                'nombres' => $this->request->getPost('nombres'),
+                'apellidos' => $this->request->getPost('apellidos'),
+                'nacimiento' => $this->request->getPost('nacimiento'),
+                'id_municipio' => $this->request->getPost('municipio'),
+                'id_cargo' => $this->request->getPost('cargo')
+            ]);
+            
+            $id = $this->empleados->obtenerUltimo();
 
+            $this->salarios->update($this->request->getPost('salario_id'),[
+    'sueldo' => $this->request->getPost('salario'),
+    'periodo' => $this->request->getPost('periodo')
+]);
+
+
+        }
             return redirect()->to(base_url('/empleados'));
         } 
     }
@@ -73,4 +94,14 @@ class Empleados extends BaseController
         }
         echo json_encode($returnData);
     }
+    // public function buscar_Emp($id)
+    // {
+    //     $returnData = array();
+    //     $empleados_ = $this->empleados->traer_Emp($id);
+    //     if (!empty($empleados_)) {
+    //         array_push($returnData, $empleados_);
+    //     }
+    //     echo json_encode($returnData);
+    // }
+    
 }

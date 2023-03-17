@@ -1,0 +1,47 @@
+CRITICAL - 2023-03-17 02:14:10 --> Updates are not allowed unless they contain a "where" or "like" clause.
+in SYSTEMPATH\Model.php on line 391.
+ 1 SYSTEMPATH\BaseModel.php(943): CodeIgniter\Model->doUpdate(null, [...])
+ 2 SYSTEMPATH\Model.php(756): CodeIgniter\BaseModel->update(null, [...])
+ 3 APPPATH\Controllers\Empleados.php(69): CodeIgniter\Model->update(null, [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empleados->insertar()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empleados))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-17 02:14:43 --> Updates are not allowed unless they contain a "where" or "like" clause.
+in SYSTEMPATH\Model.php on line 391.
+ 1 SYSTEMPATH\BaseModel.php(943): CodeIgniter\Model->doUpdate(null, [...])
+ 2 SYSTEMPATH\Model.php(756): CodeIgniter\BaseModel->update(null, [...])
+ 3 APPPATH\Controllers\Empleados.php(69): CodeIgniter\Model->update(null, [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empleados->insertar()
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empleados))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-17 02:16:31 --> Undefined property: App\Controllers\Empleados::$salario
+in APPPATH\Controllers\Empleados.php on line 79.
+ 1 APPPATH\Controllers\Empleados.php(79): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Empleados::$salario', 'APPPATH\\Controllers\\Empleados.php', 79)
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empleados->insertar()
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empleados))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-17 02:27:28 --> Undefined variable $valor
+in APPPATH\Views\empleados\empleados.php on line 7.
+ 1 APPPATH\Views\empleados\empleados.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $valor', 'APPPATH\\Views\\empleados\\empleados.php', 7)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\empleados\\empleados.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/empleados/empleados', [], true)
+ 5 APPPATH\Controllers\Empleados.php(36): view('/empleados/empleados', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empleados->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empleados))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-17 02:27:38 --> Undefined variable $valor
+in APPPATH\Views\empleados\empleados.php on line 7.
+ 1 APPPATH\Views\empleados\empleados.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $valor', 'APPPATH\\Views\\empleados\\empleados.php', 7)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\empleados\\empleados.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/empleados/empleados', [], true)
+ 5 APPPATH\Controllers\Empleados.php(36): view('/empleados/empleados', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empleados->index()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empleados))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
