@@ -17,7 +17,6 @@ class Municipios extends BaseController
         $this->municipios = new MunicipiosModel();
         $this->pais = new PaisesModel();
         $this->departamentos = new DepartamentosModel();
-
     }
     public function index()
     {
@@ -28,7 +27,7 @@ class Municipios extends BaseController
         echo view('/principal/header', $data);
         echo view('/municipios/municipios', $data);
     }
-    public function obtenerDepartamentosPais($id) 
+    public function obtenerDepartamentosPais($id)
     {
         $dataArray = array();
         $departamentos = $this->departamentos->obtenerDepartamentosPais($id);
@@ -39,13 +38,13 @@ class Municipios extends BaseController
     }
     public function insertar()
     {
-        if ($this->request->getMethod() == "post" ) {
-            
-            $this->municipios->save([    
-                'id_dpto' => $this->request->getPost('departamento'),          
+        if ($this->request->getMethod() == "post") {
+
+            $this->municipios->save([
+                'id_dpto' => $this->request->getPost('departamento'),
                 'nombre' => $this->request->getPost('nombre')
             ]);
             return redirect()->to(base_url('/municipios'));
-        } 
+        }
     }
 }

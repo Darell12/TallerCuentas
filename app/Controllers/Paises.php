@@ -7,7 +7,7 @@ use App\Models\PaisesModel;
 
 class Paises extends BaseController
 {
-    protected $pais;
+    protected $pais, $eliminados;
     public function __construct()
     {
         $this->pais = new PaisesModel();
@@ -27,30 +27,30 @@ class Paises extends BaseController
         $eliminados = $this->eliminados->obtenerPaisesEliminados();
 
         if (!$eliminados) {
-           echo view('/errors/html/no_eliminados');
+            echo view('/errors/html/no_eliminados');
         } else {
-        $data = ['titulo' => 'Administrar Paises Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
-        echo view('/principal/header', $data);
-        echo view('/paises/eliminados', $data);
+            $data = ['titulo' => 'Administrar Paises Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
+            echo view('/principal/header', $data);
+            echo view('/paises/eliminados', $data);
         }
     }
 
     public function cambiarEstado() //Eliminaer el pais cambiando el estado = Borrado Logico
     {
-        $this->pais->update($this->request->getPost('id'),[                    
+        $this->pais->update($this->request->getPost('id'), [
             'estado' => $this->request->getPost('estado')
         ]);
-    
+
         return redirect()->to(base_url('/paises'));
     }
 
     public function Restaurar() //Restaurar pais cambiando el estado
     {
-        $this->pais->update($this->request->getPost('id'),[                    
+        $this->pais->update($this->request->getPost('id'), [
             'estado' => $this->request->getPost('estado')
         ]);
-    
-        return redirect()->to(base_url('/paises/eliminados'));   
+
+        return redirect()->to(base_url('/paises/eliminados'));
     }
 
     public function buscar_Pais($id) //Funcion para buscar un pais en especifico y devolverlo 
@@ -65,7 +65,7 @@ class Paises extends BaseController
 
     public function insertar() // Funcion para insertar y actualizar registros
     {
-        $tp=$this->request->getPost('tp');
+        $tp = $this->request->getPost('tp');
         if ($this->request->getMethod() == "post") {
             if ($tp == 1) { //tp 1 = Guardar
                 $this->pais->save([
@@ -73,7 +73,7 @@ class Paises extends BaseController
                     'nombre' => $this->request->getPost('nombre')
                 ]);
             } else { //tp 2 = actualizar
-                $this->pais->update($this->request->getPost('id'),[                    
+                $this->pais->update($this->request->getPost('id'), [
                     'nombre' => $this->request->getPost('nombre'),
                     'codigo' => $this->request->getPost('codigo')
                 ]);

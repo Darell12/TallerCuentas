@@ -14,7 +14,7 @@ class PaisesModel extends Model
     protected $returnType = 'array'; /* forma en que se retornan los datos */
     protected $useSoftDeletes = false; /* si hay eliminacion fisica de registro */
 
-    protected $allowedFields = ['nombre', 'estado', 'codigo','fecha_crea']; /* relacion de campos de la tabla */
+    protected $allowedFields = ['nombre', 'estado', 'codigo', 'fecha_crea']; /* relacion de campos de la tabla */
 
     protected $useTimestamps = true; /*tipo de tiempo a utilizar */
     protected $createdField = 'fecha_crea'; /*fecha automatica para la creacion */
@@ -39,7 +39,8 @@ class PaisesModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
-    public function traer_Pais($id){
+    public function traer_Pais($id)
+    {
         $this->select('paises.*');
         $this->where('id', $id);
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 

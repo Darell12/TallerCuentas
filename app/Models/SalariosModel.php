@@ -14,7 +14,7 @@ class SalariosModel extends Model
     protected $returnType = 'array'; /* forma en que se retornan los datos */
     protected $useSoftDeletes = false; /* si hay eliminacion fisica de registro */
 
-    protected $allowedFields = ['sueldo', 'periodo', 'id_empleado','estado','fecha_crea']; /* relacion de campos de la tabla */
+    protected $allowedFields = ['sueldo', 'periodo', 'id_empleado', 'estado', 'fecha_crea']; /* relacion de campos de la tabla */
 
     protected $useTimestamps = true; /*tipo de tiempo a utilizar */
     protected $createdField = 'fecha_crea'; /*fecha automatica para la creacion */
@@ -25,7 +25,8 @@ class SalariosModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
-    public function traer($id){
+    public function traer($id)
+    {
         $this->select('salarios.*');
         $this->where('salarios.id_empleado', $id);
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 

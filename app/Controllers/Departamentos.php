@@ -8,8 +8,8 @@ use App\Models\PaisesModel;
 
 class Departamentos extends BaseController
 {
-    protected $departamentos;
-    protected $paises;
+    protected $departamentos, $eliminados, $paises;
+
     public function __construct()
     {
         $this->departamentos = new DepartamentosModel();
@@ -30,17 +30,17 @@ class Departamentos extends BaseController
         $eliminados = $this->eliminados->obtenerDptosEliminados();
 
         if (!$eliminados) {
-           echo view('/errors/html/no_eliminados');
+            echo view('/errors/html/no_eliminados');
         } else {
-        $data = ['titulo' => 'Administrar Dptos Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
-        echo view('/principal/header', $data);
-        echo view('/departamentos/eliminados', $data);
+            $data = ['titulo' => 'Administrar Dptos Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
+            echo view('/principal/header', $data);
+            echo view('/departamentos/eliminados', $data);
         }
     }
 
     public function insertar() // Funcion para insertar y actualizar registros
     {
-        $tp=$this->request->getPost('tp');
+        $tp = $this->request->getPost('tp');
         if ($this->request->getMethod() == "post") {
             if ($tp == 1) { //tp 1 = Guardar
                 $this->departamentos->save([
@@ -48,7 +48,7 @@ class Departamentos extends BaseController
                     'nombre' => $this->request->getPost('nombre')
                 ]);
             } else { //tp 2 = actualizar
-                $this->departamentos->update($this->request->getPost('id'),[                    
+                $this->departamentos->update($this->request->getPost('id'), [
                     'id_pais' => $this->request->getPost('pais'),
                     'nombre' => $this->request->getPost('nombre')
                 ]);
@@ -67,18 +67,18 @@ class Departamentos extends BaseController
     }
     public function cambiarEstado() //Eliminaer el pais cambiando el estado = Borrado Logico
     {
-        $this->departamentos->update($this->request->getPost('id'),[                    
+        $this->departamentos->update($this->request->getPost('id'), [
             'estado' => $this->request->getPost('estado')
         ]);
-    
+
         return redirect()->to(base_url('/departamentos'));
     }
-        public function Restaurar() //Restaurar pais cambiando el estado
+    public function Restaurar() //Restaurar pais cambiando el estado
     {
-        $this->departamentos->update($this->request->getPost('id'),[                    
+        $this->departamentos->update($this->request->getPost('id'), [
             'estado' => $this->request->getPost('estado')
         ]);
-    
-        return redirect()->to(base_url('/departamentos/eliminados'));   
+
+        return redirect()->to(base_url('/departamentos/eliminados'));
     }
 }
