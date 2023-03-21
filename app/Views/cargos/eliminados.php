@@ -3,12 +3,12 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/cargos'); ?>" class="btn btn-primary regresar_Btn">Regresar</a>
+    <a href="<?php echo base_url('/cargos'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped" id="tablePaises" width="100%" cellspacing="0">
+  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+    <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>
@@ -46,39 +46,13 @@
           <p>Seguro Desea Restaurar éste Registro?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary close" data-dismiss="modal">No</button>
-          <a class="btn btn-danger btn-ok">Si</a>
+          <button type="button" class="btn btn-outline-primary close" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-outline-danger btn-ok">Confirmar</a>
         </div>
       </div>
     </div>
   </div>
   <!-- Modal Elimina -->
-
-  <form method="POST" action="<?php echo base_url('/departamentos/Restaurar'); ?>" class="form-check-inline">
-    <div class="modal fade" id="Restaurar" tabindex="-1" aria-labelledby="Resturar" aria-hidden="true" data-bs-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">¿Desea Restaurar este Dpto?</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <span>
-              <h3 class="text-center" id="DptoRestaurar"></h3>
-            </span>
-            <input type="text" id="idR" name="id" hidden>
-            <input type="text" id="estado" name="estado" hidden>
-          </div>
-          <div class="modal-footer">
-            <a href="<?php echo base_url('/departamentos/eliminados') ?>"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
-
-            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button> -->
-            <button type="submit" class="btn btn-outline-success">Restaurar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
 
 </div>
 

@@ -4,18 +4,19 @@
 
   </div>
   <div>
-    <button type="button" class="btn btn-outline-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalAgregar" onclick="seleccionarEmp(<?php echo 1 . ',' . 1 ?>);">Agregar</button>
-    <a href="<?php echo base_url('/empleados/eliminados'); ?>"><button type="button" class="btn btn-outline-secondary">Eliminados</button></a>
+    <button type="button" class="btn btn-outline-success" href="#" data-bs-toggle="modal" data-bs-target="#modalAgregar" onclick="seleccionarEmp(<?php echo 1 . ',' . 1 ?>);"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
+    <a href="<?php echo base_url('/eliminados_empleados'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
+    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn button"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <div id="layoutSidenav_content">
 
     <br>
 
-    <div class="table-responsive">
-      <table class="table table-hover table-bordered table-sm" id="tableEmpleados" width="100%" cellspacing="0">
-        <thead>
-          <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
+    <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+      <table class="table table-bordered table-sm table-hover" id="tableEmpleados" width="100%" cellspacing="0">
+        <thead class="table-dark">
+          <tr>
             <th>ID</th>
             <th>Nombres</th>
             <th>Apellidos</th>
@@ -61,7 +62,7 @@
     </div>
 
     <!--   Modal agregar   --->
-    <form method="POST" action="<?php echo base_url(); ?>/empleados/insertar" autocomplete="off">
+    <form method="POST" action="<?php echo base_url(); ?>/empleados/insertar" autocomplete="off" id="formulario">
       <div class="modal" tabindex="-1" role="dialog" id="modalAgregar">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -71,13 +72,13 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="idcliente" class="col-form-label">Nombres</label>
-                <input type="text" class="form-control" id="nombres" name="nombres" required>
+                <input type="text" class="form-control" id="nombres" name="nombres" >
                 <label for="nombrecliente" class="col-form-label">Apellidos</label>
-                <input type="text" class="form-control" id="apellidos" name="apellidos" required>
+                <input type="text" class="form-control" id="apellidos" name="apellidos" >
                 <div class="mb-3">
-                  <label for="periodo" class="col-form-label">Periodo (Salario):</label>
+                  <label for="periodo" class="col-form-label">Año de Nacimiento </label>
                   <div class="flex ">
-                    <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento" required>
+                    <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento" >
                       <option id="Seleccionado">-- Seleccionar Año --</option>
                       <?php $years = range(strftime("%Y", time()), 1940); ?>
                       <?php foreach ($years as $year) : ?>
@@ -87,7 +88,7 @@
                   </div>
                 </div>
                 <label for="nombre" class="col-form-label">Pais:</label>
-                <select name="pais" class="form-select form-select-lg mb-3" id="selectPais">
+                <select name="pais" class="form-select form-select-lg mb-3" id="selectPais" >
                   <option id="paisSeleccionado">-Seleccione un País-</option>
                   <?php foreach ($paises as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
@@ -95,18 +96,18 @@
                 </select>
                 <label for="nombre" class="col-form-label">Departamento:</label>
                 <select name="departamento" id="departamento" class="form-select form-select-lg mb-3">
-                  <option id="departamentoSeleccionado">se</option>
+                  <option id="departamentoSeleccionado">-Seleccione un Departamento</option>
 
                 </select>
                 <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
-                <select name="municipio" id="municipio" class="form-select form-select-lg mb-3" required>
+                <select name="municipio" id="municipio" class="form-select form-select-lg mb-3" >
                   <option id="MunicipioSeleccionado">-Seleccione un Municipio-</option>
                   <?php foreach ($municipios as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="municipio" id="municipio"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="cargo" class="col-form-label">Cargo</label>
-                <select name="cargo" id="cargo" class="form-select form-select-lg mb-3" required>
+                <select name="cargo" id="cargo" class="form-select form-select-lg mb-3" >
                   <option id="CargoSeleccionado">-Seleccione un Cargo-</option>
                   <?php foreach ($cargos as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="cargo" id="cargo"><?php echo $valor['nombre'] ?></option>
@@ -117,7 +118,7 @@
               <div class="mb-3">
                 <label for="message-text" class="col-form-label">Salario $:</label>
                 <div class="flex ">
-                  <input type="number" name="salario" class="form-control" id="salario" required>
+                  <input type="number" name="salario" class="form-control" id="salario" >
 
                 </div>
               </div>
@@ -195,6 +196,28 @@
           $('#departamento').html(cadena)
         }
       })
+    })
+
+    $('#formulario').on('submit', function(e) {
+      nombres = $("#nombres").val();
+      apellidos = $("#apellidos").val();
+      nacimiento = $("#nacimiento").val();
+      pais = $("#selectPais").val();
+      departamento = $("#departamento").val();
+      municipio = $('#MunicipioSeleccionado').val();
+      cargo = $('#cargo').val();
+      periodo = $('#periodo').val();
+      if ([nombres, apellidos, nacimiento, pais, departamento, municipio, cargo, periodo].includes('')) {
+        e.preventDefault()
+        return swal.fire({
+          postition: 'top-end',
+          icon: 'error',
+          title: 'Error campos incompletos',
+          text: 'Debe llenar todos los campos',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     })
 
     $('#departamento').on('change', () => {

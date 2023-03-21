@@ -1,16 +1,17 @@
 <div class="container card my-4">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
+
   </div>
   <div>
-    <button type="button" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#DptoModal" onclick="seleccionaDpto(<?php echo 1 . ',' . 1 ?>);">Agregar</button>
-    <a href="<?php echo base_url('/departamentos/eliminados'); ?>"><button type="button" class="btn btn-outline-secondary">Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn">Regresar</a>
+    <button type="button" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#DptoModal" onclick="seleccionaDpto(<?php echo 1 . ',' . 1 ?>);"><i class="bi bi-plus-circle-fill"></i>Agregar</button>
+    <a href="<?php echo base_url('/eliminados_departamentos'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
+    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped" id="tablePaises" width="100%" cellspacing="0">
+  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+    <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>
@@ -41,7 +42,7 @@
     </table>
   </div>
 
-  <form method="POST" action="<?php echo base_url('/departamentos/insertar'); ?>" autocomplete="off" class="needs-validation" novalidate>
+  <form method="POST" action="<?php echo base_url('/departamentos/insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
     <div class="modal fade" id="DptoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -52,8 +53,8 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="nombre" class="col-form-label">Pais:</label>
-              <select name="pais" id="pais" class="form-select form-select-lg mb-3">
-                <option id="Seleccionado">-Seleccione un País-</option>
+              <select name="pais" id="pais" class="form-select form-select-lg mb-3" required>
+                <option id="Seleccionado" value="" selected>-Seleccione un País-</option>
                 <?php foreach ($paises as $x => $valor) { ?>
                   <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
                 <?php } ?>
@@ -95,12 +96,27 @@
 </div>
 <!-- Modal Elimina -->
 
-</div>
 
 <script>
   $('#modal-confirma').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
+
+  $('#formulario').on('submit', function(e) {
+    nombre = $("#nombre").val();
+    pais = $('#pais').val()
+    if ([nombre, pais].includes('')) {
+      e.preventDefault()
+      return swal.fire({
+        postition: 'top-end',
+        icon: 'error',
+        title: 'Error campos incompletos',
+        text: 'Debe llenar todos los campos',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  })
 
   function seleccionaDpto(id, tp) {
     if (tp == 2) {
@@ -124,14 +140,16 @@
     } else {
       $("#tp").val(1);
       $("#id").val('');
-      $("#nombre").val('');
+      $("#nombre").val(null);
+      $("#pais").val(null);
       $("#Seleccionado").val('');
-      $("#Seleccionado").text('');
+      $("#Seleccionado").text('--Seleccione un País--');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo Dpto');
       $("#DptoModal").modal("show");
     }
   }
+
 
   $('.close').click(function() {
     $("#modal-confirma").modal("hide");

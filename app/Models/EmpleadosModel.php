@@ -38,13 +38,14 @@ class EmpleadosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
-    public function obtenerEmpleadoId($id)
-    {
-        $this->select('empleados.*');
-        $this->where('id', $id);
-        $datos = $this->first();
-        return $datos;
-    }
+    // public function obtenerEmpleadoId($id)
+    // {
+    //     $this->select('empleados.*');
+    //     $this->where('id', $id);
+    //     $this->where('empleados.estado', 'A');
+    //     $datos = $this->first();
+    //     return $datos;
+    // }
     public function obtenerUltimo()
     {
         $id = $this->getInsertID();
@@ -59,6 +60,7 @@ class EmpleadosModel extends Model
         $this->join('cargos', 'empleados.id_cargo = cargos.id');
         $this->join('salarios', 'empleados.id = salarios.id_empleado', 'left');
         $this->where('empleados.id', $id);
+        $this->where('empleados.estado', 'A');
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

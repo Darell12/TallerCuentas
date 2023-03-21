@@ -36,6 +36,7 @@ class CargosModel extends Model
     {
         $this->select('cargos.*');
         $this->where('cargos.id', $id);
+        $this->where('estado', 'A');
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

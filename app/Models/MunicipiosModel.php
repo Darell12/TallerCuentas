@@ -31,6 +31,8 @@ class MunicipiosModel extends Model
         $this->join('departamentos', 'departamentos.id = municipios.id_dpto');
         $this->join('paises', 'departamentos.id_pais = paises.id');
         $this->where('municipios.estado', 'A');
+        $this->where('departamentos.estado', 'A');
+        $this->where('paises.estado', 'A');
         $datos = $this->findAll();
         return $datos;
     }
@@ -38,6 +40,7 @@ class MunicipiosModel extends Model
     {
         $this->select('municipios.*');
         $this->where('id_dpto', $id);
+        $this->where('municipios.estado', 'A');
         $datos = $this->findAll();
         return $datos;
     }
@@ -47,6 +50,9 @@ class MunicipiosModel extends Model
         $this->join('departamentos', 'departamentos.id = municipios.id_dpto');
         $this->join('paises', 'departamentos.id_pais = paises.id');
         $this->where('municipios.id', $id);
+        $this->where('municipios.estado', 'A');
+        $this->where('departamentos.estado', 'A');
+        $this->where('paises.estado', 'A');
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

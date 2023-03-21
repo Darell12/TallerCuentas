@@ -3,14 +3,14 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#PaisModal">Agregar</button>
-    <a href="<?php echo base_url('/cargos/eliminados'); ?>"><button type="button" class="btn btn-secondary">Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-primary regresar_Btn">Regresar</a>
+    <button type="button" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#PaisModal" onclick="seleccionaCargo(<?php echo 1 . ',' . 1 ?>);"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
+    <a href="<?php echo base_url('/eliminados_cargos'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
+    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped" id="tablePaises" width="100%" cellspacing="0">
+  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+    <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>
@@ -43,7 +43,7 @@
   </div>
 
   <!-- Modal -->
-  <form method="POST" action="<?php echo base_url('/cargos/insertar'); ?>" autocomplete="off" class="needs-validation" novalidate>
+  <form method="POST" action="<?php echo base_url('/cargos/insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
     <div class="modal fade" id="PaisModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -81,8 +81,8 @@
         <p>Seguro Desea Eliminar éste Registro?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary close" data-dismiss="modal">No</button>
-        <a class="btn btn-danger btn-ok">Si</a>
+        <button type="button" class="btn btn-outline-primary close" data-dismiss="modal">Cancelar</button>
+        <a class="btn btn-outline-danger btn-ok">Confirmar</a>
       </div>
     </div>
   </div>
@@ -93,6 +93,21 @@
   $('#modal-confirma').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
+
+  $('#formulario').on('submit', function(e) {
+    nombre = $("#nombre").val();
+    if ([nombre].includes('')) {
+      e.preventDefault()
+      return swal.fire({
+        postition: 'top-end',
+        icon: 'error',
+        title: 'Error campos incompletos',
+        text: 'Debe llenar todos los campos',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  })
 
   function seleccionaCargo(id, tp) {
     if (tp == 2) {

@@ -3,7 +3,7 @@
 
 <head>
   <title>Cuentas Claras</title>
-  <link rel="icon" type="ima  ge/svg+xml" href="<?php echo base_url() ?>/favicon.ico" />
+  <link rel="icon"href="<?php echo base_url() ?>/img/cuentasclaras.png" />
   <meta charset="utf-8" />
   <link rel="stylesheet" href="<?php echo base_url() ?>/css/header.css">
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -13,6 +13,7 @@
      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
   <link rel="stylesheet" href="<?php echo base_url() ?>/bootstrap/bootstrap.min.css"> <!-- Bootstrap 5 hoja de estilos -->
   <link rel="stylesheet" href="<?php echo base_url() ?>/bootstrap-icons/bootstrap-icons.css"> <!-- Bootstrap 5 hoja de estilos iconos -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="<?php echo base_url() ?>/css/jquery-3.6.0.js"></script>
   <script src="<?php echo base_url() ?>/bootstrap/bootstrap.bundle.min.js"></script>
 
@@ -48,22 +49,22 @@
         <li class="nav-item">
           <a class="nav-link active text-light" aria-current="page" href="<?php echo base_url() ?>">Inicio</a>
         </li>
-        <li class="nav-item dropdown animate slideIn">
+        <li class="nav-item dropdown ">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Empleados
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="<?php echo base_url() ?>empleados">Administrar</a></li>
+          <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
+            <li class="animate slideIn"><a class="dropdown-item" href="<?php echo base_url() ?>empleados">Administrar</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="cargos" class="nav-link text-light">Cargos</a>
+          <a href="<?php echo base_url() ?>cargos" class="nav-link text-light">Cargos</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Ubicación
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?php echo base_url() ?>paises">Pais</a></li>
             <li><a class="dropdown-item" href="<?php echo base_url() ?>departamentos">Departamentos</a></li>
             <li><a class="dropdown-item" href="<?php echo base_url() ?>municipios">Municipios</a></li>

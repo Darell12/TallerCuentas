@@ -29,6 +29,7 @@ class SalariosModel extends Model
     {
         $this->select('salarios.*');
         $this->where('salarios.id_empleado', $id);
+        $this->where('salarios.estado', 'A');
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

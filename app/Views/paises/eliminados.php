@@ -3,12 +3,12 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/paises'); ?>" class="btn btn-outline-primary regresar_Btn">Regresar</a>
+    <a href="<?php echo base_url('/paises'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped" id="tablePaises" width="100%" cellspacing="0">
+  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+    <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>

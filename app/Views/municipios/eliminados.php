@@ -3,12 +3,12 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/municipios'); ?>" class="btn btn-primary regresar_Btn">Regresar</a>
+    <a href="<?php echo base_url('/municipios'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped" id="tablePaises" width="100%" cellspacing="0">
+  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+    <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>
@@ -43,15 +43,15 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div style="text-align:center;" class="modal-header">
-          <h5 style="color:#98040a;font-size:20px;font-weight:bold;" class="modal-title" id="exampleModalLabel">Eliminación de Registro</h5>
+          <h5 style="color:#98040a;font-size:20px;font-weight:bold;" class="modal-title" id="exampleModalLabel">Restauración de Registro</h5>
 
         </div>
         <div style="text-align:center;font-weight:bold;" class="modal-body">
           <p>Seguro Desea Restaurar éste Registro?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary close" data-dismiss="modal">No</button>
-          <a class="btn btn-danger btn-ok">Si</a>
+          <button type="button" class="btn btn-outline-primary close" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-outline-danger btn-ok">Confirmar</a>
         </div>
       </div>
     </div>

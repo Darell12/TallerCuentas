@@ -41,7 +41,7 @@ class Departamentos extends BaseController
     public function insertar() // Funcion para insertar y actualizar registros
     {
         $tp = $this->request->getPost('tp');
-        
+
             if ($tp == 1) { //tp 1 = Guardar
                 $this->departamentos->save([
                     'id_pais' => $this->request->getPost('pais'),

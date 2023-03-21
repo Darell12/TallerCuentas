@@ -38,6 +38,7 @@ class DepartamentosModel extends Model
     {
         $this->select('departamentos.*');
         $this->where('id_pais', $id);
+        $this->where('estado', 'A');
         $datos = $this->findAll();
         return $datos;
     }
@@ -46,6 +47,7 @@ class DepartamentosModel extends Model
         $this->select('departamentos.*, paises.nombre as PNombre');
         $this->join('paises', 'paises.id = departamentos.id_pais');
         $this->where('departamentos.id', $id);
+        $this->where('departamentos.estado', 'A');
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

@@ -3,14 +3,14 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#MuniModal">Agregar</button>
-    <a href="<?php echo base_url('/municipios/eliminados'); ?>"><button type="button" class="btn btn-outline-secondary">Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn">Regresar</a>
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#MuniModal" onclick="seleccionarMuni(<?php echo 1 . ',' . 1 ?>);"><i class="bi bi-plus-circle-fill"></i>  Agregar</button>
+    <a href="<?php echo base_url('/eliminados_municipios'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
+    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped" id="tablePaises" width="100%" cellspacing="0">
+  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+    <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>
@@ -41,7 +41,7 @@
     </table>
   </div>
 
-  <form method="POST" action="<?php echo base_url('/municipios/insertar'); ?>" autocomplete="off" class="needs-validation" novalidate>
+  <form method="POST" action="<?php echo base_url('/municipios/insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
     <div class="modal fade" id="MuniModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -128,6 +128,23 @@
     })
   })
 
+  $('#formulario').on('submit', function(e) {
+    pais = $("#selectPais").val();
+    dpto = $("#departamento").val();
+    nombre = $("#nombre").val();
+    if ([nombre, dpto, pais].includes('')) {
+      e.preventDefault()
+      return swal.fire({
+        postition: 'top-end',
+        icon: 'error',
+        title: 'Error campos incompletos',
+        text: 'Debe llenar todos los campos',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  })
+
   function seleccionarMuni(id, tp) {
     if (tp == 2) {
       dataURL = "<?php echo base_url('/municipios/buscar_Muni'); ?>" + "/" + id;
@@ -139,42 +156,26 @@
           console.log(rs)
           $("#tp").val(2);
           $("#id").val(rs[0]['id'])
-          $("#codigo").val(rs[0]['codigo']);
           $("#nombre").val(rs[0]['nombre']);
-          $("#apellidos").val(rs[0]['apellidos']);
-          $("#MunicipioSeleccionado").val(rs[0]['id_municipio']);
-          $("#MunicipioSeleccionado").text(rs[0]['NMuni']);
-          $("#Seleccionado").text(rs[0]['nacimiento']);
-          $("#Seleccionado").val(rs[0]['nacimiento']);
-          $("#CargoSeleccionado").val(rs[0]['id_cargo']);
-          $("#CargoSeleccionado").text(rs[0]['NCargo']);
-          $("#salario").val(rs[0]['salario']);
-          $("#PeriodoSeleccionado").text(rs[0]['periodo']);
-          $("#PeriodoSeleccionado").text(rs[0]['periodo']);
-          $("#salario_id").val(rs[0]['salario_id']);
           $("#departamentoSeleccionado").val(rs[0]['id_dpto']);
           $("#departamentoSeleccionado").text(rs[0]['Departamento']);
           $("#paisSeleccionado").val(rs[0]['pais_id']);
           $("#paisSeleccionado").text(rs[0]['PNombre']);
 
           $("#btn_Guardar").text('Actualizar');
-          $("#tituloModal").text('Actualizar el país ' + rs[0]['nombre']);
+          $("#tituloModal").text('Actualizar el Municipio ' + rs[0]['nombre']);
           $("#MuniModal").modal("show");
         }
       })
     } else {
       console.log("Else")
       $("#tp").val(1);
-      $("#id").val("")
-      $("#codigo").val("");
-      $("#nombres").val("");
-      $("#apellidos").val("");
-      $("#MunicipioSeleccionado").val("");
-      $("#Seleccionado").val("");
-      $("#CargoSeleccionado").val("");
-      $("#salario").val("");
-      $("#PeriodoSeleccionado").val("");
-      $("#salario_id").val("");
+      $("#id").val('')
+      $("#nombre").val('');
+      $("#departamentoSeleccionado").val('');
+      $("#departamentoSeleccionado").text('');
+      $("#paisSeleccionado").val('');
+      $("#paisSeleccionado").text('-Seleccione un País-');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo País');
       $("#MuniModal").modal("show");

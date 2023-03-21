@@ -3,14 +3,14 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <button type="button" onclick="seleccionaPais(<?php echo 1 . ',' . 1 ?>);" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#PaisModal">Agregar</button>
-    <a href="<?php echo base_url('/eliminados_paises'); ?>"><button type="button" class="btn btn-outline-secondary">Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn">Regresar</a>
+    <button type="button" onclick="seleccionaPais(<?php echo 1 . ',' . 1 ?>);" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#PaisModal"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
+    <a href="<?php echo base_url('/eliminados_paises'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
+    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
   </div>
 
   <br>
-  <div class="table-responsive">
-    <table class="table table-bordered table-sm" id="tablePaises" width="100%" cellspacing="0">
+  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+    <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>
@@ -44,7 +44,7 @@
     </table>
   </div>
   <!-- Modal -->
-  <form method="POST" action="<?php echo base_url('/paises/insertar'); ?>" autocomplete="off" class="needs-validation" novalidate>
+  <form method="POST" action="<?php echo base_url('/paises/insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
     <div class="modal fade" id="PaisModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -98,6 +98,22 @@
   $('#modal-confirma').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
+
+  $('#formulario').on('submit', function(e) {
+    nombre = $("#nombre").val();
+    codigo = $("#codigo").val();
+    if ([nombre, codigo].includes('')) {
+      e.preventDefault()
+      return swal.fire({
+        postition: 'top-end',
+        icon: 'error',
+        title: 'Error campos incompletos',
+        text: 'Debe llenar todos los campos',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  })
 
   function seleccionaPais(id, tp) {
     if (tp == 2) {
