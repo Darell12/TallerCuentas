@@ -3,14 +3,14 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <button type="button" onclick="seleccionaPais(<?php echo 1 . ',' . 1 ?>);" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#PaisModal">Agregar</button>
-    <a href="<?php echo base_url('/eliminados_paises'); ?>"><button type="button" class="btn btn-secondary">Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-primary regresar_Btn">Regresar</a>
+    <button type="button" onclick="seleccionaPais(<?php echo 1 . ',' . 1 ?>);" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#PaisModal">Agregar</button>
+    <a href="<?php echo base_url('/eliminados_paises'); ?>"><button type="button" class="btn btn-outline-secondary">Eliminados</button></a>
+    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn">Regresar</a>
   </div>
 
   <br>
   <div class="table-responsive">
-    <table class="table table-bordered table-sm table-striped" id="tablePaises" width="100%" cellspacing="0">
+    <table class="table table-bordered table-sm" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
           <th>Id</th>
@@ -34,7 +34,7 @@
                 <i class="bi bi-pencil"></i>
 
               </button>
-              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#PaisModalElimiar" onclick="EliminarValid(<?php echo $valor['id'] ?>);"><i class="bi bi-trash3"></i></button>
+              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/paises/cambiarEstado') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
             </th>
 
           </tr>
@@ -63,42 +63,42 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" id="btn_Guardar">Guardar</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-outline-primary" id="btn_Guardar">Guardar</button>
           </div>
         </div>
       </div>
     </div>
   </form>
 
-  <!-- MODAL ELIMINAR PAIS -->
-  <form method="POST" action="<?php echo base_url('/paises/cambiarEstado'); ?>" class="form-check-inline">
-    <div class="modal fade" id="PaisModalElimiar" tabindex="-1" aria-labelledby="PaisModalElimiar" aria-hidden="true" data-bs-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">¿Estás seguro de eliminar este pais?</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <span>
-              <h3 class="text-center" id="PaisEliminar"></h3>
-            </span>
-            <input type="text" id="idE" name="id" hidden>
-            <input type="text" id="estado" name="estado" hidden>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-          </div>
+
+  <!-- Modal Confirma Eliminar -->
+  <div class="modal fade" id="modal-confirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div style="text-align:center;" class="modal-header">
+          <h5 style="color:#98040a;font-size:20px;font-weight:bold;" class="modal-title" id="exampleModalLabel">Eliminación de Registro</h5>
+
+        </div>
+        <div style="text-align:center;font-weight:bold;" class="modal-body">
+          <p>Seguro Desea Eliminar éste Registro?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-primary close" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-outline-danger btn-ok">Confirmar</a>
         </div>
       </div>
     </div>
-  </form>
+  </div>
+  <!-- Modal Elimina -->
 </div>
 
 
 <script>
+  $('#modal-confirma').on('show.bs.modal', function(e) {
+    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+  });
+
   function seleccionaPais(id, tp) {
     if (tp == 2) {
       dataURL = "<?php echo base_url('/paises/buscar_Pais'); ?>" + "/" + id;
@@ -126,21 +126,9 @@
       $("#tituloModal").text('Agregar Nuevo País');
       $("#PaisModal").modal("show");
     }
-  };
-
-  function EliminarValid(id) {
-    dataURL = "<?php echo base_url('/paises/buscar_Pais'); ?>" + "/" + id;
-    console.log(id)
-    $.ajax({
-      type: "POST",
-      url: dataURL,
-      dataType: "json",
-      success: function(rs) {
-        $("#idE").val(rs[0]['id'])
-        $("#estado").val('I');
-        $("#PaisEliminar").text(rs[0]['nombre']);
-        $("#PaisModalElimiar").modal("show");
-      }
-    })
   }
+
+  $('.close').click(function() {
+    $("#modal-confirma").modal("hide");
+  });
 </script>

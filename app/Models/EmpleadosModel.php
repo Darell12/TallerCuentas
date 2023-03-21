@@ -27,8 +27,10 @@ class EmpleadosModel extends Model
 
     public function obtenerEmpleados()
     {
-        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario');
+        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario, departamentos.nombre as dpto_nombre, paises.nombre as pais_nombre');
         $this->join('municipios', 'municipios.id = empleados.id_municipio');
+        $this->join('departamentos', 'municipios.id_dpto = departamentos.id');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
         $this->join('cargos', 'cargos.id = empleados.id_cargo');
         $this->join('salarios', 'salarios.id_empleado = empleados.id', 'left');
         $this->where('empleados.estado', 'A');
@@ -50,12 +52,31 @@ class EmpleadosModel extends Model
     }
     public function traer_Emp($id)
     {
-        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario, salarios.periodo as periodo, salarios.id as salario_id');
-        $this->join('municipios', 'municipios.id = empleados.id_municipio');
-        $this->join('cargos', 'cargos.id = empleados.id_cargo');
-        $this->join('salarios', 'salarios.id_empleado = empleados.id', 'left');
+        $this->select('empleados. id, nombres, apellidos,id_municipio, id_cargo, empleados.estado, nacimiento, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario, salarios.periodo as periodo, salarios.id as salario_id, departamentos.id as dpto_id, departamentos.nombre as dpto_nombre, paises.id as pais_id, paises.nombre as pais_nombre');
+        $this->join('municipios', 'empleados.id_municipio = municipios.id');
+        $this->join('departamentos', 'municipios.id_dpto = departamentos.id');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
+        $this->join('cargos', 'empleados.id_cargo = cargos.id');
+        $this->join('salarios', 'empleados.id = salarios.id_empleado', 'left');
         $this->where('empleados.id', $id);
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function elimina_Emp($id, $estado)
+    {
+        $datos = $this->update($id, ['estado' => $estado]);
+        return $datos;
+    }
+    public function obtenerEmpleadosEliminados()
+    {
+        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario, departamentos.nombre as dpto_nombre, paises.nombre as pais_nombre');
+        $this->join('municipios', 'municipios.id = empleados.id_municipio');
+        $this->join('departamentos', 'municipios.id_dpto = departamentos.id');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
+        $this->join('cargos', 'cargos.id = empleados.id_cargo');
+        $this->join('salarios', 'salarios.id_empleado = empleados.id', 'left');
+        $this->where('empleados.estado', 'E');
+        $datos = $this->findAll();
         return $datos;
     }
 }

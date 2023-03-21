@@ -53,8 +53,13 @@ class DepartamentosModel extends Model
     {
         $this->select('departamentos.*, paises.nombre as PNombre');
         $this->join('paises', 'paises.id = departamentos.id_pais');
-        $this->where('departamentos.estado', 'I');
+        $this->where('departamentos.estado', 'E');
         $datos = $this->findAll();
+        return $datos;
+    }
+    public function cambiar_Estado($id, $estado)
+    {
+        $datos = $this->update($id, ['estado' => $estado]);
         return $datos;
     }
 }

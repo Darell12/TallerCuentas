@@ -35,13 +35,17 @@ class Paises extends BaseController
         }
     }
 
-    public function cambiarEstado() //Eliminaer el pais cambiando el estado = Borrado Logico
+    public function cambiarEstado($id, $estado)
     {
-        $this->pais->update($this->request->getPost('id'), [
-            'estado' => $this->request->getPost('estado')
-        ]);
+        $pais_ = $this->pais->cambiar_Estado($id, $estado);
 
-        return redirect()->to(base_url('/paises'));
+        if (
+            $estado == 'E'
+        ) {
+            return redirect()->to(base_url('/paises'));
+        } else {
+            return redirect()->to(base_url('/paises/eliminados'));
+        }
     }
 
     public function Restaurar() //Restaurar pais cambiando el estado

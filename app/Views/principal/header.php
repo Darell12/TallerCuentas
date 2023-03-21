@@ -28,7 +28,7 @@
   </a>
 
   <div class="titulo">
-    <h1 style="text-align:center"><?php echo $titulo; ?></h1>
+    <h1 style="text-align:center">Cuentas Claras</h1>
     <h6 style="text-align:center "><?php echo $nombre; ?></h2>
   </div>
   <a href="https://oferta.senasofiaplus.edu.co/sofia-oferta/" target="_blank" class="logosena">
@@ -48,7 +48,7 @@
         <li class="nav-item">
           <a class="nav-link active text-light" aria-current="page" href="<?php echo base_url() ?>">Inicio</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown animate slideIn">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Empleados
           </a>

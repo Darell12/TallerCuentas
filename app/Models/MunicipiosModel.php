@@ -27,9 +27,41 @@ class MunicipiosModel extends Model
 
     public function obtenerMunicipios()
     {
-        $this->select('municipios.*, departamentos.nombre as Departamento');
+        $this->select('municipios.*, departamentos.nombre as Departamento, paises.nombre as PNombre');
         $this->join('departamentos', 'departamentos.id = municipios.id_dpto');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
         $this->where('municipios.estado', 'A');
+        $datos = $this->findAll();
+        return $datos;
+    }
+    public function obtenerMuniDpto($id)
+    {
+        $this->select('municipios.*');
+        $this->where('id_dpto', $id);
+        $datos = $this->findAll();
+        return $datos;
+    }
+    public function traer_Muni($id)
+    {
+        $this->select('municipios.*, departamentos.nombre as Departamento, paises.nombre as PNombre');
+        $this->join('departamentos', 'departamentos.id = municipios.id_dpto');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
+        $this->where('municipios.id', $id);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function cambiar_Estado($id, $estado)
+    {
+        $datos = $this->update($id, ['estado' => $estado]);
+        return $datos;
+    }
+    public function obtenerMunicipiosEliminados()
+    {
+        $this->select('municipios.*');
+        $this->select('municipios.*, departamentos.nombre as Departamento, paises.nombre as PNombre');
+        $this->join('departamentos', 'departamentos.id = municipios.id_dpto');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
+        $this->where('municipios.estado', 'E');
         $datos = $this->findAll();
         return $datos;
     }

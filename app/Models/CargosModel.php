@@ -32,4 +32,23 @@ class CargosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
+    public function traer_Cargo($id)
+    {
+        $this->select('cargos.*');
+        $this->where('cargos.id', $id);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function cambiar_Estado($id, $estado)
+    {
+        $datos = $this->update($id, ['estado' => $estado]);
+        return $datos;
+    }
+    public function obtenerCargosEliminados()
+    {
+        $this->select('cargos.*');
+        $this->where('estado', 'E');
+        $datos = $this->findAll();
+        return $datos;
+    }
 }

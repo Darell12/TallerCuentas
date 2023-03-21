@@ -1,0 +1,88 @@
+CRITICAL - 2023-03-20 21:35:15 --> Call to undefined method App\Models\DepartamentosModel::traer_Muni
+in SYSTEMPATH\Model.php on line 842.
+ 1 APPPATH\Controllers\Municipios.php(62): CodeIgniter\Model->__call('traer_Muni', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->buscar_Muni('1')
+ 3 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 4 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-03-20 22:25:17 --> mysqli_sql_exception: Unknown column 'muncipios.id' in 'where clause' in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `municip...', 0)
+#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `municip...')
+#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `municip...')
+#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `municip...', Array, false)
+#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(268): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(656): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\TallerCuentas\app\Models\MunicipiosModel.php(50): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Municipios.php(62): App\Models\MunicipiosModel->traer_Muni('6')
+#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Municipios->buscar_Muni('6')
+#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-03-20 22:25:17 --> Unknown column 'muncipios.id' in 'where clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `municipios`.*, `departamentos`.`nombre` as `Departamento`, `paises`.`nombre` as `PNombre`
+FROM `municipios`
+JOIN `departamentos` ON `departamentos`.`id` = `municipios`.`id_dpto`
+JOIN `paises` ON `departamentos`.`id_pais` = `paises`.`id`
+WHERE `muncipios`.`id` = :muncipios.id:
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Model.php(268): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(656): CodeIgniter\Model->doFirst()
+ 4 APPPATH\Models\MunicipiosModel.php(50): CodeIgniter\BaseModel->first()
+ 5 APPPATH\Controllers\Municipios.php(62): App\Models\MunicipiosModel->traer_Muni('6')
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->buscar_Muni('6')
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-20 22:37:27 --> Undefined array key "Departamento"
+in APPPATH\Views\municipios\eliminados.php on line 26.
+ 1 APPPATH\Views\municipios\eliminados.php(26): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "Departamento"', 'APPPATH\\Views\\municipios\\eliminados.php', 26)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\municipios\\eliminados.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/municipios/eliminados', [], true)
+ 5 APPPATH\Controllers\Municipios.php(39): view('/municipios/eliminados', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-03-20 22:37:51 --> mysqli_sql_exception: Column 'estado' in where clause is ambiguous in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `municip...', 0)
+#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `municip...')
+#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `municip...')
+#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `municip...', Array, false)
+#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\TallerCuentas\app\Models\MunicipiosModel.php(65): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Municipios.php(32): App\Models\MunicipiosModel->obtenerMunicipiosEliminados()
+#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Municipios->eliminados()
+#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-03-20 22:37:51 --> Column 'estado' in where clause is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `municipios`.*, `municipios`.*, `departamentos`.`nombre` as `Departamento`, `paises`.`nombre` as `PNombre`
+FROM `municipios`
+JOIN `departamentos` ON `departamentos`.`id` = `municipios`.`id_dpto`
+JOIN `paises` ON `departamentos`.`id_pais` = `paises`.`id`
+WHERE `estado` = :estado:', [...], false)
+ 2 SYSTEMPATH\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\MunicipiosModel.php(65): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Municipios.php(32): App\Models\MunicipiosModel->obtenerMunicipiosEliminados()
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-20 22:47:57 --> Updates are not allowed unless they contain a "where" or "like" clause.
+in SYSTEMPATH\Model.php on line 391.
+ 1 SYSTEMPATH\BaseModel.php(943): CodeIgniter\Model->doUpdate(null, [...])
+ 2 SYSTEMPATH\Model.php(756): CodeIgniter\BaseModel->update(null, [...])
+ 3 APPPATH\Controllers\Paises.php(40): CodeIgniter\Model->update(null, [...])
+ 4 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Paises->cambiarEstado('6', 'E')
+ 5 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Paises))
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

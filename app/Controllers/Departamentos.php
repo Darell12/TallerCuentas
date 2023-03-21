@@ -41,7 +41,7 @@ class Departamentos extends BaseController
     public function insertar() // Funcion para insertar y actualizar registros
     {
         $tp = $this->request->getPost('tp');
-        if ($this->request->getMethod() == "post") {
+        
             if ($tp == 1) { //tp 1 = Guardar
                 $this->departamentos->save([
                     'id_pais' => $this->request->getPost('pais'),
@@ -54,7 +54,6 @@ class Departamentos extends BaseController
                 ]);
             }
             return redirect()->to(base_url('/departamentos'));
-        }
     }
     public function buscar_Dpto($id) //Funcion para buscar un pais en especifico y devolverlo 
     {
@@ -65,13 +64,17 @@ class Departamentos extends BaseController
         }
         echo json_encode($returnData);
     }
-    public function cambiarEstado() //Eliminaer el pais cambiando el estado = Borrado Logico
+    public function cambiarEstado($id, $estado)
     {
-        $this->departamentos->update($this->request->getPost('id'), [
-            'estado' => $this->request->getPost('estado')
-        ]);
+        $departamentos_ = $this->departamentos->cambiar_Estado($id, $estado);
 
-        return redirect()->to(base_url('/departamentos'));
+        if (
+            $estado == 'E'
+        ) {
+            return redirect()->to(base_url('/departamentos'));
+        } else {
+            return redirect()->to(base_url('/departamentos/eliminados'));
+        }
     }
     public function Restaurar() //Restaurar pais cambiando el estado
     {
