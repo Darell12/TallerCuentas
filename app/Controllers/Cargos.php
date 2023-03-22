@@ -27,7 +27,7 @@ class Cargos extends BaseController
         if (!$cargos) {
             echo view('/errors/html/no_eliminados');
         } else {
-            $data = ['titulo' => 'Empleados Eliminados', 'nombre' => 'Darell E', 'datos' => $cargos];
+            $data = ['titulo' => 'Administrar Cargos Eliminados', 'nombre' => 'Darell E', 'datos' => $cargos];
             echo view('/principal/header', $data);
             echo view('/cargos/eliminados', $data);
         }
@@ -68,5 +68,14 @@ class Cargos extends BaseController
         } else {
             return redirect()->to(base_url('/cargos/eliminados'));
         }
+    }
+    public function validar_Nombre($nombre) 
+    {
+        $returnData = array();
+        $cargos = $this->cargos->validar_Nombre($nombre);
+        if (!empty($cargos)) {
+            array_push($returnData, $cargos);
+        }
+        echo json_encode($returnData);   
     }
 }

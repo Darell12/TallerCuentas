@@ -47,7 +47,7 @@ class Empleados extends BaseController
         if (!$empleados) {
             echo view('/errors/html/no_eliminados');
         } else {
-            $data = ['titulo' => 'Empleados Eliminados', 'nombre' => 'Darell E', 'datos' => $empleados];
+            $data = ['titulo' => 'Administrar Empleados Eliminados', 'nombre' => 'Darell E', 'datos' => $empleados];
             echo view('/principal/header', $data);
             echo view('/empleados/eliminados', $data);
         }
@@ -90,7 +90,6 @@ class Empleados extends BaseController
                     'id_cargo' => $this->request->getPost('cargo')
                 ]);
 
-                $id = $this->empleados->obtenerUltimo();
 
                 $this->salarios->update($this->request->getPost('salario_id'), [
                     'sueldo' => $this->request->getPost('salario'),
@@ -125,8 +124,16 @@ class Empleados extends BaseController
         if ($estado == 'E') {
             return redirect()->to(base_url('/empleados'));
         } else {
-            return redirect()->to(base_url('/empleados/eliminados')); 
+            return redirect()->to(base_url('/empleados/eliminados'));
         }
-        
+    }
+    public function validar_Nombre($campo, $columna) 
+    {
+        $returnData = array();
+        $response = $this->empleados->validar_Campo($campo, $columna);
+        if (!empty($response)) {
+            array_push($returnData, $response);
+        }
+        echo json_encode($returnData);   
     }
 }

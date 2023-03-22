@@ -34,7 +34,7 @@ class Municipios extends BaseController
         if (!$cargos) {
             echo view('/errors/html/no_eliminados');
         } else {
-            $data = ['titulo' => 'Empleados Eliminados', 'nombre' => 'Darell E', 'datos' => $cargos];
+            $data = ['titulo' => 'Administrar Municipios Eliminados', 'nombre' => 'Darell E', 'datos' => $cargos];
             echo view('/principal/header', $data);
             echo view('/municipios/eliminados', $data);
         }
@@ -93,5 +93,14 @@ class Municipios extends BaseController
         } else {
             return redirect()->to(base_url('/municipios/eliminados'));
         }
+    }
+    public function validar_Nombre($nombre) 
+    {
+        $returnData = array();
+        $municipios = $this->municipios->validar_Nombre($nombre);
+        if (!empty($municipios)) {
+            array_push($returnData, $municipios);
+        }
+        echo json_encode($returnData);   
     }
 }

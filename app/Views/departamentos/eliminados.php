@@ -3,7 +3,7 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/departamentos'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
+    <a href="<?php echo base_url('/departamentos'); ?>" ><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
@@ -19,12 +19,18 @@
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">
-        <?php foreach ($datos as $x => $valor) { ?>
+        <?php foreach ($datos as $valor) { ?>
           <tr>
             <th class="text-center"><?php echo $valor['id']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
-            <th class="text-center"><?php echo $valor['PNombre']; ?></th>
-            <th class="text-center"><?php echo $valor['estado']; ?></th>
+            <th class="text-center">
+            <?php echo $valor['PNombre']; ?>
+            <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+            </th>
+            <th class="text-center">
+            <?php echo $valor['estado'] = 'E' ? '<span class="text-danger"> Inactivo </span>' : '<span class="text-succes"> Inactivo </span>'; ?>
+
+            </th>
             <th class="grid grid text-center" colspan="2">
               <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/departamentos/cambiarEstado') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
             </th>

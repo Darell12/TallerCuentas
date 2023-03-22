@@ -27,7 +27,7 @@ class EmpleadosModel extends Model
 
     public function obtenerEmpleados()
     {
-        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario, departamentos.nombre as dpto_nombre, paises.nombre as pais_nombre');
+        $this->select('empleados.*, municipios.nombre as NMuni, municipios.estado as estadoMuni, cargos.nombre as NCargo, cargos.estado as estadoCargo, salarios.sueldo as salario, departamentos.nombre as dpto_nombre, departamentos.estado as estadoDpto, paises.nombre as pais_nombre, paises.estado as estadoPais');
         $this->join('municipios', 'municipios.id = empleados.id_municipio');
         $this->join('departamentos', 'municipios.id_dpto = departamentos.id');
         $this->join('paises', 'departamentos.id_pais = paises.id');
@@ -71,7 +71,7 @@ class EmpleadosModel extends Model
     }
     public function obtenerEmpleadosEliminados()
     {
-        $this->select('empleados.*, municipios.nombre as NMuni, cargos.nombre as NCargo, salarios.sueldo as salario, departamentos.nombre as dpto_nombre, paises.nombre as pais_nombre');
+        $this->select('empleados.*, municipios.nombre as NMuni, municipios.estado as estadoMuni, cargos.nombre as NCargo, cargos.estado as estadoCargo, salarios.sueldo as salario, departamentos.nombre as dpto_nombre, departamentos.estado as estadoDpto, paises.nombre as pais_nombre, paises.estado as estadoPais');
         $this->join('municipios', 'municipios.id = empleados.id_municipio');
         $this->join('departamentos', 'municipios.id_dpto = departamentos.id');
         $this->join('paises', 'departamentos.id_pais = paises.id');
@@ -79,6 +79,15 @@ class EmpleadosModel extends Model
         $this->join('salarios', 'salarios.id_empleado = empleados.id', 'left');
         $this->where('empleados.estado', 'E');
         $datos = $this->findAll();
+        return $datos;
+    }
+
+    // Validacion de Inputs
+    public function validar_Campo($campo, $columna)
+    {
+        $this->select('empleados. id');
+        $this->where($columna , $campo);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }
 }

@@ -47,6 +47,20 @@ class PaisesModel extends Model
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }
+    public function validar_codigo($codigo)
+    {
+        $this->select('paises. nombre, codigo');
+        $this->where('codigo', $codigo);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function validar_Nombre($nombre)
+    {
+        $this->select('paises. nombre, codigo');
+        $this->where('nombre', $nombre);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
     public function cambiar_Estado($id, $estado)
     {
         $datos = $this->update($id, ['estado' => $estado]);

@@ -6,7 +6,7 @@
   <div>
     <button type="button" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#DptoModal" onclick="seleccionaDpto(<?php echo 1 . ',' . 1 ?>);"><i class="bi bi-plus-circle-fill"></i>Agregar</button>
     <a href="<?php echo base_url('/eliminados_departamentos'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
+    <a href="<?php echo base_url('/principal'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
@@ -22,12 +22,17 @@
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;">
-        <?php foreach ($datos as $x => $valor) { ?>
+        <?php foreach ($datos as $valor) { ?>
           <tr>
             <th class="text-center"><?php echo $valor['id']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
-            <th class="text-center"><?php echo $valor['PNombre']; ?></th>
-            <th class="text-center"><?php echo $valor['estado']; ?></th>
+            <th class="text-center">
+            <?php echo $valor['PNombre']; ?>
+            <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+            </th>
+            <th class="text-center">
+            <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>': 'Inactivo'; ?>
+            </th>
             <th class="grid grid text-center" colspan="2">
               <button class="btn btn-outline-primary" onclick="seleccionaDpto(<?php echo $valor['id'] . ',' . 2 ?>);" data-bs-toggle="modal" data-bs-target="#DptoModal">
                 <i class="bi bi-pencil"></i></button>
@@ -61,8 +66,12 @@
               </select>
               <label for="nombre" class="col-form-label">Nombre:</label>
               <input type="text" class="form-control" name="nombre" id="nombre" required>
-              <input type="text" class="form-control" name="id" id="id" hidden>
-              <input type="text" class="form-control" name="tp" id="tp" hidden>
+              <div id="MensajeValidacionNombre">
+              <!-- MENSAJE DINAMICO -->
+              </div>
+              <input type="text" class="form-control" name="id" id="id" >
+              <input type="text" class="form-control" name="tp" id="tp" >
+              <input type="text" id="NombreValido" name="id" >
             </div>
 
           </div>
@@ -105,18 +114,54 @@
   $('#formulario').on('submit', function(e) {
     nombre = $("#nombre").val();
     pais = $('#pais').val()
-    if ([nombre, pais].includes('')) {
+    nombre_valido = $("#NombreValido").val();
+    if ([nombre, pais, nombre_valido].includes('')) {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
         icon: 'error',
-        title: 'Error campos incompletos',
-        text: 'Debe llenar todos los campos',
+        title: 'Error campos Invalidos',
+        text: 'Debe llenar todos los campos y cumplir con las condiciones',
         showConfirmButton: false,
         timer: 1500
       })
     }
   })
+
+  const NombreVa = document.getElementById('NombreValido');//Capturo el un input oculto para validar
+  const NombreP = document.getElementById('nombre');//Capturo el un input Nombre para validar
+
+  NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
+    let valor = NombreP.value; // tomo el valor del input de nombre
+    let cadena
+    if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
+      cadena = ``
+      $('#MensajeValidacionNombre').html(cadena);
+    } else {
+      $.ajax({
+        url: "<?php echo base_url('departamentos/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
+        type: 'POST',
+        dataType: 'json',
+        success: function(res) {
+
+          if (res.length == 0) {
+            cadena = `
+            <span class="text-success" id="mensaje">Nombre Valido</span>
+                `
+                NombreVa.setAttribute('value', "1")
+            $('#MensajeValidacionNombre').html(cadena);
+          } else {
+            cadena = `
+                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
+                `
+                NombreVa.setAttribute('value', "")
+            $('#MensajeValidacionNombre').html(cadena);
+          }
+        }
+      })
+    }
+  })
+
 
   function seleccionaDpto(id, tp) {
     if (tp == 2) {

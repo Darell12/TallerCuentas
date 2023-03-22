@@ -5,7 +5,7 @@
   <div>
     <button type="button" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#PaisModal" onclick="seleccionaCargo(<?php echo 1 . ',' . 1 ?>);"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
     <a href="<?php echo base_url('/eliminados_cargos'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
+    <a href="<?php echo base_url('/principal'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
@@ -24,7 +24,10 @@
           <tr>
             <th class="text-center"><?php echo $valor['id']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
-            <th class="text-center "><?php echo $valor['estado']; ?></th>
+            <th class="text-center ">
+            <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>': 'Inactivo'; ?>
+
+            </th>
             <th class="grid grid text-center" colspan="2">
 
               <button class="btn btn-outline-primary" onclick="seleccionaCargo(<?php echo $valor['id'] . ',' . 2 ?>);" data-bs-toggle="modal" data-bs-target="#PaisModal">
@@ -55,9 +58,13 @@
             <div class="mb-3">
               <label for="nombre" class="col-form-label">Nombre:</label>
               <input type="text" class="form-control" name="nombre" id="nombre" required>
+              <div id="MensajeValidacionNombre">
+              <!-- Mensaje Generado Dinamicamente -->
+              </div>
             </div>
             <input type="text" id="tp" name="tp" hidden>
             <input type="text" id="id" name="id" hidden>
+            <input type="text" id="NombreValido" name="id" hidden>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -96,15 +103,50 @@
 
   $('#formulario').on('submit', function(e) {
     nombre = $("#nombre").val();
-    if ([nombre].includes('')) {
+    nombre_valido = $("#NombreValido").val();
+    if ([nombre, nombre_valido].includes('')) {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
         icon: 'error',
-        title: 'Error campos incompletos',
-        text: 'Debe llenar todos los campos',
+        title: 'Error campos Invalidos',
+        text: 'Todos los campos deben estar llenos y ser validos',
         showConfirmButton: false,
         timer: 1500
+      })
+    }
+  })
+
+  const NombreVa = document.getElementById('NombreValido');//Capturo el un input oculto para validar
+  const NombreP = document.getElementById('nombre');//Capturo el un input Nombre para validar
+
+  NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
+    let valor = NombreP.value; // tomo el valor del input de nombre
+    let cadena
+    if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
+      cadena = ``
+      $('#MensajeValidacionNombre').html(cadena);
+    } else {
+      $.ajax({
+        url: "<?php echo base_url('cargos/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
+        type: 'POST',
+        dataType: 'json',
+        success: function(res) {
+
+          if (res.length == 0) {
+            cadena = `
+            <span class="text-success" id="mensaje">Nombre Valido</span>
+                `
+                NombreVa.setAttribute('value', "1")
+            $('#MensajeValidacionNombre').html(cadena);
+          } else {
+            cadena = `
+                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
+                `
+                NombreVa.setAttribute('value', "")
+            $('#MensajeValidacionNombre').html(cadena);
+          }
+        }
       })
     }
   })

@@ -3,7 +3,7 @@
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/empleados'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
+    <a href="<?php echo base_url('/empleados'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
@@ -31,12 +31,26 @@
             <th class="text-center"><?php echo $valor['nombres']; ?></th>
             <th class="text-center"><?php echo $valor['apellidos']; ?></th>
             <th class="text-center"><?php echo $valor['nacimiento']; ?></th>
-            <th class="text-center"><?php echo $valor['NMuni']; ?></th>
-            <th class="text-center"><?php echo $valor['dpto_nombre']; ?></th>
-            <th class="text-center"><?php echo $valor['pais_nombre']; ?></th>
-            <th class="text-center"><?php echo $valor['NCargo']; ?></th>
+            <th class="text-center">
+              <?php echo $valor['NMuni']; ?>
+              <?php echo $valor['estadoMuni'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+            </th>
+            <th class="text-center">
+              <?php echo $valor['dpto_nombre']; ?>
+              <?php echo $valor['estadoDpto'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+            </th>
+            <th class="text-center">
+              <?php echo $valor['pais_nombre']; ?>
+              <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+            </th>
+            <th class="text-center">
+              <?php echo $valor['NCargo']; ?>
+              <?php echo $valor['estadoCargo'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+            </th>
             <th class="text-center">$ <?php echo $valor['salario']; ?></th>
-            <th class="text-center"><?php echo $valor['estado']; ?></th>
+            <th class="text-center">
+              <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
+            </th>
             <th class="grid grid text-center" colspan="2">
               <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/empleados/cambiarEstado') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
             </th>

@@ -27,7 +27,7 @@ class DepartamentosModel extends Model
 
     public function obtenerDepartamentos()
     {
-        $this->select('departamentos.*, paises.nombre as PNombre');
+        $this->select('departamentos.*, paises.nombre as PNombre, paises.estado as estadoPais');
         $this->join('paises', 'paises.id = departamentos.id_pais');
         $this->where('departamentos.estado', 'A');
         $this->orderBy('departamentos.nombre', 'ASC');
@@ -53,7 +53,7 @@ class DepartamentosModel extends Model
     }
     public function obtenerDptosEliminados()
     {
-        $this->select('departamentos.*, paises.nombre as PNombre');
+        $this->select('departamentos.*, paises.nombre as PNombre, paises.estado as estadoPais');
         $this->join('paises', 'paises.id = departamentos.id_pais');
         $this->where('departamentos.estado', 'E');
         $datos = $this->findAll();
@@ -62,6 +62,13 @@ class DepartamentosModel extends Model
     public function cambiar_Estado($id, $estado)
     {
         $datos = $this->update($id, ['estado' => $estado]);
+        return $datos;
+    }
+    public function validar_Nombre($nombre)
+    {
+        $this->select('departamentos. nombre');
+        $this->where('nombre', $nombre);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }
 }

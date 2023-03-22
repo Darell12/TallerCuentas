@@ -76,12 +76,13 @@ class Departamentos extends BaseController
             return redirect()->to(base_url('/departamentos/eliminados'));
         }
     }
-    public function Restaurar() //Restaurar pais cambiando el estado
+    public function validar_Nombre($nombre) 
     {
-        $this->departamentos->update($this->request->getPost('id'), [
-            'estado' => $this->request->getPost('estado')
-        ]);
-
-        return redirect()->to(base_url('/departamentos/eliminados'));
+        $returnData = array();
+        $departamentos = $this->departamentos->validar_Nombre($nombre);
+        if (!empty($departamentos)) {
+            array_push($returnData, $departamentos);
+        }
+        echo json_encode($returnData);   
     }
 }

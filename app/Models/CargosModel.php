@@ -52,4 +52,11 @@ class CargosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
+    public function validar_Nombre($nombre)
+    {
+        $this->select('cargos. nombre');
+        $this->where('nombre', $nombre);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
 }

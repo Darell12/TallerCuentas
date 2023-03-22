@@ -5,7 +5,7 @@
   <div>
     <button type="button" onclick="seleccionaPais(<?php echo 1 . ',' . 1 ?>);" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#PaisModal"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
     <a href="<?php echo base_url('/eliminados_paises'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn"><i class="bi bi-arrow-return-left"></i> Regresar</a>
+    <a href="<?php echo base_url('/principal'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
@@ -21,12 +21,14 @@
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">
-        <?php foreach ($datos as $x => $valor) { ?>
+        <?php foreach ($datos as $valor) { ?>
           <tr>
             <th class="text-center"><?php echo $valor['id']; ?></th>
-            <th class="text-center">+<?php echo $valor['codigo']; ?></th>
+            <th class="text-center">+0<?php echo $valor['codigo']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
-            <th class="text-center"><?php echo $valor['estado']; ?></th>
+            <th class="text-center">
+              <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>': 'Inactivo'; ?>
+            </th>
             <th class="grid grid text-center" colspan="2">
 
               <button class="btn btn-outline-primary" onclick="seleccionaPais(<?php echo $valor['id'] . ',' . 2 ?>);" data-bs-toggle="modal" data-bs-target="#PaisModal">
@@ -55,11 +57,20 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="nombre" class="col-form-label">Nombre:</label>
-              <input type="text" class="form-control" name="nombre" id="nombre" required>
+              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="20" placeholder="Colombia" required>
+              <div id="MensajeValidacionNombre">
+              <!-- MENSAJE DINAMICO -->
+              </div>
               <label for="codigo" class="col-form-label">Codigo:</label>
-              <input type="text" class="form-control" pattern="[0-9]{4}" name="codigo" id="codigo">
+              <input type="text" class="form-control" pattern="[0-9]{4}" name="codigo" id="codigo" maxlength="4" placeholder="057">
+              <div id="MensajeValidacionCodigo">
+
+              </div>
               <input type="text" id="tp" name="tp" hidden>
               <input type="text" id="id" name="id" hidden>
+              <input type="text" id="valido" name="id" hidden>
+              <input type="text" id="NombreValido" name="id" hidden>
+
             </div>
           </div>
           <div class="modal-footer">
@@ -102,18 +113,97 @@
   $('#formulario').on('submit', function(e) {
     nombre = $("#nombre").val();
     codigo = $("#codigo").val();
-    if ([nombre, codigo].includes('')) {
+    codigo_valido = $("#valido").val();
+    nombre_valido = $("#Nombrevalido").val();
+    if ([nombre, codigo, codigo_valido, nombre_valido].includes('')) {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
         icon: 'error',
-        title: 'Error campos incompletos',
-        text: 'Debe llenar todos los campos',
+        title: 'Error campos Invalidos',
+        text: 'Debe llenar todos los campos y cumplir con las condicones',
         showConfirmButton: false,
         timer: 1500
       })
     }
   })
+
+  // PRUEBA VALIDACION CODIGO INICIA
+
+  const codigoP = document.getElementById('codigo');
+  const CodigoVa = document.getElementById('valido');
+
+  codigoP.addEventListener("input", function() {
+    let valor = codigoP.value;
+    let cadena
+    if (!valor) {
+      cadena = ``
+      $('#MensajeValidacionCodigo').html(cadena);
+    } else {
+      $.ajax({
+        url: "<?php echo base_url('paises/validar_Codigo/'); ?>" + valor,
+        type: 'POST',
+        dataType: 'json',
+        success: function(res) {
+
+          if (res.length == 0) {
+            cadena = `
+            <span class="text-success" id="mensaje">Codigo Valido</span>
+                `
+            CodigoVa.setAttribute('value', "1")
+            $('#MensajeValidacionCodigo').html(cadena);
+          } else {
+            cadena = `
+                  <span class="text-danger" id="mensaje">Codigo Invalido</span>
+
+                `
+            CodigoVa.setAttribute('value', "")
+            $('#MensajeValidacionCodigo').html(cadena);
+          }
+        }
+      })
+    }
+  })
+
+  const NombreVa = document.getElementById('NombreValido');//Capturo el un input oculto para validar
+  const NombreP = document.getElementById('nombre');//Capturo el un input Nombre para validar
+
+  NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
+    let valor = NombreP.value; // tomo el valor del input de nombre
+    let cadena
+    if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
+      cadena = ``
+      $('#MensajeValidacionNombre').html(cadena);
+    } else {
+      $.ajax({
+        url: "<?php echo base_url('paises/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
+        type: 'POST',
+        dataType: 'json',
+        success: function(res) {
+
+          if (res.length == 0) {
+            cadena = `
+            <span class="text-success" id="mensaje">Nombre Valido</span>
+                `
+                NombreVa.setAttribute('value', "1")
+            $('#MensajeValidacionNombre').html(cadena);
+          } else {
+            cadena = `
+                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
+                `
+                NombreVa.setAttribute('value', "")
+            $('#MensajeValidacionNombre').html(cadena);
+          }
+        }
+      })
+    }
+  })
+
+
+
+
+  // PRUEBA VALIDACION CODIGO ACABA
+
 
   function seleccionaPais(id, tp) {
     if (tp == 2) {

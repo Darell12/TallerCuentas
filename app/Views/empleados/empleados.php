@@ -6,7 +6,7 @@
   <div>
     <button type="button" class="btn btn-outline-success" href="#" data-bs-toggle="modal" data-bs-target="#modalAgregar" onclick="seleccionarEmp(<?php echo 1 . ',' . 1 ?>);"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
     <a href="<?php echo base_url('/eliminados_empleados'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
-    <a href="<?php echo base_url('/principal'); ?>" class="btn btn-outline-primary regresar_Btn button"><i class="bi bi-arrow-return-left"></i> Regresar</a>
+    <a href="<?php echo base_url('/principal'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <div id="layoutSidenav_content">
@@ -37,12 +37,27 @@
               <th class="text-center"><?php echo $valor['nombres']; ?></th>
               <th class="text-center"><?php echo $valor['apellidos']; ?></th>
               <th class="text-center"><?php echo $valor['nacimiento']; ?></th>
-              <th class="text-center"><?php echo $valor['NMuni']; ?></th>
-              <th class="text-center"><?php echo $valor['dpto_nombre']; ?></th>
-              <th class="text-center"><?php echo $valor['pais_nombre']; ?></th>
-              <th class="text-center"><?php echo $valor['NCargo']; ?></th>
+              <th class="text-center">
+                <?php echo $valor['NMuni']; ?>
+                <?php echo $valor['estadoMuni'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+
+              </th>
+              <th class="text-center">
+                <?php echo $valor['dpto_nombre']; ?>
+                <?php echo $valor['estadoDpto'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
+              <th class="text-center">
+                <?php echo $valor['pais_nombre']; ?>
+                <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
+              <th class="text-center">
+                <?php echo $valor['NCargo']; ?>
+                <?php echo $valor['estadoCargo'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
               <th class="text-center">$ <?php echo $valor['salario']; ?></th>
-              <th class="text-center"><?php echo $valor['estado']; ?></th>
+              <th class="text-center">
+                <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
+              </th>
               <th class="grid grid text-center" colspan="2">
                 <button class="btn btn-outline-primary" onclick="seleccionarEmp(<?php echo $valor['id'] . ',' . 2 ?>);"><i class="bi bi-pencil"></i></button>
 
@@ -72,13 +87,16 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="idcliente" class="col-form-label">Nombres</label>
-                <input type="text" class="form-control" id="nombres" name="nombres" >
+                <input type="text" class="form-control" id="nombres" name="nombres">
+                <div id="MensajeValidacionNombre">
+                  <!-- MENSAJE DINAMICO -->
+                </div>
                 <label for="nombrecliente" class="col-form-label">Apellidos</label>
-                <input type="text" class="form-control" id="apellidos" name="apellidos" >
+                <input type="text" class="form-control" id="apellidos" name="apellidos">
                 <div class="mb-3">
                   <label for="periodo" class="col-form-label">Año de Nacimiento </label>
                   <div class="flex ">
-                    <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento" >
+                    <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento">
                       <option id="Seleccionado">-- Seleccionar Año --</option>
                       <?php $years = range(strftime("%Y", time()), 1940); ?>
                       <?php foreach ($years as $year) : ?>
@@ -88,7 +106,7 @@
                   </div>
                 </div>
                 <label for="nombre" class="col-form-label">Pais:</label>
-                <select name="pais" class="form-select form-select-lg mb-3" id="selectPais" >
+                <select name="pais" class="form-select form-select-lg mb-3" id="selectPais">
                   <option id="paisSeleccionado">-Seleccione un País-</option>
                   <?php foreach ($paises as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
@@ -99,15 +117,16 @@
                   <option id="departamentoSeleccionado">-Seleccione un Departamento</option>
 
                 </select>
+
                 <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
-                <select name="municipio" id="municipio" class="form-select form-select-lg mb-3" >
+                <select name="municipio" id="municipio" class="form-select form-select-lg mb-3">
                   <option id="MunicipioSeleccionado">-Seleccione un Municipio-</option>
                   <?php foreach ($municipios as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="municipio" id="municipio"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="cargo" class="col-form-label">Cargo</label>
-                <select name="cargo" id="cargo" class="form-select form-select-lg mb-3" >
+                <select name="cargo" id="cargo" class="form-select form-select-lg mb-3">
                   <option id="CargoSeleccionado">-Seleccione un Cargo-</option>
                   <?php foreach ($cargos as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="cargo" id="cargo"><?php echo $valor['nombre'] ?></option>
@@ -118,8 +137,7 @@
               <div class="mb-3">
                 <label for="message-text" class="col-form-label">Salario $:</label>
                 <div class="flex ">
-                  <input type="number" name="salario" class="form-control" id="salario" >
-
+                  <input type="number" name="salario" class="form-control" id="salario">
                 </div>
               </div>
               <div class="mb-3">
@@ -135,13 +153,14 @@
                   <input type="text" id="salario_id" name="salario_id" hidden>
                   <input type="text" id="tp" name="tp" hidden>
                   <input type="text" id="id" name="id" hidden>
+                  <input type="text" id="NombreValido" name="id" hidden>
 
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-primary">Guardar</button>
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>
@@ -219,6 +238,45 @@
         })
       }
     })
+
+    const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
+    const nombres = document.getElementById('nombres'); //Capturo el un input Nombre para validar
+
+    nombres.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
+      console.log('Se llamo a la funcion')
+      // validacion(nombres.value, 'nombres', 'Nombre');
+    })
+
+
+    function validacion(valor, columna, param) {
+
+      if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
+        cadena = ``
+        $('#MensajeValidacion' + param).html(cadena);
+      } else {
+        $.ajax({
+          url: "<?php echo base_url('empleados/validar_Nombre/'); ?>" + valor + '/' + columna, //Consulto a la base de datos si hay paises con el mismo 
+          type: 'POST',
+          dataType: 'json',
+          success: function(res) {
+
+            if (res.length == 0) {
+              cadena = `
+            <span class="text-success" id="mensaje">Campo Valido</span>
+                `
+              NombreVa.setAttribute('value', "1")
+              $('#MensajeValidacion' + param).html(cadena);
+            } else {
+              cadena = `
+                  <span class="text-danger" id="mensaje">Campo Invalido</span>
+                `
+              NombreVa.setAttribute('value', "")
+              $('#MensajeValidacion' + param).html(cadena);
+            }
+          }
+        })
+      }
+    }
 
     $('#departamento').on('change', () => {
       console.log("Inicio la funcion")

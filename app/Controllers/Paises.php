@@ -48,15 +48,6 @@ class Paises extends BaseController
         }
     }
 
-    public function Restaurar() //Restaurar pais cambiando el estado
-    {
-        $this->pais->update($this->request->getPost('id'), [
-            'estado' => $this->request->getPost('estado')
-        ]);
-
-        return redirect()->to(base_url('/paises/eliminados'));
-    }
-
     public function buscar_Pais($id) //Funcion para buscar un pais en especifico y devolverlo 
     {
         $returnData = array();
@@ -84,5 +75,24 @@ class Paises extends BaseController
             }
             return redirect()->to(base_url('/paises'));
         }
+    }
+    
+    public function validar_Codigo($codigo) 
+    {
+        $returnData = array();
+        $pais_ = $this->pais->validar_codigo($codigo);
+        if (!empty($pais_)) {
+            array_push($returnData, $pais_);
+        }
+        echo json_encode($returnData);   
+    }
+    public function validar_Nombre($nombre) 
+    {
+        $returnData = array();
+        $pais_ = $this->pais->validar_Nombre($nombre);
+        if (!empty($pais_)) {
+            array_push($returnData, $pais_);
+        }
+        echo json_encode($returnData);   
     }
 }
