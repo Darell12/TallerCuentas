@@ -1,0 +1,12 @@
+CRITICAL - 2023-03-23 15:33:44 --> Too few arguments to function App\Controllers\Municipios::validar_Nombre(), 1 passed in C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php on line 934 and exactly 2 expected
+in APPPATH\Controllers\Municipios.php on line 97.
+ 1 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->validar_Nombre('Cartagena')
+ 2 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 3 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-03-23 15:34:55 --> Too few arguments to function App\Controllers\Municipios::validar_Nombre(), 1 passed in C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php on line 934 and exactly 2 expected
+in APPPATH\Controllers\Municipios.php on line 97.
+ 1 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->validar_Nombre('Cartagenas')
+ 2 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 3 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

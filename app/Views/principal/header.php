@@ -42,10 +42,14 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active text-light" aria-current="page" href="<?php echo base_url() ?>">Inicio</a>
+          <a class="nav-link active text-light" aria-current="page" href="<?php echo base_url() ?>">
+            <i class="bi bi-house"></i>
+            Inicio
+          </a>
         </li>
         <li class="nav-item dropdown ">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-workspace"></i>
             Empleados
           </a>
           <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
@@ -53,10 +57,14 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="<?php echo base_url() ?>cargos" class="nav-link text-light">Cargos</a>
+          <a href="<?php echo base_url() ?>cargos" class="nav-link text-light">
+            <i class="bi bi-person-vcard-fill"></i>
+            Cargos
+          </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-globe-americas"></i>
             Ubicación
           </a>
           <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">

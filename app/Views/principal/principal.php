@@ -1,6 +1,6 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>/css/hero.css">
   <!-- ======= Hero Section ======= -->
-  <main>
+  <main class="bg-dark">
     <section id="hero" class="d-flex align-items-center">
 
       <div class="container">

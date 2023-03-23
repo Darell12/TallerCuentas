@@ -81,7 +81,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="limpiar()">Cerrar</button>
             <button type="submit" class="btn btn-outline-primary" id="btn_Guardar">Guardar</button>
           </div>
         </div>
@@ -141,21 +141,23 @@
 
   const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
   const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
-
+  const id = document.getElementById('id'); //Capturo el
   NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
     let valor = NombreP.value; // tomo el valor del input de nombre
     let cadena
+    console.log(id.value)
     if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
       cadena = ``
       $('#MensajeValidacionNombre').html(cadena);
     } else {
       $.ajax({
-        url: "<?php echo base_url('municipios/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
+        url: "<?php echo base_url('municipios/validar_Nombre/'); ?>" + valor + '/' + id.value, //Consulto a la base de datos si hay paises con el mismo 
         type: 'POST',
         dataType: 'json',
         success: function(res) {
-
-          if (res.length == 0) {
+          console.log(res)
+          if (res.length == 0 || res[1].nombre == res[0].nombre ) {
+            // console.log(res[1].nombre == res[0].nombre)
             cadena = `
             <span class="text-success" id="mensaje">Nombre Valido</span>
                 `
@@ -172,6 +174,78 @@
       })
     }
   })
+
+  // Ejemplo de valor de tp y valor del input
+  // const inputVal = "valor del input";
+  // const tp = document.getElementById('tp');
+  // NombreP.addEventListener('input', function() {
+  //   let valor = NombreP.value; // tomo el valor del input de nombre
+  //   let cadena
+  //   let tpv = tp.value;
+  //   console.log(tpv)
+  //   if (!valor) {
+  //     console.log('primer if')
+  //     cadena = ``
+  //     $('#MensajeValidacionNombre').html(cadena);
+  //   } else {
+  //     console.log('campo lleno')
+  //     if (tpv === 1) {
+  //       console.log('Tp 1 Funcion')
+  //       // Realizar consulta y verificar si la respuesta tiene un length igual a 0
+  //       $.ajax({
+  //         url: '<?php echo base_url('municipios/validar_Nombre/'); ?>' + valor,
+  //         type: 'POST',
+  //         dataType: 'json',
+  //         success: function(res) {
+  //           console.log(res)
+  //           if (res.length == 0) {
+  //             console.log('if res vacio')
+  //             cadena = `
+  //           <span class="text-success" id="mensaje">Nombre Valido</span>
+  //               `
+  //             NombreVa.setAttribute('value', "1")
+  //             $('#MensajeValidacionNombre').html(cadena);
+  //           } else {
+  //             cadena = `
+  //                 <span class="text-danger" id="mensaje">Nombre Invalido</span>
+  //               `
+  //             NombreVa.setAttribute('value', "")
+  //             $('#MensajeValidacionNombre').html(cadena);
+  //           }
+  //         }
+  //       })
+  //     } else {
+  //       console.log('Tp 2 Funcion')
+  //       // Realizar consulta y comparar valor del input con valor recibido en respuesta
+  //       $.ajax({
+  //         url: '<?php echo base_url('municipios/validar_Nombre/'); ?>' + valor,
+  //         type: 'POST',
+  //         dataType: 'json',
+  //         success: function(res) {
+  //           console.log(res)
+  //           if (valor === res[0].nombre) {
+  //             cadena = `
+  //           <span class="text-success" id="mensaje">Nombre Valido</span>
+  //               `
+  //             NombreVa.setAttribute('value', "1")
+  //             $('#MensajeValidacionNombre').html(cadena);
+  //           } else if (res.length > 0) {
+  //             console.log('else if')
+  //             cadena = `
+  //                 <span class="text-danger" id="mensaje">Nombre Invalido</span>
+  //               `
+  //             NombreVa.setAttribute('value', "")
+  //             $('#MensajeValidacionNombre').html(cadena);
+  //           }
+  //         }
+  //       })
+  //     }
+
+
+  //   }
+  // })
+
+
 
 
 
@@ -192,6 +266,18 @@
       })
     }
   })
+
+  function limpiar() {
+    console.log('limpio')
+    $("#nombre").val('');
+    $("#departamentoSeleccionado").val('');
+    $("#departamentoSeleccionado").text('');
+    $("#paisSeleccionado").val('');
+    $("#paisSeleccionado").text('-Seleccione un País-');
+    $("#btn_Guardar").text('Guardar');
+    $("#tituloModal").text('Agregar Nuevo Municipio');
+    $("#MuniModal").modal("show");
+  }
 
   function seleccionarMuni(id, tp) {
     if (tp == 2) {
@@ -218,7 +304,7 @@
     } else {
       console.log("Else")
       $("#tp").val(1);
-      $("#id").val('')
+      $("#id").val('0')
       $("#nombre").val('');
       $("#departamentoSeleccionado").val('');
       $("#departamentoSeleccionado").text('');

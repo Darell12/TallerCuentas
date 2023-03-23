@@ -238,3 +238,4 @@
     $("#modal-confirma").modal("hide");
   });
 </script>
+<script src="<?php echo base_url() ?>"></script>
