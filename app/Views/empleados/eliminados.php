@@ -1,4 +1,4 @@
-<div class="container card my-4">
+<div class="container">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
@@ -9,19 +9,19 @@
   <br>
   <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
     <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
-      <thead>
-        <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
-          <th>ID</th>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Nacimiento</th>
-          <th>Municipio</th>
-          <th>Departamento</th>
-          <th>País</th>
-          <th>Cargo</th>
-          <th>Salario</th>
-          <th>Estado</th>
-          <th colspan="2">Acciones</th>
+      <thead class="table-dark">
+        <tr>
+          <th class="text-center">ID</th>
+          <th class="text-center">Nombres</th>
+          <th class="text-center">Apellidos</th>
+          <th class="text-center">Nacimiento</th>
+          <th class="text-center">Municipio</th>
+          <th class="text-center">Departamento</th>
+          <th class="text-center">País</th>
+          <th class="text-center">Cargo</th>
+          <th class="text-center">Salario</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center" colspan="2">Acciones</th>
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">

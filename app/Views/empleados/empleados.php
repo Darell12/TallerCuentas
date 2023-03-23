@@ -1,4 +1,4 @@
-<div class="container card my-4">
+<div class="container">
   <div>
     <h1 class="titulo_vista text-center"><?php echo $titulo; ?></h1>
 
@@ -17,17 +17,17 @@
       <table class="table table-bordered table-sm table-hover" id="tableEmpleados" width="100%" cellspacing="0">
         <thead class="table-dark">
           <tr>
-            <th>ID</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Nacimiento</th>
-            <th>Municipio</th>
-            <th>Departamento</th>
-            <th>País</th>
-            <th>Cargo</th>
-            <th>Salario</th>
-            <th>Estado</th>
-            <th colspan="2">Acciones</th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Nombres</th>
+            <th class="text-center">Apellidos</th>
+            <th class="text-center">Nacimiento</th>
+            <th class="text-center">Municipio</th>
+            <th class="text-center">Departamento</th>
+            <th class="text-center">País</th>
+            <th class="text-center">Cargo</th>
+            <th class="text-center">Salario</th>
+            <th class="text-center">Estado</th>
+            <th class="text-center" colspan="2">Acciones</th>
           </tr>
         </thead>
         <tbody style="font-family:Arial;font-size:12px;">
@@ -78,7 +78,7 @@
 
     <!--   Modal agregar   --->
     <form method="POST" action="<?php echo base_url(); ?>/empleados/insertar" autocomplete="off" id="formulario">
-      <div class="modal" tabindex="-1" role="dialog" id="modalAgregar">
+      <div class="modal fade" tabindex="-1" role="dialog" id="modalAgregar" data-bs-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -86,47 +86,47 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <label for="idcliente" class="col-form-label">Nombres</label>
+                <label for="idcliente" class="col-form-label" >Nombres</label>
                 <input type="text" class="form-control" id="nombres" name="nombres">
                 <div id="MensajeValidacionNombre">
                   <!-- MENSAJE DINAMICO -->
                 </div>
                 <label for="nombrecliente" class="col-form-label">Apellidos</label>
                 <input type="text" class="form-control" id="apellidos" name="apellidos">
-                <div class="mb-3">
-                  <label for="periodo" class="col-form-label">Año de Nacimiento </label>
-                  <div class="flex ">
-                    <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento">
-                      <option id="Seleccionado">-- Seleccionar Año --</option>
-                      <?php $years = range(strftime("%Y", time()), 1940); ?>
-                      <?php foreach ($years as $year) : ?>
-                        <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
+
+                <label for="periodo" class="col-form-label">Año de Nacimiento </label>
+                <div class="flex ">
+                  <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento">
+                    <option id="Seleccionado">-- Seleccionar Año --</option>
+                    <?php $years = range(strftime("%Y", time()), 1940); ?>
+                    <?php foreach ($years as $year) : ?>
+                      <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+                    <?php endforeach; ?>
+                  </select>
                 </div>
+
                 <label for="nombre" class="col-form-label">Pais:</label>
-                <select name="pais" class="form-select form-select-lg mb-3" id="selectPais">
+                <select name="pais" class="form-select form-select" id="selectPais">
                   <option id="paisSeleccionado">-Seleccione un País-</option>
                   <?php foreach ($paises as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="nombre" class="col-form-label">Departamento:</label>
-                <select name="departamento" id="departamento" class="form-select form-select-lg mb-3">
+                <select name="departamento" id="departamento" class="form-select form-select">
                   <option id="departamentoSeleccionado">-Seleccione un Departamento</option>
 
                 </select>
 
                 <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
-                <select name="municipio" id="municipio" class="form-select form-select-lg mb-3">
+                <select name="municipio" id="municipio" class="form-select form-select ">
                   <option id="MunicipioSeleccionado">-Seleccione un Municipio-</option>
                   <?php foreach ($municipios as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="municipio" id="municipio"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="cargo" class="col-form-label">Cargo</label>
-                <select name="cargo" id="cargo" class="form-select form-select-lg mb-3">
+                <select name="cargo" id="cargo" class="form-select form-select">
                   <option id="CargoSeleccionado">-Seleccione un Cargo-</option>
                   <?php foreach ($cargos as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="cargo" id="cargo"><?php echo $valor['nombre'] ?></option>
@@ -180,8 +180,8 @@
           <p>Seguro Desea Eliminar éste Registro?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary close" data-dismiss="modal">No</button>
-          <a class="btn btn-danger btn-ok">Si</a>
+          <button type="button" class="btn btn-outline-primary close" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-outline-danger btn-ok">Aceptar</a>
         </div>
       </div>
     </div>
@@ -194,6 +194,15 @@
   $('#modal-confirma').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
+
+  // DEFINICION DE VARIABLES CAJAS DE MSG DE VALIDACION
+  const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
+
+  // DEFINICION DE VARIABLES INPUTS
+  const nombres = document.getElementById('nombres'); //Capturo el un input Nombre para validar
+
+
+
 
   $(document).ready(function() {
     //Cambio del select paises
@@ -239,23 +248,21 @@
       }
     })
 
-    const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
-    const nombres = document.getElementById('nombres'); //Capturo el un input Nombre para validar
 
     nombres.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
       console.log('Se llamo a la funcion')
-      // validacion(nombres.value, 'nombres', 'Nombre');
+      validacion(nombres.value, 'nombres', 'Nombre', NombreVa);
     })
 
 
-    function validacion(valor, columna, param) {
+    function validacion(valor, columna, param, caja) {
 
       if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
         cadena = ``
         $('#MensajeValidacion' + param).html(cadena);
       } else {
         $.ajax({
-          url: "<?php echo base_url('empleados/validar_Nombre/'); ?>" + valor + '/' + columna, //Consulto a la base de datos si hay paises con el mismo 
+          url: "<?php echo base_url('empleados/validar/'); ?>" + valor + '/' + columna, //Consulto a la base de datos si hay paises con el mismo 
           type: 'POST',
           dataType: 'json',
           success: function(res) {
@@ -264,13 +271,13 @@
               cadena = `
             <span class="text-success" id="mensaje">Campo Valido</span>
                 `
-              NombreVa.setAttribute('value', "1")
+              caja.setAttribute('value', "1")
               $('#MensajeValidacion' + param).html(cadena);
             } else {
               cadena = `
                   <span class="text-danger" id="mensaje">Campo Invalido</span>
                 `
-              NombreVa.setAttribute('value', "")
+              caja.setAttribute('value', "")
               $('#MensajeValidacion' + param).html(cadena);
             }
           }
@@ -348,7 +355,7 @@
       $("#salario_id").val("");
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo País');
-      $("#PaisModal").modal("show");
+      $("#modalAgregar").modal("show");
     }
   };
 

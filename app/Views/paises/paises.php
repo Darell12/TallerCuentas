@@ -1,4 +1,4 @@
-<div class="container card my-4">
+<div class="container ">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
@@ -11,13 +11,13 @@
   <br>
   <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
     <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
-      <thead>
-        <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
-          <th>Id</th>
-          <th><abbr title="Codigo Telefonico">Codigo</abbr></th>
-          <th>Nombre</th>
-          <th>Estado</th>
-          <th colspan="2">Acciones</th>
+      <thead class="table-dark">
+        <tr>
+          <th class="text-center">Id</th>
+          <th class="text-center"><abbr title="Codigo Telefonico">Codigo</abbr></th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center" colspan="2">Acciones</th>
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">
@@ -27,7 +27,7 @@
             <th class="text-center">+0<?php echo $valor['codigo']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
             <th class="text-center">
-              <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>': 'Inactivo'; ?>
+              <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
             </th>
             <th class="grid grid text-center" colspan="2">
 
@@ -59,7 +59,7 @@
               <label for="nombre" class="col-form-label">Nombre:</label>
               <input type="text" class="form-control" name="nombre" id="nombre" maxlength="20" placeholder="Colombia" required>
               <div id="MensajeValidacionNombre">
-              <!-- MENSAJE DINAMICO -->
+                <!-- MENSAJE DINAMICO -->
               </div>
               <label for="codigo" class="col-form-label">Codigo:</label>
               <input type="text" class="form-control" pattern="[0-9]{4}" name="codigo" id="codigo" maxlength="4" placeholder="057">
@@ -165,8 +165,8 @@
     }
   })
 
-  const NombreVa = document.getElementById('NombreValido');//Capturo el un input oculto para validar
-  const NombreP = document.getElementById('nombre');//Capturo el un input Nombre para validar
+  const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
+  const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
 
   NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
     let valor = NombreP.value; // tomo el valor del input de nombre
@@ -185,13 +185,13 @@
             cadena = `
             <span class="text-success" id="mensaje">Nombre Valido</span>
                 `
-                NombreVa.setAttribute('value', "1")
+            NombreVa.setAttribute('value', "1")
             $('#MensajeValidacionNombre').html(cadena);
           } else {
             cadena = `
                   <span class="text-danger" id="mensaje">Nombre Invalido</span>
                 `
-                NombreVa.setAttribute('value', "")
+            NombreVa.setAttribute('value', "")
             $('#MensajeValidacionNombre').html(cadena);
           }
         }

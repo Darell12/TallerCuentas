@@ -3,7 +3,7 @@
 
 <head>
   <title>Cuentas Claras</title>
-  <link rel="icon"href="<?php echo base_url() ?>/img/cuentasclaras.png" />
+  <link rel="icon" href="<?php echo base_url() ?>/img/cuentasclaras.png" />
   <meta charset="utf-8" />
   <link rel="stylesheet" href="<?php echo base_url() ?>/css/header.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>/bootstrap/bootstrap.min.css"> <!-- Bootstrap 5 hoja de estilos -->
@@ -49,7 +49,7 @@
             Empleados
           </a>
           <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
-            <li class="animate slideIn"><a class="dropdown-item" href="<?php echo base_url() ?>empleados">Administrar</a></li>
+            <li class="animate slideIn "><a class="dropdown-item text-dark" href="<?php echo base_url() ?>empleados">Administrar</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -60,9 +60,9 @@
             Ubicación
           </a>
           <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="<?php echo base_url() ?>paises">Pais</a></li>
-            <li><a class="dropdown-item" href="<?php echo base_url() ?>departamentos">Departamentos</a></li>
-            <li><a class="dropdown-item" href="<?php echo base_url() ?>municipios">Municipios</a></li>
+            <li><a class="dropdown-item text-dark" href="<?php echo base_url() ?>paises">Pais</a></li>
+            <li><a class="dropdown-item text-dark" href="<?php echo base_url() ?>departamentos">Departamentos</a></li>
+            <li><a class="dropdown-item text-dark" href="<?php echo base_url() ?>municipios">Municipios</a></li>
           </ul>
         </li>
       </ul>

@@ -38,14 +38,6 @@ class EmpleadosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
-    // public function obtenerEmpleadoId($id)
-    // {
-    //     $this->select('empleados.*');
-    //     $this->where('id', $id);
-    //     $this->where('empleados.estado', 'A');
-    //     $datos = $this->first();
-    //     return $datos;
-    // }
     public function obtenerUltimo()
     {
         $id = $this->getInsertID();

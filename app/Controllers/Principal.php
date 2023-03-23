@@ -16,6 +16,6 @@ class Principal extends BaseController
         echo view('/principal/header', $data);
 
 
-        //echo view('/principal/principal',$data); //mostramos la vista desde el controlador y le enviamos la data necesaria, en este caso, estamos enviando el titulo
+        echo view('/principal/principal'); //mostramos la vista desde el controlador y le enviamos la data necesaria, en este caso, estamos enviando el titulo
     }
 }

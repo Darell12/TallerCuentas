@@ -1,4 +1,4 @@
-<div class="container card my-4">
+<div class="container">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
@@ -11,14 +11,14 @@
   <br>
   <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
     <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
-      <thead>
-        <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>Departamento</th>
-          <th>País</th>
-          <th>Estado</th>
-          <th colspan="2">Acciones</th>
+      <thead class="table-dark">
+        <tr>
+          <th class="text-center">Id</th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">Departamento</th>
+          <th class="text-center">País</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center" colspan="2">Acciones</th>
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;">
@@ -73,7 +73,7 @@
               <label for="nombre" class="col-form-label">Nombre:</label>
               <input type="text" class="form-control" name="nombre" id="nombre" required>
               <div id="MensajeValidacionNombre">
-              <!-- MENSAJE DINAMICO -->
+                <!-- MENSAJE DINAMICO -->
               </div>
               <input type="text" id="tp" name="tp" hidden>
               <input type="text" id="id" name="id" hidden>

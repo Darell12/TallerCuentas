@@ -1,21 +1,21 @@
-<div class="container card my-4">
+<div class="container">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/departamentos'); ?>" ><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
+    <a href="<?php echo base_url('/departamentos'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
   <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
     <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
-      <thead>
-        <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>Pais</th>
-          <th>Estado</th>
-          <th colspan="2">Acciones</th>
+      <thead class="table-dark">
+        <tr>
+          <th class="text-center">Id</th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">Pais</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center" colspan="2">Acciones</th>
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">
@@ -24,11 +24,11 @@
             <th class="text-center"><?php echo $valor['id']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
             <th class="text-center">
-            <?php echo $valor['PNombre']; ?>
-            <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              <?php echo $valor['PNombre']; ?>
+              <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
             </th>
             <th class="text-center">
-            <?php echo $valor['estado'] = 'E' ? '<span class="text-danger"> Inactivo </span>' : '<span class="text-succes"> Inactivo </span>'; ?>
+              <?php echo $valor['estado'] = 'E' ? '<span class="text-danger"> Inactivo </span>' : '<span class="text-succes"> Inactivo </span>'; ?>
 
             </th>
             <th class="grid grid text-center" colspan="2">

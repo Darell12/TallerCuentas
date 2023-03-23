@@ -127,13 +127,13 @@ class Empleados extends BaseController
             return redirect()->to(base_url('/empleados/eliminados'));
         }
     }
-    public function validar_Nombre($campo, $columna) 
+    public function validar($campo, $columna)
     {
         $returnData = array();
         $response = $this->empleados->validar_Campo($campo, $columna);
         if (!empty($response)) {
             array_push($returnData, $response);
         }
-        echo json_encode($returnData);   
+        echo json_encode($returnData);
     }
 }

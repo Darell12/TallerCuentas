@@ -1,4 +1,4 @@
-<div class="container card my-4">
+<div class="container">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
@@ -11,10 +11,10 @@
     <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
       <thead>
         <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>Estado</th>
-          <th colspan="2">Acciones</th>
+          <th class="text-center">Id</th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center" colspan="2">Acciones</th>
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">

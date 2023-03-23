@@ -1,4 +1,4 @@
-<div class="container card my-4">
+<div class="container">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
 
@@ -12,13 +12,13 @@
   <br>
   <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
     <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
-      <thead>
-        <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
-          <th>Id</th>
-          <th>Nombre</th>
-          <th>País</th>
-          <th>Estado</th>
-          <th colspan="2">Acciones</th>
+      <thead class="table-dark">
+        <tr>
+          <th class="text-center">Id</th>
+          <th class="text-center">Nombre</th>
+          <th class="text-center">País</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center" colspan="2">Acciones</th>
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;">
@@ -27,11 +27,11 @@
             <th class="text-center"><?php echo $valor['id']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
             <th class="text-center">
-            <?php echo $valor['PNombre']; ?>
-            <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              <?php echo $valor['PNombre']; ?>
+              <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
             </th>
             <th class="text-center">
-            <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>': 'Inactivo'; ?>
+              <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
             </th>
             <th class="grid grid text-center" colspan="2">
               <button class="btn btn-outline-primary" onclick="seleccionaDpto(<?php echo $valor['id'] . ',' . 2 ?>);" data-bs-toggle="modal" data-bs-target="#DptoModal">
@@ -67,11 +67,11 @@
               <label for="nombre" class="col-form-label">Nombre:</label>
               <input type="text" class="form-control" name="nombre" id="nombre" required>
               <div id="MensajeValidacionNombre">
-              <!-- MENSAJE DINAMICO -->
+                <!-- MENSAJE DINAMICO -->
               </div>
-              <input type="text" class="form-control" name="id" id="id" >
-              <input type="text" class="form-control" name="tp" id="tp" >
-              <input type="text" id="NombreValido" name="id" >
+              <input type="text" class="form-control" name="id" id="id">
+              <input type="text" class="form-control" name="tp" id="tp">
+              <input type="text" id="NombreValido" name="id">
             </div>
 
           </div>
@@ -128,8 +128,8 @@
     }
   })
 
-  const NombreVa = document.getElementById('NombreValido');//Capturo el un input oculto para validar
-  const NombreP = document.getElementById('nombre');//Capturo el un input Nombre para validar
+  const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
+  const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
 
   NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
     let valor = NombreP.value; // tomo el valor del input de nombre
@@ -148,13 +148,13 @@
             cadena = `
             <span class="text-success" id="mensaje">Nombre Valido</span>
                 `
-                NombreVa.setAttribute('value', "1")
+            NombreVa.setAttribute('value', "1")
             $('#MensajeValidacionNombre').html(cadena);
           } else {
             cadena = `
                   <span class="text-danger" id="mensaje">Nombre Invalido</span>
                 `
-                NombreVa.setAttribute('value', "")
+            NombreVa.setAttribute('value', "")
             $('#MensajeValidacionNombre').html(cadena);
           }
         }
