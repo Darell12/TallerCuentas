@@ -107,20 +107,20 @@
 
                 <label for="nombre" class="col-form-label">Pais:</label>
                 <select name="pais" class="form-select form-select" id="selectPais">
-                  <option id="paisSeleccionado">-Seleccione un País-</option>
+                  <option value="">-Seleccione un País-</option>
                   <?php foreach ($paises as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="nombre" class="col-form-label">Departamento:</label>
                 <select name="departamento" id="departamento" class="form-select form-select">
-                  <option id="departamentoSeleccionado">-Seleccione un Departamento</option>
+                  <option value="">-Seleccione un Departamento</option>
 
                 </select>
 
                 <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
                 <select name="municipio" id="municipio" class="form-select form-select ">
-                  <option id="MunicipioSeleccionado">-Seleccione un Municipio-</option>
+                  <option value="">-Seleccione un Municipio-</option>
                   <?php foreach ($municipios as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="municipio" id="municipio"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
@@ -201,30 +201,62 @@
   // DEFINICION DE VARIABLES INPUTS
   const nombres = document.getElementById('nombres'); //Capturo el un input Nombre para validar
 
+  $('#selectPais').on('change', () => {
+    pais = $('#selectPais').val();
+    obtenerDepartamentos(pais)
+    console.log('esto')
+  })
 
-
-
-  $(document).ready(function() {
-    //Cambio del select paises
-    $('#selectPais').on('change', () => {
-      console.log("Inicio la funcion")
-      pais = $('#selectPais').val()
-      $.ajax({
-        url: "<?php echo base_url('municipios/obtenerDepartamentosPais/'); ?>" + pais,
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
-          console.log(res)
-          var cadena
-          cadena = `<option selected> ---Seleccionar Departamento---</option>`
-          for (let i = 0; i < res.length; i++) {
-            cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
-          }
-          cadena += `</select>`
-          $('#departamento').html(cadena)
+  function obtenerDepartamentos(pais, id_dpto, id_municipio) {
+    $.ajax({
+      url: "<?php echo base_url('municipios/obtenerDepartamentosPais/'); ?>" + pais,
+      type: 'POST',
+      dataType: 'json',
+      success: function(res) {
+        $('#departamento').empty();
+        console.log(res)
+        var cadena
+        cadena = `<select name="departamento" id="departamento" class="form-select">
+                               <option selected value="">Seleccionar Departamento</option>`
+        for (let i = 0; i < res.length; i++) {
+          cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
         }
-      })
+        cadena += `</select>`
+        $('#departamento').html(cadena)
+        $('#departamento').val(id_dpto)
+        obtenerMunicipios(id_dpto, id_municipio)
+      }
     })
+  }
+
+  
+  function obtenerMunicipios(id_dpto, id_municipio) {
+    $('#departamento').on('change', () => {
+      departamento = $('#departamento').val();
+      obtenerDepartamentos(departamento)
+      console.log('esto')
+    })
+    $.ajax({
+      url: "<?php echo base_url('municipios/obtenerMuniDpto/'); ?>" + id_dpto,
+      type: 'POST',
+      dataType: 'json',
+      success: function(res) {
+        $('#municipio').empty();
+        console.log(res)
+        var cadena
+        cadena = `<select name="municipio" id="municipio" class="form-select">
+                               <option selected value="">Seleccionar Municipio</option>`
+        for (let i = 0; i < res.length; i++) {
+          cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
+        }
+        cadena += `</select>`
+        $('#municipio').html(cadena)
+        $('#municipio').val(id_municipio)
+      }
+    })
+  }
+
+
 
     $('#formulario').on('submit', function(e) {
       nombres = $("#nombres").val();
@@ -235,6 +267,7 @@
       municipio = $('#MunicipioSeleccionado').val();
       cargo = $('#cargo').val();
       periodo = $('#periodo').val();
+      // TODO METER SALARIOS
       if ([nombres, apellidos, nacimiento, pais, departamento, municipio, cargo, periodo].includes('')) {
         e.preventDefault()
         return swal.fire({
@@ -285,26 +318,26 @@
       }
     }
 
-    $('#departamento').on('change', () => {
-      console.log("Inicio la funcion")
-      dpto = $('#departamento').val()
-      $.ajax({
-        url: "<?php echo base_url('municipios/obtenerMuniDpto/'); ?>" + dpto,
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
-          console.log(res)
-          var cadena
-          cadena = `<option selected> ---Seleccionar Municipio---</option>`
-          for (let i = 0; i < res.length; i++) {
-            cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
-          }
-          cadena += `</select>`
-          $('#municipio').html(cadena)
-        }
-      })
-    })
-  })
+    // $('#departamento').on('change', () => {
+    //   console.log("Inicio la funcion")
+    //   dpto = $('#departamento').val()
+    //   $.ajax({
+    //     url: "<?php echo base_url('municipios/obtenerMuniDpto/'); ?>" + dpto,
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     success: function(res) {
+    //       console.log(res)
+    //       var cadena
+    //       cadena = `<option selected> ---Seleccionar Municipio---</option>`
+    //       for (let i = 0; i < res.length; i++) {
+    //         cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
+    //       }
+    //       cadena += `</select>`
+    //       $('#municipio').html(cadena)
+    //     }
+    //   })
+    // })
+  
 
   function seleccionarEmp(id, tp) {
     if (tp == 2) {
@@ -320,8 +353,7 @@
           $("#codigo").val(rs[0]['codigo']);
           $("#nombres").val(rs[0]['nombres']);
           $("#apellidos").val(rs[0]['apellidos']);
-          $("#MunicipioSeleccionado").val(rs[0]['id_municipio']);
-          $("#MunicipioSeleccionado").text(rs[0]['NMuni']);
+
           $("#Seleccionado").text(rs[0]['nacimiento']);
           $("#Seleccionado").val(rs[0]['nacimiento']);
           $("#CargoSeleccionado").val(rs[0]['id_cargo']);
@@ -330,11 +362,11 @@
           $("#PeriodoSeleccionado").text(rs[0]['periodo']);
           $("#PeriodoSeleccionado").text(rs[0]['periodo']);
           $("#salario_id").val(rs[0]['salario_id']);
-          $("#departamentoSeleccionado").val(rs[0]['dpto_id']);
-          $("#departamentoSeleccionado").text(rs[0]['dpto_nombre']);
-          $("#paisSeleccionado").val(rs[0]['pais_id']);
-          $("#paisSeleccionado").text(rs[0]['pais_nombre']);
-
+          $("#selectPais").val(rs[0]['pais_id']);
+          $("#departamento").val(rs[0]['dpto_id']);
+          $("#municipio").val(rs[0]['id_municipio']);
+          obtenerDepartamentos(rs[0]['pais_id'])
+          
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el país ' + rs[0]['nombre']);
           $("#modalAgregar").modal("show");

@@ -43,7 +43,7 @@ class PaisesModel extends Model
     {
         $this->select('paises.*');
         $this->where('id', $id);
-        $this->where('estado', 'A');
+
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

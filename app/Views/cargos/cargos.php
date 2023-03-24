@@ -117,7 +117,7 @@
   $('#formulario').on('submit', function(e) {
     nombre = $("#nombre").val();
     nombre_valido = $("#NombreValido").val();
-    if ([nombre, nombre_valido].includes('')) {
+    if (nombre == "" || nombre_valido == "") {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',

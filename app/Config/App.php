@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'http://localhost/TallerCuentas/public/';//Url En casa
+    public string $baseURL = 'http://localhost/TallerCuentas/public/'; //Url En casa
     // public string $baseURL = 'http://localhost/miproyecto/public/';//URL en SENA
 
     /**

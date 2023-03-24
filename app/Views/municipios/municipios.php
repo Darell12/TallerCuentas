@@ -60,7 +60,7 @@
             <div class="mb-3">
               <label for="nombre" class="col-form-label">Pais:</label>
               <select name="pais" class="form-select form-select-lg mb-3" id="selectPais">
-                <option id="paisSeleccionado">-Seleccione un País-</option>
+                <option value="">-Seleccione un País-</option>
                 <?php foreach ($paises as $x => $valor) { ?>
                   <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
                 <?php } ?>
@@ -116,185 +116,34 @@
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
 
-  $(document).ready(function() {
-    //Cambio del select paises
-    $('#selectPais').on('change', () => {
-      console.log("Inicio la funcion")
-      pais = $('#selectPais').val()
-      $.ajax({
-        url: "<?php echo base_url('municipios/obtenerDepartamentosPais/'); ?>" + pais,
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
-          console.log(res)
-          var cadena
-          cadena = `<option selected> ---Seleccionar Departamento---</option>`
-          for (let i = 0; i < res.length; i++) {
-            cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
-          }
-          cadena += `</select>`
-          $('#departamento').html(cadena)
+  $('#selectPais').on('change', () => {
+    pais = $('#selectPais').val();
+    obtenerDepartamentos(pais)
+    console.log('esto')
+  })
+
+  function obtenerDepartamentos(pais, id_dpto) {
+    $.ajax({
+      url: "<?php echo base_url('municipios/obtenerDepartamentosPais/'); ?>" + pais,
+      type: 'POST',
+      dataType: 'json',
+      success: function(res) {
+        $('#departamento').empty();
+        console.log(res)
+        var cadena
+        cadena = `<select name="departamento" id="departamento" class="form-select">
+                               <option selected value="">Seleccionar Departamento</option>`
+        for (let i = 0; i < res.length; i++) {
+          cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
         }
-      })
+        cadena += `</select>`
+        $('#departamento').html(cadena)
+        $('#departamento').val(id_dpto)
+      }
     })
-  })
+  }
 
-  const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
-  const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
-  const id = document.getElementById('id'); //Capturo el
-  NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
-    let valor = NombreP.value; // tomo el valor del input de nombre
-    let cadena
-    console.log(id.value)
-    if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
-      cadena = ``
-      $('#MensajeValidacionNombre').html(cadena);
-    } else {
-      $.ajax({
-        url: "<?php echo base_url('municipios/validar_Nombre/'); ?>" + valor + '/' + id.value, //Consulto a la base de datos si hay paises con el mismo 
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
-
-          switch (res.length) {
-            case 0:
-              console.log("Respuesta Vacia");
-              cadena = `
-            <span class="text-success" id="mensaje">Nombre Valido</span>
-                `
-              NombreVa.setAttribute('value', "1")
-              $('#MensajeValidacionNombre').html(cadena);
-              break;
-            case 1:
-              console.log("Respuesta: Coincidencia en el campo");
-              cadena = `
-                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
-                `
-              NombreVa.setAttribute('value', "")
-              $('#MensajeValidacionNombre').html(cadena);
-              break;
-            case 2:
-              console.log("Respuesta: Coincidencia en el campo edit");
-              if (res[1].nombre == res[0].nombre) {
-                console.log('Nombres iguales con el campo edit')
-                cadena = `
-            <span class="text-success" id="mensaje">Nombre Valido</span>
-                `
-                NombreVa.setAttribute('value', "1")
-                $('#MensajeValidacionNombre').html(cadena);
-              } else if (res[0].nombre == valor) {
-                console.log('Nombre Ya existente en la bd')
-                cadena = `
-                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
-                `
-                NombreVa.setAttribute('value', "")
-                $('#MensajeValidacionNombre').html(cadena);
-              }
-              break;
-            default:
-              console.log("Ningún caso coincide");
-          }
-
-          console.log(res)
-        }
-      })
-    }
-  })
-
-
-
-  // Ejemplo de valor de tp y valor del input
-  // const inputVal = "valor del input";
-  // const tp = document.getElementById('tp');
-  // NombreP.addEventListener('input', function() {
-  //   let valor = NombreP.value; // tomo el valor del input de nombre
-  //   let cadena
-  //   let tpv = tp.value;
-  //   console.log(tpv)
-  //   if (!valor) {
-  //     console.log('primer if')
-  //     cadena = ``
-  //     $('#MensajeValidacionNombre').html(cadena);
-  //   } else {
-  //     console.log('campo lleno')
-  //     if (tpv === 1) {
-  //       console.log('Tp 1 Funcion')
-  //       // Realizar consulta y verificar si la respuesta tiene un length igual a 0
-  //       $.ajax({
-  //         url: '<?php echo base_url('municipios/validar_Nombre/'); ?>' + valor,
-  //         type: 'POST',
-  //         dataType: 'json',
-  //         success: function(res) {
-  //           console.log(res)
-  //           if (res.length == 0) {
-  //             console.log('if res vacio')
-  //             cadena = `
-  //           <span class="text-success" id="mensaje">Nombre Valido</span>
-  //               `
-  //             NombreVa.setAttribute('value', "1")
-  //             $('#MensajeValidacionNombre').html(cadena);
-  //           } else {
-  //             cadena = `
-  //                 <span class="text-danger" id="mensaje">Nombre Invalido</span>
-  //               `
-  //             NombreVa.setAttribute('value', "")
-  //             $('#MensajeValidacionNombre').html(cadena);
-  //           }
-  //         }
-  //       })
-  //     } else {
-  //       console.log('Tp 2 Funcion')
-  //       // Realizar consulta y comparar valor del input con valor recibido en respuesta
-  //       $.ajax({
-  //         url: '<?php echo base_url('municipios/validar_Nombre/'); ?>' + valor,
-  //         type: 'POST',
-  //         dataType: 'json',
-  //         success: function(res) {
-  //           console.log(res)
-  //           if (valor === res[0].nombre) {
-  //             cadena = `
-  //           <span class="text-success" id="mensaje">Nombre Valido</span>
-  //               `
-  //             NombreVa.setAttribute('value', "1")
-  //             $('#MensajeValidacionNombre').html(cadena);
-  //           } else if (res.length > 0) {
-  //             console.log('else if')
-  //             cadena = `
-  //                 <span class="text-danger" id="mensaje">Nombre Invalido</span>
-  //               `
-  //             NombreVa.setAttribute('value', "")
-  //             $('#MensajeValidacionNombre').html(cadena);
-  //           }
-  //         }
-  //       })
-  //     }
-
-
-  //   }
-  // })
-
-
-
-
-
-  $('#formulario').on('submit', function(e) {
-    pais = $("#selectPais").val();
-    dpto = $("#departamento").val();
-    nombre = $("#nombre").val();
-    nombre_valido = $("#NombreValido").val();
-    if ([nombre, dpto, pais, nombre_valido].includes('')) {
-      e.preventDefault()
-      return swal.fire({
-        postition: 'top-end',
-        icon: 'error',
-        title: 'Error campos Invalidos',
-        text: 'Debe llenar todos los campos y cumplir con las condiciones',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }
-  })
-
+  
   function limpiar() {
     console.log('limpio')
     $("#nombre").val('');
@@ -319,11 +168,8 @@
           $("#tp").val(2);
           $("#id").val(id)
           $("#nombre").val(rs[0]['nombre']);
-          $("#departamentoSeleccionado").val(rs[0]['id_dpto']);
-          $("#departamentoSeleccionado").text(rs[0]['Departamento']);
-          $("#paisSeleccionado").val(rs[0]['pais_id']);
-          $("#paisSeleccionado").text(rs[0]['PNombre']);
-
+          $("#selectPais").val(rs[0]['id_pais']);          
+          obtenerDepartamentos(rs[0]['id_pais'], rs[0]['id_dpto']);
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el Municipio ' + rs[0]['nombre']);
           $("#MuniModal").modal("show");
@@ -336,13 +182,30 @@
       $("#nombre").val('');
       $("#departamentoSeleccionado").val('');
       $("#departamentoSeleccionado").text('');
-      $("#paisSeleccionado").val('');
-      $("#paisSeleccionado").text('-Seleccione un País-');
+      $("#selectPais").val('');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo Municipio');
       $("#MuniModal").modal("show");
     }
   };
+
+  $('#formulario').on('submit', function(e) {
+    pais = $("#selectPais").val();
+    dpto = $("#departamento").val();
+    nombre = $("#nombre").val();
+    nombre_valido = $("#NombreValido").val();
+    if ([nombre, dpto, pais, nombre_valido].includes('')) {
+      e.preventDefault()
+      return swal.fire({
+        postition: 'top-end',
+        icon: 'error',
+        title: 'Error campos Invalidos',
+        text: 'Debe llenar todos los campos y cumplir con las condiciones',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  })
 
   $('.close').click(function() {
     $("#modal-confirma").modal("hide");

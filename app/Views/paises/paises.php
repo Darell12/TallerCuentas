@@ -66,10 +66,10 @@
               <div id="MensajeValidacionCodigo">
 
               </div>
-              <input type="text" id="tp" name="tp" hidden>
-              <input type="text" id="id" name="id" hidden>
-              <input type="text" id="NombreValido" name="id" hidden>
-              <input type="text" id="CodigoValido" name="id" hidden>
+              <input type="text" id="tp" name="tp" >
+              <input type="text" id="id" name="id" >
+              <input type="text" id="NombreValido">
+              <input type="text" id="CodigoValido" >
 
             </div>
           </div>
@@ -106,21 +106,23 @@
 
 
 <script>
-  //DECLACION DE VARIABLES
+  // !DECLACION DE VARIABLES
   const inputNombre = document.getElementById('nombre')
   const inputCodigo = document.getElementById('codigo')
   const NombreValido = document.getElementById('NombreValido');
   const CodigoVaido = document.getElementById('CodigoValido');
   const tpv = document.getElementById('tp')
-  const id_registro = document.getElementById('id');
-
+  let id_registro = document.getElementById('id');
+  
   //VAlIDACION NOMBRE
   inputNombre.addEventListener("input", function() {
+
     if (tpv.value == 1) {
       respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'paises', '0');
     } else {
       respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'paises', id_registro.value);
     }
+
   })
 
   inputCodigo.addEventListener('input', function() {
@@ -136,11 +138,12 @@
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
 
+  
   $('#formulario').on('submit', function(e) {
     nombre = $("#nombre").val();
     codigo = $("#codigo").val();
     codigo_valido = $("#CodigoValido").val();
-    nombre_valido = $("#Nombrevalido").val();
+    nombre_valido = $("#NombreValido").val();
 
     if (nombre == "" || codigo == "" || codigo_valido == "" || nombre_valido == "") {
       e.preventDefault()
@@ -166,7 +169,7 @@
         dataType: "json",
         success: function(rs) {
           $("#tp").val(2);
-          $("#id").val(rs[0]['id'])
+          $("#id").val(id)
           $("#codigo").val(rs[0]['codigo']);
           $("#nombre").val(rs[0]['nombre']);
           NombreValido.setAttribute('value', '1')

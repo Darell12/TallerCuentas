@@ -90,13 +90,13 @@ class Paises extends BaseController
     {
         $returnData = array();
         $response = $this->pais->validar_Campo($campo, $columna);
+        $coincidencia = $this->pais->traer_Pais($id_registro);
+
         if ($id_registro == 0) {
             if (!empty($response)) {
                 array_push($returnData, $response);
             }
         } else {
-            $coincidencia = $this->pais->traer_Pais($id_registro);
-
             if (!empty($response)) {
                 array_push($returnData, $response, $coincidencia);
             }

@@ -42,18 +42,18 @@ class Departamentos extends BaseController
     {
         $tp = $this->request->getPost('tp');
 
-            if ($tp == 1) { //tp 1 = Guardar
-                $this->departamentos->save([
-                    'id_pais' => $this->request->getPost('pais'),
-                    'nombre' => $this->request->getPost('nombre')
-                ]);
-            } else { //tp 2 = actualizar
-                $this->departamentos->update($this->request->getPost('id'), [
-                    'id_pais' => $this->request->getPost('pais'),
-                    'nombre' => $this->request->getPost('nombre')
-                ]);
-            }
-            return redirect()->to(base_url('/departamentos'));
+        if ($tp == 1) { //tp 1 = Guardar
+            $this->departamentos->save([
+                'id_pais' => $this->request->getPost('pais'),
+                'nombre' => $this->request->getPost('nombre')
+            ]);
+        } else { //tp 2 = actualizar
+            $this->departamentos->update($this->request->getPost('id'), [
+                'id_pais' => $this->request->getPost('pais'),
+                'nombre' => $this->request->getPost('nombre')
+            ]);
+        }
+        return redirect()->to(base_url('/departamentos'));
     }
     public function buscar_Dpto($id) //Funcion para buscar un pais en especifico y devolverlo 
     {
@@ -76,13 +76,19 @@ class Departamentos extends BaseController
             return redirect()->to(base_url('/departamentos/eliminados'));
         }
     }
-    public function validar_Nombre($nombre) 
+    public function validar_Campo($campo, $columna, $id_registro)
     {
         $returnData = array();
-        $departamentos = $this->departamentos->validar_Nombre($nombre);
-        if (!empty($departamentos)) {
-            array_push($returnData, $departamentos);
+        $response = $this->departamentos->validar_Campo($campo, $columna);
+        if ($id_registro == 0) {
+            if (!empty($response)) {
+                array_push($returnData, $response);
+            }
+        } else {
+            $coincidencia = $this->departamentos->traer_Dpto($id_registro);
+
+            array_push($returnData, $response, $coincidencia);
         }
-        echo json_encode($returnData);   
+        echo json_encode($returnData);
     }
 }

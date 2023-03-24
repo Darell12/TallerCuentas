@@ -71,4 +71,11 @@ class DepartamentosModel extends Model
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }
+    public function validar_Campo($campo, $columna)
+    {
+        $this->select('departamentos.' . $columna . ' as valor_comparar');
+        $this->where($columna, $campo);
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
 }
