@@ -54,10 +54,10 @@ class PaisesModel extends Model
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }
-    public function validar_Nombre($nombre)
+    public function validar_Campo($campo, $columna)
     {
-        $this->select('paises. nombre, codigo');
-        $this->where('nombre', $nombre);
+        $this->select('paises.' . $columna . ' as valor_comparar' );
+        $this->where($columna, $campo);
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

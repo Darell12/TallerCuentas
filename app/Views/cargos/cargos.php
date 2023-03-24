@@ -101,6 +101,19 @@
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
 
+  const inputNombre = document.getElementById('nombre')
+  const NombreValido = document.getElementById('NombreValido');
+  const tpv = document.getElementById('tp')
+  const id_registro = document.getElementById('id');
+
+  inputNombre.addEventListener("input", function() {
+    if (tpv.value == 1) {
+      respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'cargos', '0');
+    } else {
+      respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'cargos', id_registro.value);
+    }
+  })
+
   $('#formulario').on('submit', function(e) {
     nombre = $("#nombre").val();
     nombre_valido = $("#NombreValido").val();
@@ -117,39 +130,39 @@
     }
   })
 
-  const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
-  const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
+  // const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
+  // const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
 
-  NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
-    let valor = NombreP.value; // tomo el valor del input de nombre
-    let cadena
-    if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
-      cadena = ``
-      $('#MensajeValidacionNombre').html(cadena);
-    } else {
-      $.ajax({
-        url: "<?php echo base_url('cargos/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
+  // NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
+  //   let valor = NombreP.value; // tomo el valor del input de nombre
+  //   let cadena
+  //   if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
+  //     cadena = ``
+  //     $('#MensajeValidacionNombre').html(cadena);
+  //   } else {
+  //     $.ajax({
+  //       url: "<?php echo base_url('cargos/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
+  //       type: 'POST',
+  //       dataType: 'json',
+  //       success: function(res) {
 
-          if (res.length == 0) {
-            cadena = `
-            <span class="text-success" id="mensaje">Nombre Valido</span>
-                `
-            NombreVa.setAttribute('value', "1")
-            $('#MensajeValidacionNombre').html(cadena);
-          } else {
-            cadena = `
-                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
-                `
-            NombreVa.setAttribute('value', "")
-            $('#MensajeValidacionNombre').html(cadena);
-          }
-        }
-      })
-    }
-  })
+  //         if (res.length == 0) {
+  //           cadena = `
+  //           <span class="text-success" id="mensaje">Nombre Valido</span>
+  //               `
+  //           NombreVa.setAttribute('value', "1")
+  //           $('#MensajeValidacionNombre').html(cadena);
+  //         } else {
+  //           cadena = `
+  //                 <span class="text-danger" id="mensaje">Nombre Invalido</span>
+  //               `
+  //           NombreVa.setAttribute('value', "")
+  //           $('#MensajeValidacionNombre').html(cadena);
+  //         }
+  //       }
+  //     })
+  //   }
+  // })
 
   function seleccionaCargo(id, tp) {
     if (tp == 2) {

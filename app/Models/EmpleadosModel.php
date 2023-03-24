@@ -77,7 +77,7 @@ class EmpleadosModel extends Model
     // Validacion de Inputs
     public function validar_Campo($campo, $columna)
     {
-        $this->select('empleados. id');
+        $this->select('empleados. id', $columna);
         $this->where($columna , $campo);
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;

@@ -24,7 +24,7 @@
         <?php foreach ($datos as $valor) { ?>
           <tr>
             <th class="text-center"><?php echo $valor['id']; ?></th>
-            <th class="text-center">+0<?php echo $valor['codigo']; ?></th>
+            <th class="text-center">+<?php echo $valor['codigo']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
             <th class="text-center">
               <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
@@ -68,8 +68,8 @@
               </div>
               <input type="text" id="tp" name="tp" hidden>
               <input type="text" id="id" name="id" hidden>
-              <input type="text" id="valido" name="id" hidden>
               <input type="text" id="NombreValido" name="id" hidden>
+              <input type="text" id="CodigoValido" name="id" hidden>
 
             </div>
           </div>
@@ -106,6 +106,32 @@
 
 
 <script>
+  //DECLACION DE VARIABLES
+  const inputNombre = document.getElementById('nombre')
+  const inputCodigo = document.getElementById('codigo')
+  const NombreValido = document.getElementById('NombreValido');
+  const CodigoVaido = document.getElementById('CodigoValido');
+  const tpv = document.getElementById('tp')
+  const id_registro = document.getElementById('id');
+
+  //VAlIDACION NOMBRE
+  inputNombre.addEventListener("input", function() {
+    if (tpv.value == 1) {
+      respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'paises', '0');
+    } else {
+      respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'paises', id_registro.value);
+    }
+  })
+
+  inputCodigo.addEventListener('input', function() {
+    if (tpv.value == 1) {
+      respuesta = validacionMejorada(inputCodigo.value, 'codigo', CodigoVaido, 'Codigo', 'paises', '0');
+    } else {
+      respuesta = validacionMejorada(inputCodigo.value, 'codigo', CodigoVaido, 'Codigo', 'paises', id_registro.value);
+    }
+  })
+
+
   $('#modal-confirma').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
@@ -113,9 +139,10 @@
   $('#formulario').on('submit', function(e) {
     nombre = $("#nombre").val();
     codigo = $("#codigo").val();
-    codigo_valido = $("#valido").val();
+    codigo_valido = $("#CodigoValido").val();
     nombre_valido = $("#Nombrevalido").val();
-    if ([nombre, codigo, codigo_valido, nombre_valido].includes('')) {
+
+    if (nombre == "" || codigo == "" || codigo_valido == "" || nombre_valido == "") {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
@@ -128,81 +155,6 @@
     }
   })
 
-  // PRUEBA VALIDACION CODIGO INICIA
-
-  const codigoP = document.getElementById('codigo');
-  const CodigoVa = document.getElementById('valido');
-
-  codigoP.addEventListener("input", function() {
-    let valor = codigoP.value;
-    let cadena
-    if (!valor) {
-      cadena = ``
-      $('#MensajeValidacionCodigo').html(cadena);
-    } else {
-      $.ajax({
-        url: "<?php echo base_url('paises/validar_Codigo/'); ?>" + valor,
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
-
-          if (res.length == 0) {
-            cadena = `
-            <span class="text-success" id="mensaje">Codigo Valido</span>
-                `
-            CodigoVa.setAttribute('value', "1")
-            $('#MensajeValidacionCodigo').html(cadena);
-          } else {
-            cadena = `
-                  <span class="text-danger" id="mensaje">Codigo Invalido</span>
-
-                `
-            CodigoVa.setAttribute('value', "")
-            $('#MensajeValidacionCodigo').html(cadena);
-          }
-        }
-      })
-    }
-  })
-
-  const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
-  const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
-
-  NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
-    let valor = NombreP.value; // tomo el valor del input de nombre
-    let cadena
-    if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
-      cadena = ``
-      $('#MensajeValidacionNombre').html(cadena);
-    } else {
-      $.ajax({
-        url: "<?php echo base_url('paises/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
-
-          if (res.length == 0) {
-            cadena = `
-            <span class="text-success" id="mensaje">Nombre Valido</span>
-                `
-            NombreVa.setAttribute('value', "1")
-            $('#MensajeValidacionNombre').html(cadena);
-          } else {
-            cadena = `
-                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
-                `
-            NombreVa.setAttribute('value', "")
-            $('#MensajeValidacionNombre').html(cadena);
-          }
-        }
-      })
-    }
-  })
-
-
-
-
-  // PRUEBA VALIDACION CODIGO ACABA
 
 
   function seleccionaPais(id, tp) {
@@ -217,6 +169,8 @@
           $("#id").val(rs[0]['id'])
           $("#codigo").val(rs[0]['codigo']);
           $("#nombre").val(rs[0]['nombre']);
+          NombreValido.setAttribute('value', '1')
+          CodigoVaido.setAttribute('value', '1')
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el país ' + rs[0]['nombre']);
           $("#PaisModal").modal("show");
@@ -227,7 +181,8 @@
       $("#id").val('');
       $("#codigo").val('');
       $("#nombre").val('');
-
+      NombreValido.setAttribute('value', '')
+      CodigoVaido.setAttribute('value', '')
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo País');
       $("#PaisModal").modal("show");

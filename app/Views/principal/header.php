@@ -11,6 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="<?php echo base_url() ?>/css/jquery-3.6.0.js"></script>
   <script src="<?php echo base_url() ?>/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo base_url('/js/funciones.js'); ?>"></script>
 
 
 

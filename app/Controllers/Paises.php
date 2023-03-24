@@ -86,13 +86,21 @@ class Paises extends BaseController
         }
         echo json_encode($returnData);   
     }
-    public function validar_Nombre($nombre) 
+    public function validar_Campo($campo, $columna, $id_registro) 
     {
         $returnData = array();
-        $pais_ = $this->pais->validar_Nombre($nombre);
-        if (!empty($pais_)) {
-            array_push($returnData, $pais_);
+        $response = $this->pais->validar_Campo($campo, $columna);
+        if ($id_registro == 0) {
+            if (!empty($response)) {
+                array_push($returnData, $response);
+            }
+        } else {
+            $coincidencia = $this->pais->traer_Pais($id_registro);
+
+            if (!empty($response)) {
+                array_push($returnData, $response, $coincidencia);
+            }
         }
-        echo json_encode($returnData);   
+        echo json_encode($returnData);  
     }
 }

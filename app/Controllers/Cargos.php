@@ -69,13 +69,21 @@ class Cargos extends BaseController
             return redirect()->to(base_url('/cargos/eliminados'));
         }
     }
-    public function validar_Nombre($nombre) 
+    public function validar_Campo($campo, $columna, $id_registro)
     {
         $returnData = array();
-        $cargos = $this->cargos->validar_Nombre($nombre);
-        if (!empty($cargos)) {
-            array_push($returnData, $cargos);
+        $response = $this->cargos->validar_Campo($campo, $columna);
+        if ($id_registro == 0) {
+            if (!empty($response)) {
+                array_push($returnData, $response);
+            }
+        } else {
+            $coincidencia = $this->cargos->traer_Cargo($id_registro);
+
+            if (!empty($response)) {
+                array_push($returnData, $response, $coincidencia);
+            }
         }
-        echo json_encode($returnData);   
+        echo json_encode($returnData);
     }
 }

@@ -155,25 +155,53 @@
         type: 'POST',
         dataType: 'json',
         success: function(res) {
-          console.log(res)
-          if (res.length == 0 || res[1].nombre == res[0].nombre ) {
-            // console.log(res[1].nombre == res[0].nombre)
-            cadena = `
+
+          switch (res.length) {
+            case 0:
+              console.log("Respuesta Vacia");
+              cadena = `
             <span class="text-success" id="mensaje">Nombre Valido</span>
                 `
-            NombreVa.setAttribute('value', "1")
-            $('#MensajeValidacionNombre').html(cadena);
-          } else {
-            cadena = `
+              NombreVa.setAttribute('value', "1")
+              $('#MensajeValidacionNombre').html(cadena);
+              break;
+            case 1:
+              console.log("Respuesta: Coincidencia en el campo");
+              cadena = `
                   <span class="text-danger" id="mensaje">Nombre Invalido</span>
                 `
-            NombreVa.setAttribute('value', "")
-            $('#MensajeValidacionNombre').html(cadena);
+              NombreVa.setAttribute('value', "")
+              $('#MensajeValidacionNombre').html(cadena);
+              break;
+            case 2:
+              console.log("Respuesta: Coincidencia en el campo edit");
+              if (res[1].nombre == res[0].nombre) {
+                console.log('Nombres iguales con el campo edit')
+                cadena = `
+            <span class="text-success" id="mensaje">Nombre Valido</span>
+                `
+                NombreVa.setAttribute('value', "1")
+                $('#MensajeValidacionNombre').html(cadena);
+              } else if (res[0].nombre == valor) {
+                console.log('Nombre Ya existente en la bd')
+                cadena = `
+                  <span class="text-danger" id="mensaje">Nombre Invalido</span>
+                `
+                NombreVa.setAttribute('value', "")
+                $('#MensajeValidacionNombre').html(cadena);
+              }
+              break;
+            default:
+              console.log("Ningún caso coincide");
           }
+
+          console.log(res)
         }
       })
     }
   })
+
+
 
   // Ejemplo de valor de tp y valor del input
   // const inputVal = "valor del input";
