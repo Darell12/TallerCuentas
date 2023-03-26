@@ -74,13 +74,13 @@ class Empleados extends BaseController
                     'id_cargo' => $this->request->getPost('cargo')
                 ]);
 
-                $id = $this->empleados->obtenerUltimo();
+                // $id = $this->empleados->obtenerUltimo();
 
-                $this->salarios->save([
-                    'id_empleado' => $id,
-                    'sueldo' => $this->request->getPost('salario'),
-                    'periodo' => $this->request->getPost('periodo')
-                ]);
+                // $this->salarios->save([
+                //     'id_empleado' => $id,
+                //     'sueldo' => $this->request->getPost('salario'),
+                //     'periodo' => $this->request->getPost('periodo')
+                // ]);
             } else {
                 $this->empleados->update($this->request->getPost('id'), [
                     'nombres' => $this->request->getPost('nombres'),
@@ -91,10 +91,10 @@ class Empleados extends BaseController
                 ]);
 
 
-                $this->salarios->update($this->request->getPost('salario_id'), [
-                    'sueldo' => $this->request->getPost('salario'),
-                    'periodo' => $this->request->getPost('periodo')
-                ]);
+                // $this->salarios->update($this->request->getPost('salario_id'), [
+                //     'sueldo' => $this->request->getPost('salario'),
+                //     'periodo' => $this->request->getPost('periodo')
+                // ]);
             }
             return redirect()->to(base_url('/empleados'));
         }
@@ -135,5 +135,32 @@ class Empleados extends BaseController
             array_push($returnData, $response);
         }
         echo json_encode($returnData);
+    }
+    public function salario_empleado($id)
+    {
+        $dataArray = array();
+        $salarios = $this->salarios->salario_empleado($id);
+        if (!empty($salarios)) {
+            array_push($dataArray, $salarios);
+        }
+        echo json_encode($salarios);
+    }
+    public function salario_empleado_eliminados($id)
+    {
+        $dataArray = array();
+        $salarios = $this->salarios->salario_empleado_eliminado($id);
+        if (!empty($salarios)) {
+            array_push($dataArray, $salarios);
+        }
+        echo json_encode($salarios);
+    }
+    public function salario_id($id)
+    {
+        $dataArray = array();
+        $salarios = $this->salarios->salario_id($id);
+        if (!empty($salarios)) {
+            array_push($dataArray, $salarios);
+        }
+        echo json_encode($salarios);
     }
 }

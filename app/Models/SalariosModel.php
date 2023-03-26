@@ -33,4 +33,36 @@ class SalariosModel extends Model
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }
+    public function salario_empleado($id)
+    {
+        $this->select('salarios.*, empleados.nombres as nombre_empleado');
+        $this->join('empleados', 'salarios.id_empleado = empleados.id');
+        $this->where('salarios.id_empleado', $id);
+        $this->where('salarios.estado', 'A');
+        $datos = $this->findAll();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function salario_empleado_eliminado($id)
+    {
+        $this->select('salarios.*, empleados.nombres as nombre_empleado');
+        $this->join('empleados', 'salarios.id_empleado = empleados.id');
+        $this->where('salarios.id_empleado', $id);
+        $this->where('salarios.estado', 'E');
+        $datos = $this->findAll();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function salario_id($id)
+    {
+        $this->select('salarios.*, empleados.nombres as nombre_empleado');
+        $this->join('empleados', 'salarios.id_empleado = empleados.id');
+        $this->where('salarios.id', $id);
+        $this->where('salarios.estado', 'A');
+        $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
+        return $datos;
+    }
+    public function cambiar_Estado($id, $estado)
+    {
+        $datos = $this->update($id, ['estado' => $estado]);
+        return $datos;
+    }
 }
