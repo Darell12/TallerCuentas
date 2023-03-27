@@ -1,0 +1,83 @@
+ERROR - 2023-03-27 13:07:08 --> mysqli_sql_exception: Unknown column 'paises.nombre' in 'field list' in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `paises`...', 0)
+#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `paises`...')
+#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `paises`...')
+#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `paises`...', Array, false)
+#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(268): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(656): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\TallerCuentas\app\Models\MunicipiosModel.php(74): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Municipios.php(100): App\Models\MunicipiosModel->validar_Campo('Mu', 'nombre')
+#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Municipios->validar_Campo('Mu', 'nombre', '0')
+#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-03-27 13:07:08 --> Unknown column 'paises.nombre' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `paises`.`nombre` as `valor_comparar`
+FROM `municipios`
+WHERE `nombre` = :nombre:
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Model.php(268): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(656): CodeIgniter\Model->doFirst()
+ 4 APPPATH\Models\MunicipiosModel.php(74): CodeIgniter\BaseModel->first()
+ 5 APPPATH\Controllers\Municipios.php(100): App\Models\MunicipiosModel->validar_Campo('Mu', 'nombre')
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->validar_Campo('Mu', 'nombre', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-03-27 16:20:14 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`bd_taller`.`municipios`, CONSTRAINT `dpto_municipio` FOREIGN KEY (`id_dpto`) REFERENCES `departamentos` (`id`)) in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('UPDATE `municip...', 0)
+#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `municip...')
+#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `municip...')
+#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(2476): CodeIgniter\Database\BaseConnection->query('UPDATE `municip...', Array, false)
+#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(396): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(943): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\TallerCuentas\system\Model.php(756): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Municipios.php(62): CodeIgniter\Model->update('8', Array)
+#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Municipios->insertar()
+#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-03-27 16:20:14 --> Cannot add or update a child row: a foreign key constraint fails (`bd_taller`.`municipios`, CONSTRAINT `dpto_municipio` FOREIGN KEY (`id_dpto`) REFERENCES `departamentos` (`id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2476): CodeIgniter\Database\BaseConnection->query('UPDATE `municipios` SET `id_dpto` = :id_dpto:, `nombre` = :nombre:
+WHERE `municipios`.`id` IN :municipios.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(396): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(943): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(756): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\Municipios.php(62): CodeIgniter\Model->update('8', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Municipios->insertar()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Municipios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-03-27 16:33:51 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`bd_taller`.`empleados`, CONSTRAINT `municipio_empleado` FOREIGN KEY (`id_municipio`) REFERENCES `municipios` (`id`)) in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('UPDATE `emplead...', 0)
+#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `emplead...')
+#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `emplead...')
+#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(2476): CodeIgniter\Database\BaseConnection->query('UPDATE `emplead...', Array, false)
+#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(396): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(943): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\TallerCuentas\system\Model.php(756): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Empleados.php(83): CodeIgniter\Model->update('13', Array)
+#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Empleados->insertar()
+#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empleados))
+#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-03-27 16:33:51 --> Cannot add or update a child row: a foreign key constraint fails (`bd_taller`.`empleados`, CONSTRAINT `municipio_empleado` FOREIGN KEY (`id_municipio`) REFERENCES `municipios` (`id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2476): CodeIgniter\Database\BaseConnection->query('UPDATE `empleados` SET `nombres` = :nombres:, `apellidos` = :apellidos:, `nacimiento` = :nacimiento:, `id_municipio` = :id_municipio:, `id_cargo` = :id_cargo:
+WHERE `empleados`.`id` IN :empleados.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(396): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(943): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(756): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\Empleados.php(83): CodeIgniter\Model->update('13', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Empleados->insertar()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Empleados))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

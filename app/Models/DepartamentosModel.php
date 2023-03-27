@@ -30,7 +30,7 @@ class DepartamentosModel extends Model
         $this->select('departamentos.*, paises.nombre as PNombre, paises.estado as estadoPais');
         $this->join('paises', 'paises.id = departamentos.id_pais');
         $this->where('departamentos.estado', 'A');
-        $this->orderBy('departamentos.nombre', 'ASC');
+        $this->orderBy('departamentos.id', 'ASC');
         $datos = $this->findAll();
         return $datos;
     }
@@ -38,7 +38,6 @@ class DepartamentosModel extends Model
     {
         $this->select('departamentos.*');
         $this->where('id_pais', $id);
-        $this->where('estado', 'A');
         $datos = $this->findAll();
         return $datos;
     }

@@ -39,7 +39,6 @@ class MunicipiosModel extends Model
     {
         $this->select('municipios.*');
         $this->where('id_dpto', $id);
-        $this->where('municipios.estado', 'A');
         $datos = $this->findAll();
         return $datos;
     }
@@ -67,10 +66,10 @@ class MunicipiosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
-    public function validar_Nombre($nombre)
+    public function validar_Campo($campo, $columna)
     {
-        $this->select('municipios. nombre');
-        $this->where('nombre', $nombre);
+        $this->select('municipios.' . $columna . ' as valor_comparar' );
+        $this->where($columna, $campo);
         $datos = $this->first();  // nos trae el registro que cumpla con una condicion dada 
         return $datos;
     }

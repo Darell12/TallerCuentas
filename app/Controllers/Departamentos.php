@@ -76,19 +76,21 @@ class Departamentos extends BaseController
             return redirect()->to(base_url('/departamentos/eliminados'));
         }
     }
-    public function validar_Campo($campo, $columna, $id_registro)
+    public function validar_Campo($campo, $columna, $id_registro) 
     {
         $returnData = array();
-        $response = $this->departamentos->validar_Campo($campo, $columna);
+        $coincidencia = $this->departamentos->validar_Campo($campo, $columna);
+        $editando = $this->departamentos->traer_Dpto($id_registro);
+
         if ($id_registro == 0) {
-            if (!empty($response)) {
-                array_push($returnData, $response);
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia);
             }
         } else {
-            $coincidencia = $this->departamentos->traer_Dpto($id_registro);
-
-            array_push($returnData, $response, $coincidencia);
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia, $editando);
+            }
         }
-        echo json_encode($returnData);
+        echo json_encode($returnData);  
     }
 }

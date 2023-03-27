@@ -62,12 +62,12 @@
               <select name="pais" class="form-select form-select-lg mb-3" id="selectPais">
                 <option value="">-Seleccione un País-</option>
                 <?php foreach ($paises as $x => $valor) { ?>
-                  <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
+                  <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  ''?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
                 <?php } ?>
               </select>
               <label for="nombre" class="col-form-label">Departamento:</label>
               <select name="departamento" id="departamento" class="form-select form-select-lg mb-3">
-                <option id="departamentoSeleccionado"></option>
+                <option id="departamentoSeleccionado" value="0">--Seleccione un Dpto</option>
 
               </select>
               <label for="nombre" class="col-form-label">Nombre:</label>
@@ -77,7 +77,7 @@
               </div>
               <input type="text" id="tp" name="tp" hidden>
               <input type="text" id="id" name="id" hidden>
-              <input type="text" id="NombreValido" name="id" hidden>
+              <input type="text" id="NombreValido" hidden>
             </div>
           </div>
           <div class="modal-footer">
@@ -112,6 +112,11 @@
 </div>
 
 <script>
+  let id_registro = document.getElementById('id');
+  const tpv = document.getElementById('tp')
+  const inputNombre = document.getElementById('nombre')
+  const NombreValido = document.getElementById('NombreValido');
+
   $('#modal-confirma').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
@@ -121,6 +126,17 @@
     obtenerDepartamentos(pais)
     console.log('esto')
   })
+
+  inputNombre.addEventListener("input", function() {
+
+    if (tpv.value == 1) {
+      respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'municipios', '0');
+    } else {
+      respuesta = validacionMejorada(inputNombre.value, 'nombre', NombreValido, 'Nombre', 'municipios', id_registro.value);
+    }
+
+  })
+
 
   function obtenerDepartamentos(pais, id_dpto) {
     $.ajax({
@@ -134,7 +150,7 @@
         cadena = `<select name="departamento" id="departamento" class="form-select">
                                <option selected value="">Seleccionar Departamento</option>`
         for (let i = 0; i < res.length; i++) {
-          cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
+          cadena += `<option value='${res[i].id}' ${res[i].estado != 'A' ? 'disabled' :  ''} >${res[i].estado != 'A' ? res[i].nombre + ' ~ Inactivo' :  res[i].nombre}  </option>`
         }
         cadena += `</select>`
         $('#departamento').html(cadena)
@@ -143,18 +159,17 @@
     })
   }
 
-  
-  function limpiar() {
-    console.log('limpio')
-    $("#nombre").val('');
-    $("#departamentoSeleccionado").val('');
-    $("#departamentoSeleccionado").text('');
-    $("#paisSeleccionado").val('');
-    $("#paisSeleccionado").text('-Seleccione un País-');
-    $("#btn_Guardar").text('Guardar');
-    $("#tituloModal").text('Agregar Nuevo Municipio');
-    $("#MuniModal").modal("show");
-  }
+
+  // function limpiar() {
+  //   console.log('limpio')
+  //   $("#nombre").val('');
+  //   $("#departamentoSeleccionado").val(0);
+  //   $("#paisSeleccionado").val('');
+  //   $("#paisSeleccionado").text('-Seleccione un País-');
+  //   $("#btn_Guardar").text('Guardar');
+  //   $("#tituloModal").text('Agregar Nuevo Municipio');
+  //   $("#MuniModal").modal("show");
+  // }
 
   function seleccionarMuni(id, tp) {
     if (tp == 2) {
@@ -167,8 +182,9 @@
           console.log(rs)
           $("#tp").val(2);
           $("#id").val(id)
+          $("#NombreValido").val('1');
           $("#nombre").val(rs[0]['nombre']);
-          $("#selectPais").val(rs[0]['id_pais']);          
+          $("#selectPais").val(rs[0]['id_pais']);
           obtenerDepartamentos(rs[0]['id_pais'], rs[0]['id_dpto']);
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el Municipio ' + rs[0]['nombre']);
@@ -178,10 +194,12 @@
     } else {
       console.log("Else")
       $("#tp").val(1);
-      $("#id").val('0')
+      $("#id").val('0');
+      
+      
       $("#nombre").val('');
-      $("#departamentoSeleccionado").val('');
-      $("#departamentoSeleccionado").text('');
+      $("#departamento").val(0);
+
       $("#selectPais").val('');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo Municipio');

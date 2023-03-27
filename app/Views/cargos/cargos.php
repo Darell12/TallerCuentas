@@ -64,7 +64,7 @@
             </div>
             <input type="text" id="tp" name="tp" hidden>
             <input type="text" id="id" name="id" hidden>
-            <input type="text" id="NombreValido" name="id" hidden>
+            <input type="text" id="NombreValido" hidden>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

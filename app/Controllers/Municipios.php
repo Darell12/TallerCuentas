@@ -94,21 +94,21 @@ class Municipios extends BaseController
             return redirect()->to(base_url('/municipios/eliminados'));
         }
     }
-    public function validar_Nombre($nombre, $id) 
+    public function validar_Campo($campo, $columna, $id_registro) 
     {
         $returnData = array();
-        $municipios = $this->municipios->validar_Nombre($nombre);
-        if ($id == 0) {
-            if (!empty($municipios)) {
-                array_push($returnData, $municipios);
+        $coincidencia = $this->municipios->validar_Campo($campo, $columna);
+        $editando = $this->municipios->traer_Muni($id_registro);
+
+        if ($id_registro == 0) {
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia);
             }
-        }else {
-            $Muni = $this->municipios->traer_Muni($id);
-            
-            if (!empty($municipios)) {
-                array_push($returnData, $municipios, $Muni);
+        } else {
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia, $editando);
             }
         }
-        echo json_encode($returnData);   
+        echo json_encode($returnData);  
     }
 }

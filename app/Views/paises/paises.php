@@ -66,10 +66,10 @@
               <div id="MensajeValidacionCodigo">
 
               </div>
-              <input type="text" id="tp" name="tp" >
-              <input type="text" id="id" name="id" >
-              <input type="text" id="NombreValido">
-              <input type="text" id="CodigoValido" >
+              <input type="text" id="tp" name="tp" hidden>
+              <input type="text" id="id" name="id" hidden>
+              <input type="text" id="NombreValido" hidden>
+              <input type="text" id="CodigoValido" hidden>
 
             </div>
           </div>
@@ -144,6 +144,7 @@
     codigo = $("#codigo").val();
     codigo_valido = $("#CodigoValido").val();
     nombre_valido = $("#NombreValido").val();
+
 
     if (nombre == "" || codigo == "" || codigo_valido == "" || nombre_valido == "") {
       e.preventDefault()

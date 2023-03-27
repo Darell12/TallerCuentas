@@ -103,7 +103,7 @@
                 <label for="periodo" class="col-form-label">Año de Nacimiento </label>
                 <div class="flex ">
                   <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento">
-                    <option id="Seleccionado">-- Seleccionar Año --</option>
+                    <option id="Seleccionado" value="0">-- Seleccionar Año --</option>
                     <?php $years = range(strftime("%Y", time()), 1940); ?>
                     <?php foreach ($years as $year) : ?>
                       <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
@@ -115,25 +115,25 @@
                 <select name="pais" class="form-select form-select" id="selectPais">
                   <option value="">-Seleccione un País-</option>
                   <?php foreach ($paises as $x => $valor) { ?>
-                    <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
+                    <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  ''?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="nombre" class="col-form-label">Departamento:</label>
-                <select name="departamento" id="departamento" class="form-select form-select">
+                <select name="departamento" id="departamento" class="form-select">
                   <option value="">-Seleccione un Departamento</option>
 
                 </select>
 
                 <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
                 <select name="municipio" id="municipio" class="form-select form-select ">
-                  <option value="">-Seleccione un Municipio-</option>
+                  <option value="" >-Seleccione un Municipio-</option>
                   <?php foreach ($municipios as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="municipio" id="municipio"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="cargo" class="col-form-label">Cargo</label>
                 <select name="cargo" id="cargo" class="form-select form-select">
-                  <option id="CargoSeleccionado">-Seleccione un Cargo-</option>
+                  <option id="CargoSeleccionado" value="0">-Seleccione un Cargo-</option>
                   <?php foreach ($cargos as $x => $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="cargo" id="cargo"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
@@ -145,7 +145,7 @@
                   <input type="text" id="salario_id" name="salario_id" hidden>
                   <input type="text" id="tp" name="tp" hidden>
                   <input type="text" id="id" name="id" hidden>
-                  <input type="text" id="NombreValido" name="id" hidden>
+                
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@
     </form>
   </div>
 
-  <!-- Modal Confirma Eliminar -->
+  <!-- Modal Confirma Eliminar Empleados-->
   <div class="modal fade" id="modal-confirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -235,9 +235,9 @@
         <div style="text-align:center;font-weight:bold;" class="modal-body">
           <p>Seguro Desea Eliminar éste Registro?</p>
         </div>
-        <input type="text" id="id_almacenar">
-        <input type="text" id="id_almacenar_empleado">
-        <input type="text" id="id_almacenar_estado">
+        <input type="text" id="id_almacenar" hidden>
+        <input type="text" id="id_almacenar_empleado" hidden>
+        <input type="text" id="id_almacenar_estado" hidden>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-primary close" data-dismiss="modal">Cancelar</button>
           <a class="btn btn-outline-danger btn-ok-salario" id="btnEliminar">Aceptar</a>
@@ -248,7 +248,6 @@
   <!-- Modal Elimina -->
 
   <!-- MODAL AGREGAR SALARIO -->
-  <!-- <form method="POST" action="<?php echo base_url(); ?>salarios/insertar" autocomplete="off" id="formulario"> -->
   <div class="modal fade" tabindex="-1" role="dialog" id="modalAgregarSalario" data-bs-backdrop="static">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -266,13 +265,13 @@
             <label for="periodo" class="col-form-label">Periodo (Salario):</label>
             <div class="flex ">
               <select class="form-select" name="periodo_modal" aria-label="periodo" id="periodo_modal">
-                <option id="PeriodoSeleccionado">-- Seleccionar Año --</option>
+                <option id="PeriodoSeleccionado" value="0">-- Seleccionar Año --</option>
                 <?php $years = range(strftime("%Y", time()), 1940); ?>
                 <?php foreach ($years as $year) : ?>
                   <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
                 <?php endforeach; ?>
               </select>
-              <input type="text" id="id_empleado" name="id_empleado">
+              <input type="text" id="id_empleado" name="id_empleado" hidden>
               <input type="text" id="tp_salario" name="tp_salario" hidden>
               <input type="text" id="id_salario" name="id_salario" hidden>
 
@@ -287,7 +286,6 @@
       </div>
     </div>
   </div>
-  <!-- </form> -->
 
 
 
@@ -304,15 +302,14 @@
     $(this).find('.btn-ok-salario').attr('href', $(e.relatedTarget).data('href'));
   });
 
-  // DEFINICION DE VARIABLES CAJAS DE MSG DE VALIDACION
-  const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
-
-  // DEFINICION DE VARIABLES INPUTS
-  const nombres = document.getElementById('nombres'); //Capturo el un input Nombre para validar
-
   $('#selectPais').on('change', () => {
     pais = $('#selectPais').val();
     obtenerDepartamentos(pais)
+  })
+  
+  $('#departamento').on('change', () => {
+    departamento = $('#departamento').val();
+    obtenerMunicipios(departamento)
   })
 
   function obtenerDepartamentos(pais, id_dpto, id_municipio) {
@@ -326,21 +323,16 @@
         cadena = `<select name="departamento" id="departamento" class="form-select">
         <option selected value="">Seleccionar Departamento</option>`
         for (let i = 0; i < res.length; i++) {
-          cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
+          cadena += `<option value='${res[i].id}' ${res[i].estado != 'A' ? 'disabled' :  ''} >${res[i].estado != 'A' ? res[i].nombre + ' ~ Inactivo' :  res[i].nombre}  </option>`
         }
         cadena += `</select>`
         $('#departamento').html(cadena)
         $('#departamento').val(id_dpto)
         municipio = $('#municipio').val();
-        obtenerMunicipios(id_dpto, municipio)
+        // obtenerMunicipios(id_dpto, municipio)
       }
     })
   }
-
-  $('#departamento').on('change', () => {
-    departamento = $('#departamento').val();
-    obtenerMunicipios(departamento)
-  })
 
   function obtenerMunicipios(id_dpto, id_municipio) {
     $.ajax({
@@ -353,7 +345,7 @@
         cadena = `<select name="municipio" id="municipio" class="form-select">
                                <option selected value="">Seleccionar Municipio</option>`
         for (let i = 0; i < res.length; i++) {
-          cadena += `<option value='${res[i].id}'>${res[i].nombre} </option>`
+          cadena += `<option value='${res[i].id}' ${res[i].estado != 'A' ? 'disabled' :  ''}>${res[i].estado != 'A' ? res[i].nombre + ' ~ Inactivo' :  res[i].nombre} </option>`
         }
         cadena += `</select>`
         $('#titulo_salario').text(`Administrar Salarios sfd ${res[0].nombre_empleado}`)
@@ -372,9 +364,10 @@
     municipio = $('#MunicipioSeleccionado').val();
     cargo = $('#cargo').val();
     periodo = $('#periodo').val();
-    // TODO METER SALARIOS
-    if ([nombres, apellidos, nacimiento, pais, departamento, municipio, cargo, periodo].includes('')) {
+    console.log("swal antes del if")
+    if (nombres == "" || apellidos == "" || nacimiento == "" || pais == "" || departamento == "" || municipio == "" || cargo == "" || periodo == "") {
       e.preventDefault()
+      console.log("swal despues del if")
       return swal.fire({
         postition: 'top-end',
         icon: 'error',
@@ -385,42 +378,6 @@
       })
     }
   })
-
-
-  nombres.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
-    validacion(nombres.value, 'nombres', 'Nombre', NombreVa);
-  })
-
-
-  function validacion(valor, columna, param, caja) {
-
-    if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
-      cadena = ``
-      $('#MensajeValidacion' + param).html(cadena);
-    } else {
-      $.ajax({
-        url: "<?php echo base_url('empleados/validar/'); ?>" + valor + '/' + columna, //Consulto a la base de datos si hay paises con el mismo 
-        type: 'POST',
-        dataType: 'json',
-        success: function(res) {
-
-          if (res.length == 0) {
-            cadena = `
-            <span class="text-success" id="mensaje">Campo Valido</span>
-                `
-            caja.setAttribute('value', "1")
-            $('#MensajeValidacion' + param).html(cadena);
-          } else {
-            cadena = `
-                  <span class="text-danger" id="mensaje">Campo Invalido</span>
-                `
-            caja.setAttribute('value', "")
-            $('#MensajeValidacion' + param).html(cadena);
-          }
-        }
-      })
-    }
-  }
 
   function salarios_empleados(id, estado) {
     console.log('Funcionando. salarios X empleado.')
@@ -453,13 +410,11 @@
             }
             $('#titulo_salario').html('Administrar salarios eliminados de ' + rs[0].nombre_empleado);
           } else {
-            contenido = '<tr><th class="text-center h1" colspan="4">SIN SALARIOS ASIGNADO</th></tr>'
+            contenido = '<tr><th class="text-center h1" colspan="4">SIN SALARIOS ELIMINADOS</th></tr>'
             console.log(rs)
           }
 
           $('#tabla_salario').html(contenido);
-          // $('#btn-eliminados-salarios').setAttribute('onclick', 'seleccionarSalario(' + rs[0].id_empleado + ',' + 'E)')
-          // $('#btn-eliminados-salarios').attr('onclick', 'salarios_empleados(' + rs[0].id_empleado + ',' + '"E")');
           $('#btn-regresar').attr('onclick', 'salarios_empleados(' + id + ',' + '"A")');
           $('#btn-eliminados-salarios').hide();
           $('#btn-regresar').show();
@@ -505,8 +460,6 @@
           $('#tabla_salario').empty();
           $('#tabla_salario').html(contenido);
           $('#btn-agregar-salario').attr('onclick', 'seleccionarSalario(' + id + ',' + '1)');
-
-          // $('#btn-eliminados-salarios').setAttribute('onclick', 'seleccionarSalario(' + rs[0].id_empleado + ',' + 'E)')
           $('#btn-eliminados-salarios').show();
           $('#btn-regresar').hide();
           $('#ModalSalarios').modal('show');
@@ -528,8 +481,7 @@
           $("#codigo").val(rs[0]['codigo']);
           $("#nombres").val(rs[0]['nombres']);
           $("#apellidos").val(rs[0]['apellidos']);
-          $("#Seleccionado").text(rs[0]['nacimiento']);
-          $("#Seleccionado").val(rs[0]['nacimiento']);
+          $("#nacimiento").val(rs[0]['nacimiento']);
           $("#CargoSeleccionado").val(rs[0]['id_cargo']);
           $("#CargoSeleccionado").text(rs[0]['NCargo']);
           $("#salario").val(rs[0]['salario']);
@@ -555,12 +507,12 @@
       $("#codigo").val("");
       $("#nombres").val("");
       $("#apellidos").val("");
-      $("#nacimiento").val("");
+
       $("#municipio").val("");
       $("#departamento").val("");
       $("#selectPais").val("");
-      $("#Seleccionado").val("");
-      $("#CargoSeleccionado").val("");
+      $("#nacimiento").val(0);
+      $("#cargo").val(0);
       $("#salario").val("");
       $("#periodo").val("");
       $("#salario_id").val("");
@@ -585,7 +537,7 @@
           $("#id_empleado").val(rs.id_empleado)
           $('#salario_modal').val(rs.sueldo);
           $('#periodo_modal').val(rs.periodo);
-
+          
 
           $("#btn_Guardar").text('Actualizar');
           $("#titulo_salario_modal").text('Actualizar el salario de ' + rs.nombre_empleado + ' en el periodo ' + rs.periodo);
@@ -596,7 +548,7 @@
       $("#tp_salario").val(1);
       $("#id_empleado").val(id)
       $('#salario_modal').val('');
-      $('#periodo_modal').val('');
+      $('#periodo_modal').val(0);
       $("#btn_Guardar").text('Guardar');
       $("#titulo_salario_modal").text('Agregar nuevo salario');
       $("#modalAgregarSalario").modal("show");
@@ -619,6 +571,18 @@
       periodo_modal: $('#periodo_modal').val(),
       id_salario: $('#id_salario').val()
     };
+    if (data.salario_modal == "" || data.periodo_modal == "") {
+      return swal.fire({
+        postition: 'top-end',
+        icon: 'error',
+        title: 'Error campos incompletos',
+        text: 'Debe llenar todos los campos',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+
+
     $.post("<?php echo base_url('/salarios/insertar'); ?>", data, function(response) {
       // Actualiza el contenido de la página
       salarios_empleados(data.id_empleado, 'A')

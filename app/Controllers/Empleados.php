@@ -74,13 +74,6 @@ class Empleados extends BaseController
                     'id_cargo' => $this->request->getPost('cargo')
                 ]);
 
-                // $id = $this->empleados->obtenerUltimo();
-
-                // $this->salarios->save([
-                //     'id_empleado' => $id,
-                //     'sueldo' => $this->request->getPost('salario'),
-                //     'periodo' => $this->request->getPost('periodo')
-                // ]);
             } else {
                 $this->empleados->update($this->request->getPost('id'), [
                     'nombres' => $this->request->getPost('nombres'),
@@ -89,12 +82,6 @@ class Empleados extends BaseController
                     'id_municipio' => $this->request->getPost('municipio'),
                     'id_cargo' => $this->request->getPost('cargo')
                 ]);
-
-
-                // $this->salarios->update($this->request->getPost('salario_id'), [
-                //     'sueldo' => $this->request->getPost('salario'),
-                //     'periodo' => $this->request->getPost('periodo')
-                // ]);
             }
             return redirect()->to(base_url('/empleados'));
         }

@@ -59,19 +59,19 @@
             <div class="mb-3">
               <label for="nombre" class="col-form-label">Pais:</label>
               <select name="pais" id="pais" class="form-select form-select-lg mb-3" required>
-                <option id="Seleccionado" value="" selected>-Seleccione un País-</option>
+                <option id="Seleccionado" value="0" selected>-Seleccione un País-</option>
                 <?php foreach ($paises as $x => $valor) { ?>
-                  <option value="<?php echo $valor['id'] ?>" name="pais"><?php echo $valor['nombre'] ?></option>
-                <?php } ?>
+                    <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  ''?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
+                  <?php } ?>
               </select>
               <label for="nombre" class="col-form-label">Nombre:</label>
               <input type="text" class="form-control" name="nombre" id="nombre" required>
               <div id="MensajeValidacionNombre">
                 <!-- MENSAJE DINAMICO -->
               </div>
-              <input type="text" class="form-control" name="id" id="id">
-              <input type="text" class="form-control" name="tp" id="tp">
-              <input type="text" id="NombreValido" name="id">
+              <input type="text" class="form-control" name="id" id="id" hidden>
+              <input type="text" class="form-control" name="tp" id="tp" hidden>
+              <input type="text" id="NombreValido" hidden>
             </div>
 
           </div>
@@ -143,43 +143,6 @@
     }
   })
 
-
-
-  // const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
-  // const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
-
-  // NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
-  //   let valor = NombreP.value; // tomo el valor del input de nombre
-  //   let cadena
-  //   if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
-  //     cadena = ``
-  //     $('#MensajeValidacionNombre').html(cadena);
-  //   } else {
-  //     $.ajax({
-  //       url: "<?php echo base_url('departamentos/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
-  //       type: 'POST',
-  //       dataType: 'json',
-  //       success: function(res) {
-
-  //         if (res.length == 0) {
-  //           cadena = `
-  //           <span class="text-success" id="mensaje">Nombre Valido</span>
-  //               `
-  //           NombreVa.setAttribute('value', "1")
-  //           $('#MensajeValidacionNombre').html(cadena);
-  //         } else {
-  //           cadena = `
-  //                 <span class="text-danger" id="mensaje">Nombre Invalido</span>
-  //               `
-  //           NombreVa.setAttribute('value', "")
-  //           $('#MensajeValidacionNombre').html(cadena);
-  //         }
-  //       }
-  //     })
-  //   }
-  // })
-
-
   function seleccionaDpto(id, tp) {
     if (tp == 2) {
       dataURL = "<?php echo base_url('/departamentos/buscar_Dpto'); ?>" + "/" + id;
@@ -191,8 +154,7 @@
           console.log(rs)
           $("#tp").val(2);
           $("#id").val(rs[0]['id'])
-          $("#Seleccionado").val(rs[0]['id_pais']);
-          $("#Seleccionado").text(rs[0]['PNombre']);
+          $("#pais").val(rs[0]['id_pais']);
           $("#nombre").val(rs[0]['nombre']);
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el departamento ' + rs[0]['nombre']);
@@ -202,10 +164,8 @@
     } else {
       $("#tp").val(1);
       $("#id").val('');
-      $("#nombre").val(null);
-      $("#pais").val(null);
-      $("#Seleccionado").val('');
-      $("#Seleccionado").text('--Seleccione un País--');
+      $("#nombre").val('');
+      $("#pais").val(0);
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo Dpto');
       $("#DptoModal").modal("show");
