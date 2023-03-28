@@ -30,7 +30,7 @@ class DepartamentosModel extends Model
         $this->select('departamentos.*, paises.nombre as PNombre, paises.estado as estadoPais');
         $this->join('paises', 'paises.id = departamentos.id_pais');
         $this->where('departamentos.estado', 'A');
-        $this->orderBy('departamentos.id', 'ASC');
+        $this->orderBy('paises.nombre', 'ASC');
         $datos = $this->findAll();
         return $datos;
     }
@@ -55,6 +55,7 @@ class DepartamentosModel extends Model
         $this->select('departamentos.*, paises.nombre as PNombre, paises.estado as estadoPais');
         $this->join('paises', 'paises.id = departamentos.id_pais');
         $this->where('departamentos.estado', 'E');
+        $this->orderBy('paises.nombre', 'ASC');
         $datos = $this->findAll();
         return $datos;
     }

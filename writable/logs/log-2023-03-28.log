@@ -26,3 +26,61 @@ in SYSTEMPATH\Database\BaseConnection.php on line 645.
  8 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Departamentos))
  9 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
 10 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-03-28 12:34:34 --> mysqli_sql_exception: Unknown column 'nombres' in 'order clause' in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `cargos`...', 0)
+#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `cargos`...')
+#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `cargos`...')
+#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `cargos`...', Array, false)
+#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\TallerCuentas\app\Models\CargosModel.php(54): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Cargos.php(25): App\Models\CargosModel->obtenerCargosEliminados()
+#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Cargos->eliminados()
+#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cargos))
+#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-03-28 12:34:34 --> Unknown column 'nombres' in 'order clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `cargos`.*
+FROM `cargos`
+WHERE `estado` = :estado:
+ORDER BY `nombres` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\CargosModel.php(54): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Cargos.php(25): App\Models\CargosModel->obtenerCargosEliminados()
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Cargos->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cargos))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-03-28 12:34:43 --> mysqli_sql_exception: Unknown column 'nombres' in 'order clause' in C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php:295
+Stack trace:
+#0 C:\xampp\htdocs\TallerCuentas\system\Database\MySQLi\Connection.php(295): mysqli->query('SELECT `cargos`...', 0)
+#1 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(691): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `cargos`...')
+#2 C:\xampp\htdocs\TallerCuentas\system\Database\BaseConnection.php(605): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `cargos`...')
+#3 C:\xampp\htdocs\TallerCuentas\system\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `cargos`...', Array, false)
+#4 C:\xampp\htdocs\TallerCuentas\system\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\TallerCuentas\system\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\TallerCuentas\app\Models\CargosModel.php(54): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\TallerCuentas\app\Controllers\Cargos.php(25): App\Models\CargosModel->obtenerCargosEliminados()
+#8 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(934): App\Controllers\Cargos->eliminados()
+#9 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cargos))
+#10 C:\xampp\htdocs\TallerCuentas\system\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\TallerCuentas\public\index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-03-28 12:34:43 --> Unknown column 'nombres' in 'order clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 645.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query('SELECT `cargos`.*
+FROM `cargos`
+WHERE `estado` = :estado:
+ORDER BY `nombres` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(241): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(618): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\CargosModel.php(54): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Cargos.php(25): App\Models\CargosModel->obtenerCargosEliminados()
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Cargos->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Cargos))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;">
-        <?php foreach ($datos as $x => $valor) { ?>
+        <?php foreach ($datos as $valor) { ?>
           <tr>
             <th class="text-center"><?php echo $valor['id']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
@@ -136,7 +136,6 @@
         url: dataURL,
         dataType: "json",
         success: function(rs) {
-          console.log(rs)
           $("#tp").val(2);
           $("#id").val(rs[0]['id'])
           $("#nombre").val(rs[0]['nombre']);
@@ -147,7 +146,6 @@
         }
       })
     } else {
-      console.log("Else")
       $("#tp").val(1);
       $("#id").val("")
       $("#nombre").val("");

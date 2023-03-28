@@ -60,7 +60,7 @@
               <label for="nombre" class="col-form-label">Pais:</label>
               <select name="pais" id="pais" class="form-select form-select-lg mb-3" required>
                 <option id="Seleccionado" value="0" selected>-Seleccione un País-</option>
-                <?php foreach ($paises as $x => $valor) { ?>
+                <?php foreach ($paises as $valor) { ?>
                   <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  '' ?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
                 <?php } ?>
               </select>
@@ -151,7 +151,6 @@
         url: dataURL,
         dataType: "json",
         success: function(rs) {
-          console.log(rs)
           $("#tp").val(2);
           $("#id").val(rs[0]['id'])
           $("#pais").val(rs[0]['id_pais']);

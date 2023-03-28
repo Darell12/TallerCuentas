@@ -61,7 +61,7 @@
               <label for="nombre" class="col-form-label">Pais:</label>
               <select name="pais" class="form-select form-select-lg mb-3" id="selectPais">
                 <option value="">-Seleccione un País-</option>
-                <?php foreach ($paises as $x => $valor) { ?>
+                <?php foreach ($paises as $valor) { ?>
                   <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  '' ?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
                 <?php } ?>
               </select>
@@ -124,7 +124,6 @@
   $('#selectPais').on('change', () => {
     pais = $('#selectPais').val();
     obtenerDepartamentos(pais)
-    console.log('esto')
   })
 
   inputNombre.addEventListener("input", function() {
@@ -145,7 +144,6 @@
       dataType: 'json',
       success: function(res) {
         $('#departamento').empty();
-        console.log(res)
         var cadena
         cadena = `<select name="departamento" id="departamento" class="form-select">
                                <option selected value="">Seleccionar Departamento</option>`
@@ -167,7 +165,6 @@
         url: dataURL,
         dataType: "json",
         success: function(rs) {
-          console.log(rs)
           $("#tp").val(2);
           $("#id").val(id)
           $("#NombreValido").val('1');
@@ -181,7 +178,6 @@
         }
       })
     } else {
-      console.log("Else")
       $("#tp").val(1);
       $("#id").val('0');
 

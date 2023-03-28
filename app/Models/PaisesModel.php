@@ -29,6 +29,7 @@ class PaisesModel extends Model
     {
         $this->select('paises.*');
         $this->where('estado', 'A');
+        $this->orderBy('nombre', 'ASC');
         $datos = $this->findAll();
         return $datos;
     }
@@ -42,6 +43,7 @@ class PaisesModel extends Model
     {
         $this->select('paises.*');
         $this->where('estado', 'E');
+        $this->orderBy('nombre', 'ASC');
         $datos = $this->findAll();
         return $datos;
     }

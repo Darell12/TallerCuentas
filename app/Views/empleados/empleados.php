@@ -110,7 +110,7 @@
                 <label for="nombre" class="col-form-label">Pais:</label>
                 <select name="pais" class="form-select form-select" id="selectPais">
                   <option value="">-Seleccione un País-</option>
-                  <?php foreach ($paises as $x => $valor) { ?>
+                  <?php foreach ($paises as $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  '' ?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
@@ -128,7 +128,7 @@
                 <label for="cargo" class="col-form-label">Cargo</label>
                 <select name="cargo" id="cargo" class="form-select form-select">
                   <option id="CargoSeleccionado" value="0">-Seleccione un Cargo-</option>
-                  <?php foreach ($cargos as $x => $valor) { ?>
+                  <?php foreach ($cargos as $valor) { ?>
                     <option value="<?php echo $valor['id'] ?>" name="cargo" id="cargo"><?php echo $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
@@ -252,7 +252,7 @@
           <div class="form-group">
             <label for="message-text" class="col-form-label">Salario $:</label>
             <div class="flex ">
-              <input type="number" name="salario_modal" class="form-control" id="salario_modal">
+              <input type="number" name="salario_modal" class="form-control" id="salario_modal" min="1300606">
             </div>
           </div>
           <div class="mb-3">
@@ -292,13 +292,11 @@
   });
 
   $('#modal-confirma-salario').on('show.bs.modal', function(e) {
-    console.log('modal salario')
     $(this).find('.btn-ok-salario').attr('href', $(e.relatedTarget).data('href'));
   });
 
   $('#selectPais').on('change', () => {
     pais = $('#selectPais').val();
-    console.log('Obtener muncicipios')
     obtenerDepartamentos(pais)
   })
 
@@ -316,7 +314,7 @@
         $('#departamento').empty();
         var cadena
         cadena = `<select name="departamento" id="departamento" class="form-select">
-        <option selected value="">Seleccionar Departamento</option>`
+        <option selected value="0">--Seleccionar Departamento--</option>`
         for (let i = 0; i < res.length; i++) {
           cadena += `<option value='${res[i].id}' ${res[i].estado != 'A' ? 'disabled' :  ''} >${res[i].estado != 'A' ? res[i].nombre + ' ~ Inactivo' :  res[i].nombre}  </option>`
         }
@@ -337,12 +335,12 @@
         $('#municipio').empty();
         var cadena
         cadena = `<select name="municipio" id="municipio" class="form-select">
-                               <option selected value="">Seleccionar Municipio</option>`
+                               <option selected value="0">--Seleccionar Municipio--</option>`
         for (let i = 0; i < res.length; i++) {
           cadena += `<option value='${res[i].id}' ${res[i].estado != 'A' ? 'disabled' :  ''}>${res[i].estado != 'A' ? res[i].nombre + ' ~ Inactivo' :  res[i].nombre} </option>`
         }
         cadena += `</select>`
-        $('#titulo_salario').text(`Administrar Salarios sfd ${res[0].nombre_empleado}`)
+        $('#titulo_salario').text(`Administrar Salarios`)
         $('#municipio').html(cadena)
         $('#municipio').val(id_municipio)
       }
@@ -358,10 +356,8 @@
     municipio = $('#MunicipioSeleccionado').val();
     cargo = $('#cargo').val();
     periodo = $('#periodo').val();
-    console.log("swal antes del if")
     if (nombres == "" || apellidos == "" || nacimiento == "" || pais == "" || departamento == "" || municipio == "" || cargo == "" || periodo == "") {
       e.preventDefault()
-      console.log("swal despues del if")
       return swal.fire({
         postition: 'top-end',
         icon: 'error',
@@ -374,7 +370,7 @@
   })
 
   function salarios_empleados(id, estado) {
-    console.log('Funcionando. salarios X empleado.')
+  
 
     dataURL = estado == 'E' ?
       "<?php echo base_url('/salarios_eliminado'); ?>" + "/" + id :
@@ -406,7 +402,6 @@
             $('#titulo_salario').html('Administrar salarios eliminados de ' + rs[0].nombre_empleado);
           } else {
             contenido = '<tr><th class="text-center h1" colspan="5">SIN SALARIOS ELIMINADOS</th></tr>'
-            console.log(rs)
           }
 
           $('#tabla_salario').html(contenido);
@@ -426,7 +421,6 @@
           var contenido = '';
           if (!$(rs).length == 0) {
             for (let i = 0; i < rs.length; i++) {
-              console.log(rs);
               contenido += `
                 <tr>
                 <th class="text-center"> ${rs[i].id}</th>
@@ -448,7 +442,6 @@
 
           } else {
             contenido = '<tr><th class="text-center h1" colspan="5">SIN SALARIOS ASIGNADO</th></tr>'
-            console.log(rs)
           }
           $('#titulo_salario').html('Administrar salarios');
           $('#btn-eliminados-salarios').attr('onclick', 'salarios_empleados(' + id + ',' + '"E")');
@@ -478,8 +471,7 @@
           $("#nombres").val(rs[0]['nombres']);
           $("#apellidos").val(rs[0]['apellidos']);
           $("#nacimiento").val(rs[0]['nacimiento']);
-          $("#CargoSeleccionado").val(rs[0]['id_cargo']);
-          $("#CargoSeleccionado").text(rs[0]['NCargo']);
+          $("#cargo").val(rs[0]['id_cargo']);
           $("#salario").val(rs[0]['salario']);
           $("#nacimiento").val(rs[0]['nacimiento']);
           $("#PeriodoSeleccionado").text(rs[0]['periodo']);
@@ -490,8 +482,8 @@
           $("#departamento").val(rs[0]['dpto_id']);
           obtenerDepartamentos(rs[0]['pais_id'], rs[0]['dpto_id']);
           obtenerMunicipios(rs[0]['dpto_id'], rs[0]['id_municipio']);
-
-
+          
+          
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el empleado ' + rs[0]['nombres']);
           $("#modalAgregar").modal("show");
@@ -503,8 +495,12 @@
       $("#codigo").val("");
       $("#nombres").val("");
       $("#apellidos").val("");
-
-      $("#municipio").val("");
+      
+      $("#cargo").val('0');
+      $("#municipio").val("0");
+      $("#departamento").val("0");
+      obtenerDepartamentos(0,0);
+      obtenerMunicipios(0,0);
       $("#departamento").val("");
       $("#selectPais").val("");
       $("#nacimiento").val(0);
@@ -519,7 +515,6 @@
   };
 
   function seleccionarSalario(id, tp) {
-    console.log('Funcion seleciconar salario')
     if (tp == 2) {
       dataURL = "<?php echo base_url('/salario_empleado'); ?>" + "/" + id;
       $.ajax({
@@ -529,7 +524,6 @@
         success: function(rs) {
           $("#tp_salario").val(2)
           $("#id_salario").val(id)
-          console.log(rs)
           $("#id_empleado").val(rs.id_empleado)
           $('#salario_modal').val(rs.sueldo);
           $('#periodo_modal').val(rs.periodo);
@@ -555,7 +549,6 @@
     $("#id_almacenar").val(id_salario);
     $("#id_almacenar_empleado").val(id_empleado);
     $("#id_almacenar_estado").val(estado);
-    console.log('Funcion almacenar')
     $("#modal-confirma-salario").modal('show');
   }
 
@@ -567,7 +560,6 @@
       periodo_modal: $('#periodo_modal').val(),
       id_salario: $('#id_salario').val()
     };
-    console.log(data.periodo_modal)
     if (data.salario_modal == "" || data.periodo_modal == 0) {
       return swal.fire({
         postition: 'top-end',
@@ -582,12 +574,10 @@
       // Actualiza el contenido de la página
       salarios_empleados(data.id_empleado, 'A')
       $("#modalAgregarSalario").modal('hide');
-      console.log('Funciono')
     });
   });
 
   $('#btnEliminar').click(function() {
-    console.log('Funcion cambiar estado')
     var data = {
       id_salario: $('#id_almacenar').val(),
       estado: $('#id_almacenar_estado').val(),
@@ -597,7 +587,6 @@
       // Actualiza el contenido de la página
       salarios_empleados(data.id_empleado, data.estado == 'A' ? 'E' : 'A')
       $("#modal-confirma-salario").modal('hide');
-      console.log('Funciono')
     });
   });
 

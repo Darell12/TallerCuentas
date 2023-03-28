@@ -24,7 +24,7 @@
             <th class="text-center h1" colspan="6">SIN REGISTROS ELIMINADOS</th>
           </tr>
         <?php } else { ?>
-          <?php foreach ($datos as $x => $valor) { ?>
+          <?php foreach ($datos as $valor) { ?>
             <tr>
               <th class="text-center"><?php echo $valor['id']; ?></th>
               <th class="text-center">+<?php echo $valor['codigo']; ?></th>

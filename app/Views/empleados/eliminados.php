@@ -30,7 +30,7 @@
             <th class="text-center h1" colspan=11">SIN REGISTROS ELIMINADOS</th>
           </tr>
         <?php } else { ?>
-          <?php foreach ($datos as $x => $valor) { ?>
+          <?php foreach ($datos as $valor) { ?>
             <tr>
               <th class="text-center"><?php echo $valor['id']; ?></th>
               <th class="text-center"><?php echo $valor['nombres']; ?></th>
@@ -53,7 +53,7 @@
                 <?php echo $valor['estadoCargo'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
               </th>
               <th class="text-center">
-                <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
+                <?php echo $valor['estado'] == 'A' ?  '<span class="text-success"> Activo </span>' : '<span class="text-danger">  Inactivo</span>'; ?>
               </th>
               <th class="grid grid text-center" colspan="2">
                 <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_empleados') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
@@ -96,7 +96,6 @@
 
   function Restaurar(id) {
     dataURL = "<?php echo base_url('/departamentos/buscar_Dpto'); ?>" + "/" + id;
-    console.log(id)
     $.ajax({
       type: "POST",
       url: dataURL,

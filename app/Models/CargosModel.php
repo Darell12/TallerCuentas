@@ -29,6 +29,7 @@ class CargosModel extends Model
     {
         $this->select('cargos.*');
         $this->where('estado', 'A');
+        $this->orderBy('nombre', 'ASC');
         $datos = $this->findAll();
         return $datos;
     }
@@ -48,6 +49,7 @@ class CargosModel extends Model
     public function obtenerCargosEliminados()
     {
         $this->select('cargos.*');
+        $this->orderBy('nombre', 'ASC');
         $this->where('estado', 'E');
         $datos = $this->findAll();
         return $datos;

@@ -57,12 +57,12 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="nombre" class="col-form-label">Nombre:</label>
-              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="20" placeholder="Colombia" required>
+              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="20" placeholder="Digite el nombre de un país" required>
               <div id="MensajeValidacionNombre">
                 <!-- MENSAJE DINAMICO -->
               </div>
               <label for="codigo" class="col-form-label">Codigo:</label>
-              <input type="text" class="form-control" pattern="[0-9]{4}" name="codigo" id="codigo" maxlength="4" placeholder="057">
+              <input type="number" class="form-control" pattern="[0-9]{4}" name="codigo" id="codigo" maxlength="4" placeholder="Digite un codigo de 4 cifras">
               <div id="MensajeValidacionCodigo">
 
               </div>
@@ -144,12 +144,6 @@
     let codigo = $("#codigo").val();
     let codigo_valido = $("#CodigoValido").val();
     let nombre_valido = $("#NombreValido").val();
-
-
-    console.log(nombre)
-    console.log(codigo)
-    console.log(codigo_valido)
-    console.log(nombre_valido)
 
     if (nombre == "" || codigo == "" || codigo_valido == "" || nombre_valido == "") {
       e.preventDefault()
