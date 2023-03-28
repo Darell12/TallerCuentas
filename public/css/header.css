@@ -4,28 +4,27 @@
     
 }
 
-body {
+/* body {
     background-color: #242629;
-}
+} */
 .containerH {
     height: 80px;
     display: flex;
     flex-direction: row;
     justify-items: center;
     justify-content: space-between;
-    background-color: #16161a;
+    /* background-color: #16161a; */
     color: #fffffe;
    
 }
 
 .navbar {
-    height: 40px;
+    height: 45px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: #16161a;
-    color: #fffffe;
+    /* background-color: #16161a; */
      border-bottom: 1px solid #28353e;
 }
 button:hover {
@@ -88,4 +87,12 @@ button:hover {
 .slideIn {
   -webkit-animation-name: slideIn;
   animation-name: slideIn;
+}
+
+/* #fondo-nav{
+  background-color: #16161a; 
+} */
+
+div#fondo-nav {
+    background-color: #16161a;
 }

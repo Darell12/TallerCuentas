@@ -28,6 +28,13 @@ class PaisesModel extends Model
     public function obtenerPaises()
     {
         $this->select('paises.*');
+        $this->where('estado', 'A');
+        $datos = $this->findAll();
+        return $datos;
+    }
+    public function obtenerPaisesSelect()
+    {
+        $this->select('paises.*');
         $datos = $this->findAll();
         return $datos;
     }

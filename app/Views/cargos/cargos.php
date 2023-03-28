@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container  mt-4 shadow rounded-4">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
@@ -31,11 +31,9 @@
             <th class="grid grid text-center" colspan="2">
 
               <button class="btn btn-outline-primary" onclick="seleccionaCargo(<?php echo $valor['id'] . ',' . 2 ?>);" data-bs-toggle="modal" data-bs-target="#PaisModal">
-
                 <i class="bi bi-pencil"></i>
-
               </button>
-              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/cargos/cambiarEstado') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
+              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_cargos') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
             </th>
 
           </tr>
@@ -46,7 +44,7 @@
   </div>
 
   <!-- Modal -->
-  <form method="POST" action="<?php echo base_url('/cargos/insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
+  <form method="POST" action="<?php echo base_url('/cargos_insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
     <div class="modal fade" id="PaisModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -67,8 +65,8 @@
             <input type="text" id="NombreValido" hidden>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" id="btn_Guardar">Agregar</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-outline-primary" id="btn_Guardar">Agregar</button>
           </div>
         </div>
       </div>
@@ -115,8 +113,8 @@
   })
 
   $('#formulario').on('submit', function(e) {
-    nombre = $("#nombre").val();
-    nombre_valido = $("#NombreValido").val();
+    let nombre = $("#nombre").val();
+    let nombre_valido = $("#NombreValido").val();
     if (nombre == "" || nombre_valido == "") {
       e.preventDefault()
       return swal.fire({
@@ -130,43 +128,9 @@
     }
   })
 
-  // const NombreVa = document.getElementById('NombreValido'); //Capturo el un input oculto para validar
-  // const NombreP = document.getElementById('nombre'); //Capturo el un input Nombre para validar
-
-  // NombreP.addEventListener("input", function() { //Por cada evento en el input la funcion se ejecuta
-  //   let valor = NombreP.value; // tomo el valor del input de nombre
-  //   let cadena
-  //   if (!valor) { //En caso de que el input esta vacio El div de validacion queda vacio
-  //     cadena = ``
-  //     $('#MensajeValidacionNombre').html(cadena);
-  //   } else {
-  //     $.ajax({
-  //       url: "<?php echo base_url('cargos/validar_Nombre/'); ?>" + valor, //Consulto a la base de datos si hay paises con el mismo 
-  //       type: 'POST',
-  //       dataType: 'json',
-  //       success: function(res) {
-
-  //         if (res.length == 0) {
-  //           cadena = `
-  //           <span class="text-success" id="mensaje">Nombre Valido</span>
-  //               `
-  //           NombreVa.setAttribute('value', "1")
-  //           $('#MensajeValidacionNombre').html(cadena);
-  //         } else {
-  //           cadena = `
-  //                 <span class="text-danger" id="mensaje">Nombre Invalido</span>
-  //               `
-  //           NombreVa.setAttribute('value', "")
-  //           $('#MensajeValidacionNombre').html(cadena);
-  //         }
-  //       }
-  //     })
-  //   }
-  // })
-
   function seleccionaCargo(id, tp) {
     if (tp == 2) {
-      dataURL = "<?php echo base_url('/cargos/buscar_Cargo'); ?>" + "/" + id;
+      dataURL = "<?php echo base_url('buscar_cargo/'); ?>" + "/" + id;
       $.ajax({
         type: "POST",
         url: dataURL,
@@ -176,7 +140,7 @@
           $("#tp").val(2);
           $("#id").val(rs[0]['id'])
           $("#nombre").val(rs[0]['nombre']);
-
+          $("#MensajeValidacionNombre").text('');
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el Cargo ' + rs[0]['nombre']);
           $("#modalAgregar").modal("show");
@@ -187,6 +151,7 @@
       $("#tp").val(1);
       $("#id").val("")
       $("#nombre").val("");
+      $("#MensajeValidacionNombre").text('');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo Cargo');
       $("#PaisModal").modal("show");

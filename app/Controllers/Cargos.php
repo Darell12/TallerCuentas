@@ -25,7 +25,9 @@ class Cargos extends BaseController
         $cargos = $this->cargos->obtenerCargosEliminados();
 
         if (!$cargos) {
-            echo view('/errors/html/no_eliminados');
+            $data = ['titulo' => 'Administrar Cargos Eliminados', 'nombre' => 'Darell E', 'datos' => 'vacio'];
+            echo view('/principal/header', $data);
+            echo view('/cargos/eliminados', $data);
         } else {
             $data = ['titulo' => 'Administrar Cargos Eliminados', 'nombre' => 'Darell E', 'datos' => $cargos];
             echo view('/principal/header', $data);
@@ -64,24 +66,24 @@ class Cargos extends BaseController
         if (
             $estado == 'E'
         ) {
-            return redirect()->to(base_url('/cargos'));
+            return redirect()->to(base_url('/ver_cargos'));
         } else {
-            return redirect()->to(base_url('/cargos/eliminados'));
+            return redirect()->to(base_url('/eliminados_cargos'));
         }
     }
     public function validar_Campo($campo, $columna, $id_registro)
     {
         $returnData = array();
-        $response = $this->cargos->validar_Campo($campo, $columna);
+        $coincidencia = $this->cargos->validar_Campo($campo, $columna);
+        $editando = $this->cargos->traer_Cargo($id_registro);
         if ($id_registro == 0) {
-            if (!empty($response)) {
-                array_push($returnData, $response);
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia);
             }
         } else {
-            $coincidencia = $this->cargos->traer_Cargo($id_registro);
 
-            if (!empty($response)) {
-                array_push($returnData, $response, $coincidencia);
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia, $editando);
             }
         }
         echo json_encode($returnData);

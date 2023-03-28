@@ -17,15 +17,10 @@ class Salarios extends BaseController
     {
     }
 
-    public function eliminados() //Mostrar vista de Paises Eliminados
-    {
-    }
-
     public function cambiarEstado()
     {
         $this->salarios->update($this->request->getPost('id_salario'), [
             'estado' => $this->request->getPost('estado')
-
         ]);
     }
 

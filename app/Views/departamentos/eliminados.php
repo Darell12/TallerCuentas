@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container  mt-4 shadow rounded-4">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/departamentos'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
+    <a href="<?php echo base_url('/ver_dptos'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
@@ -19,23 +19,29 @@
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">
-        <?php foreach ($datos as $valor) { ?>
+        <?php if ($datos == 'vacio') { ?>
           <tr>
-            <th class="text-center"><?php echo $valor['id']; ?></th>
-            <th class="text-center"><?php echo $valor['nombre']; ?></th>
-            <th class="text-center">
-              <?php echo $valor['PNombre']; ?>
-              <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
-            </th>
-            <th class="text-center">
-              <?php echo $valor['estado'] = 'E' ? '<span class="text-danger"> Inactivo </span>' : '<span class="text-succes"> Inactivo </span>'; ?>
-
-            </th>
-            <th class="grid grid text-center" colspan="2">
-              <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/departamentos/cambiarEstado') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
-            </th>
-
+            <th class="text-center h1" colspan="6">SIN REGISTROS ELIMINADOS</th>
           </tr>
+        <?php } else { ?>
+          <?php foreach ($datos as $valor) { ?>
+            <tr>
+              <th class="text-center"><?php echo $valor['id']; ?></th>
+              <th class="text-center"><?php echo $valor['nombre']; ?></th>
+              <th class="text-center">
+                <?php echo $valor['PNombre']; ?>
+                <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
+              <th class="text-center">
+                <?php echo $valor['estado'] == 'E' ? '<span class="text-danger"> Inactivo </span>' : '<span class="text-succes"> Inactivo </span>'; ?>
+
+              </th>
+              <th class="grid grid text-center" colspan="2">
+                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_dptos') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
+              </th>
+
+            </tr>
+          <?php } ?>
         <?php } ?>
 
       </tbody>

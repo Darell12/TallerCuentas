@@ -30,7 +30,9 @@ class Departamentos extends BaseController
         $eliminados = $this->eliminados->obtenerDptosEliminados();
 
         if (!$eliminados) {
-            echo view('/errors/html/no_eliminados');
+            $data = ['titulo' => 'Administrar Dptos Eliminados', 'nombre' => 'Darell E', 'datos' => 'vacio'];
+            echo view('/principal/header', $data);
+            echo view('/departamentos/eliminados', $data);
         } else {
             $data = ['titulo' => 'Administrar Dptos Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
             echo view('/principal/header', $data);
@@ -53,7 +55,7 @@ class Departamentos extends BaseController
                 'nombre' => $this->request->getPost('nombre')
             ]);
         }
-        return redirect()->to(base_url('/departamentos'));
+        return redirect()->to(base_url('/ver_dptos'));
     }
     public function buscar_Dpto($id) //Funcion para buscar un pais en especifico y devolverlo 
     {
@@ -71,9 +73,9 @@ class Departamentos extends BaseController
         if (
             $estado == 'E'
         ) {
-            return redirect()->to(base_url('/departamentos'));
+            return redirect()->to(base_url('/ver_dptos'));
         } else {
-            return redirect()->to(base_url('/departamentos/eliminados'));
+            return redirect()->to(base_url('/eliminados_departamentos'));
         }
     }
     public function validar_Campo($campo, $columna, $id_registro) 

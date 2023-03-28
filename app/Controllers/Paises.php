@@ -17,7 +17,7 @@ class Paises extends BaseController
     {
         $pais = $this->pais->obtenerPaises();
 
-        $data = ['titulo' => 'Administrar Paises', 'nombre' => 'Darell E', 'datos' => $pais];
+        $data = ['titulo' => 'Administrar Países', 'nombre' => 'Darell E', 'datos' => $pais];
         echo view('/principal/header', $data);
         echo view('/paises/paises', $data);
     }
@@ -25,11 +25,16 @@ class Paises extends BaseController
     public function eliminados() //Mostrar vista de Paises Eliminados
     {
         $eliminados = $this->eliminados->obtenerPaisesEliminados();
+       
 
+        // Redireccionar a la URL anterior
         if (!$eliminados) {
-            echo view('/errors/html/no_eliminados');
+            // echo view('/errors/html/no_eliminados');
+            $data = ['titulo' => 'Administrar Países Eliminados', 'nombre' => 'Darell E', 'datos' => 'vacio'];
+            echo view('/principal/header', $data);
+            echo view('/paises/eliminados', $data);
         } else {
-            $data = ['titulo' => 'Administrar Paises Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
+            $data = ['titulo' => 'Administrar Países Eliminados', 'nombre' => 'Darell E', 'datos' => $eliminados];
             echo view('/principal/header', $data);
             echo view('/paises/eliminados', $data);
         }
@@ -42,9 +47,9 @@ class Paises extends BaseController
         if (
             $estado == 'E'
         ) {
-            return redirect()->to(base_url('/paises'));
+            return redirect()->to(base_url('/ver_paises'));
         } else {
-            return redirect()->to(base_url('/paises/eliminados'));
+            return redirect()->to(base_url('/eliminados_paises'));
         }
     }
 
@@ -73,32 +78,22 @@ class Paises extends BaseController
                     'codigo' => $this->request->getPost('codigo')
                 ]);
             }
-            return redirect()->to(base_url('/paises'));
+            return redirect()->to(base_url('/ver_paises'));
         }
-    }
-    
-    public function validar_Codigo($codigo) 
-    {
-        $returnData = array();
-        $pais_ = $this->pais->validar_codigo($codigo);
-        if (!empty($pais_)) {
-            array_push($returnData, $pais_);
-        }
-        echo json_encode($returnData);   
     }
     public function validar_Campo($campo, $columna, $id_registro) 
     {
         $returnData = array();
-        $response = $this->pais->validar_Campo($campo, $columna);
-        $coincidencia = $this->pais->traer_Pais($id_registro);
+        $coincidencia = $this->pais->validar_Campo($campo, $columna);
+        $editando = $this->pais->traer_Pais($id_registro);
 
         if ($id_registro == 0) {
-            if (!empty($response)) {
-                array_push($returnData, $response);
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia);
             }
         } else {
-            if (!empty($response)) {
-                array_push($returnData, $response, $coincidencia);
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia, $editando);
             }
         }
         echo json_encode($returnData);  

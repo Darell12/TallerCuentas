@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container  mt-4 shadow rounded-4">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
@@ -38,7 +38,7 @@
             </th>
             <th class="grid grid text-center" colspan="2">
               <button class="btn btn-outline-primary" onclick="seleccionarMuni(<?php echo $valor['id'] . ',' . 2 ?>);"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/municipios/cambiarEstado') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
+              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_munis') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
             </th>
 
           </tr>
@@ -48,7 +48,7 @@
     </table>
   </div>
 
-  <form method="POST" action="<?php echo base_url('/municipios/insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
+  <form method="POST" action="<?php echo base_url('/municipios_insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
     <div class="modal fade" id="MuniModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -62,7 +62,7 @@
               <select name="pais" class="form-select form-select-lg mb-3" id="selectPais">
                 <option value="">-Seleccione un País-</option>
                 <?php foreach ($paises as $x => $valor) { ?>
-                  <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  ''?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
+                  <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  '' ?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
                 <?php } ?>
               </select>
               <label for="nombre" class="col-form-label">Departamento:</label>
@@ -81,7 +81,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" onclick="limpiar()">Cerrar</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
             <button type="submit" class="btn btn-outline-primary" id="btn_Guardar">Guardar</button>
           </div>
         </div>
@@ -140,7 +140,7 @@
 
   function obtenerDepartamentos(pais, id_dpto) {
     $.ajax({
-      url: "<?php echo base_url('municipios/obtenerDepartamentosPais/'); ?>" + pais,
+      url: "<?php echo base_url('buscar_dptos_muni/'); ?>" + pais,
       type: 'POST',
       dataType: 'json',
       success: function(res) {
@@ -159,21 +159,9 @@
     })
   }
 
-
-  // function limpiar() {
-  //   console.log('limpio')
-  //   $("#nombre").val('');
-  //   $("#departamentoSeleccionado").val(0);
-  //   $("#paisSeleccionado").val('');
-  //   $("#paisSeleccionado").text('-Seleccione un País-');
-  //   $("#btn_Guardar").text('Guardar');
-  //   $("#tituloModal").text('Agregar Nuevo Municipio');
-  //   $("#MuniModal").modal("show");
-  // }
-
   function seleccionarMuni(id, tp) {
     if (tp == 2) {
-      dataURL = "<?php echo base_url('/municipios/buscar_Muni'); ?>" + "/" + id;
+      dataURL = "<?php echo base_url('/buscar_munis'); ?>" + "/" + id;
       $.ajax({
         type: "POST",
         url: dataURL,
@@ -185,6 +173,7 @@
           $("#NombreValido").val('1');
           $("#nombre").val(rs[0]['nombre']);
           $("#selectPais").val(rs[0]['id_pais']);
+          $("#MensajeValidacionNombre").text('');
           obtenerDepartamentos(rs[0]['id_pais'], rs[0]['id_dpto']);
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el Municipio ' + rs[0]['nombre']);
@@ -195,11 +184,11 @@
       console.log("Else")
       $("#tp").val(1);
       $("#id").val('0');
-      
-      
+
+
       $("#nombre").val('');
       $("#departamento").val(0);
-
+      $("#MensajeValidacionNombre").text('');
       $("#selectPais").val('');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo Municipio');
@@ -208,10 +197,10 @@
   };
 
   $('#formulario').on('submit', function(e) {
-    pais = $("#selectPais").val();
-    dpto = $("#departamento").val();
-    nombre = $("#nombre").val();
-    nombre_valido = $("#NombreValido").val();
+    let pais = $("#selectPais").val();
+    let dpto = $("#departamento").val();
+    let nombre = $("#nombre").val();
+    let nombre_valido = $("#NombreValido").val();
     if ([nombre, dpto, pais, nombre_valido].includes('')) {
       e.preventDefault()
       return swal.fire({

@@ -33,7 +33,7 @@ class Empleados extends BaseController
         $empleados = $this->empleados->obtenerEmpleados();
         $municipios = $this->municipios->obtenerMunicipios();
         $cargos = $this->cargos->obtenerCargos();
-        $pais = $this->pais->obtenerPaises();
+        $pais = $this->pais->obtenerPaisesSelect();
 
         $data = ['titulo' => 'Administrar Empleados', 'nombre' => 'Darell E', 'datos' => $empleados, 'municipios' => $municipios, 'cargos' => $cargos, 'paises' => $pais];
 
@@ -45,7 +45,9 @@ class Empleados extends BaseController
         $empleados = $this->empleados->obtenerEmpleadosEliminados();
 
         if (!$empleados) {
-            echo view('/errors/html/no_eliminados');
+            $data = ['titulo' => 'Administrar Empleados Eliminados', 'nombre' => 'Darell E', 'datos' => 'vacio'];
+            echo view('/principal/header', $data);
+            echo view('/empleados/eliminados', $data);
         } else {
             $data = ['titulo' => 'Administrar Empleados Eliminados', 'nombre' => 'Darell E', 'datos' => $empleados];
             echo view('/principal/header', $data);
@@ -83,7 +85,7 @@ class Empleados extends BaseController
                     'id_cargo' => $this->request->getPost('cargo')
                 ]);
             }
-            return redirect()->to(base_url('/empleados'));
+            return redirect()->to(base_url('/ver_empleados'));
         }
     }
     public function traer($id)
@@ -109,19 +111,10 @@ class Empleados extends BaseController
         $empleados_ = $this->empleados->elimina_Emp($id, $estado);
 
         if ($estado == 'E') {
-            return redirect()->to(base_url('/empleados'));
+            return redirect()->to(base_url('/ver_empleados'));
         } else {
-            return redirect()->to(base_url('/empleados/eliminados'));
+            return redirect()->to(base_url('/eliminados_empleados'));
         }
-    }
-    public function validar($campo, $columna)
-    {
-        $returnData = array();
-        $response = $this->empleados->validar_Campo($campo, $columna);
-        if (!empty($response)) {
-            array_push($returnData, $response);
-        }
-        echo json_encode($returnData);
     }
     public function salario_empleado($id)
     {

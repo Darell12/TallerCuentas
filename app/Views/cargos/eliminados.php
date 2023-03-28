@@ -1,16 +1,16 @@
-<div class="container">
+<div class="container mt-4 shadow rounded-4">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/cargos'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
+    <a href="<?php echo base_url('/ver_cargos'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
-  <div class="table-responsive" style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
+  <div class="table-responsive " style="overflow:scroll-vertical;overflow-y: scroll !important; height: 600px;">
     <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
-      <thead>
-        <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
+      <thead class="table-dark">
+        <tr>
           <th class="text-center">Id</th>
           <th class="text-center">Nombre</th>
           <th class="text-center">Estado</th>
@@ -18,18 +18,24 @@
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">
-        <?php foreach ($datos as $x => $valor) { ?>
+        <?php if ($datos == 'vacio') { ?>
           <tr>
-            <th class="text-center"><?php echo $valor['id']; ?></th>
-            <th class="text-center"><?php echo $valor['nombre']; ?></th>
-            <th class="text-center ">
-              <?php echo $valor['estado'] = 'A' ? '<span class="text-danger"> Inactivo </span>' : '<span class="text-succes"> Inactivo </span>'; ?>
-            </th>
-            <th class="grid grid text-center" colspan="2">
-              <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/cargos/cambiarEstado') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
-            </th>
-
+            <th class="text-center h1" colspan="6">SIN REGISTROS ELIMINADOS</th>
           </tr>
+        <?php } else { ?>
+          <?php foreach ($datos as $x => $valor) { ?>
+            <tr>
+              <th class="text-center"><?php echo $valor['id']; ?></th>
+              <th class="text-center"><?php echo $valor['nombre']; ?></th>
+              <th class="text-center ">
+                <?php echo $valor['estado'] = 'A' ? '<span class="text-danger"> Inactivo </span>' : '<span class="text-succes"> Inactivo </span>'; ?>
+              </th>
+              <th class="grid grid text-center" colspan="2">
+                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_cargos') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
+              </th>
+
+            </tr>
+          <?php } ?>
         <?php } ?>
 
       </tbody>
@@ -41,7 +47,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div style="text-align:center;" class="modal-header">
-          <h5 style="color:#98040a;font-size:20px;font-weight:bold;" class="modal-title" id="exampleModalLabel">Eliminación de Registro</h5>
+          <h5 style="color:#98040a;font-size:20px;font-weight:bold;" class="modal-title" id="exampleModalLabel">Restauración de Registro</h5>
 
         </div>
         <div style="text-align:center;font-weight:bold;" class="modal-body">

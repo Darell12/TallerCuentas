@@ -32,7 +32,9 @@ class Municipios extends BaseController
         $cargos = $this->municipios->obtenerMunicipiosEliminados();
 
         if (!$cargos) {
-            echo view('/errors/html/no_eliminados');
+            $data = ['titulo' => 'Administrar Municipios Eliminados', 'nombre' => 'Darell E', 'datos' => 'vacio'];
+            echo view('/principal/header', $data);
+            echo view('/municipios/eliminados', $data);
         } else {
             $data = ['titulo' => 'Administrar Municipios Eliminados', 'nombre' => 'Darell E', 'datos' => $cargos];
             echo view('/principal/header', $data);
@@ -62,7 +64,7 @@ class Municipios extends BaseController
                 'nombre' => $this->request->getPost('nombre')
             ]);
         }
-        return redirect()->to(base_url('/municipios'));
+        return redirect()->to(base_url('/ver_munis'));
     }
     public function obtenerMuniDpto($id)
     {
@@ -89,9 +91,9 @@ class Municipios extends BaseController
         if (
             $estado == 'E'
         ) {
-            return redirect()->to(base_url('/municipios'));
+            return redirect()->to(base_url('/ver_munis'));
         } else {
-            return redirect()->to(base_url('/municipios/eliminados'));
+            return redirect()->to(base_url('/eliminados_municipios'));
         }
     }
     public function validar_Campo($campo, $columna, $id_registro) 

@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="container  mt-4 shadow rounded-4">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
@@ -27,7 +27,7 @@
             <th class="text-center">+<?php echo $valor['codigo']; ?></th>
             <th class="text-center"><?php echo $valor['nombre']; ?></th>
             <th class="text-center">
-              <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
+              <?php echo $valor['estado'] == 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
             </th>
             <th class="grid grid text-center" colspan="2">
 
@@ -36,7 +36,7 @@
                 <i class="bi bi-pencil"></i>
 
               </button>
-              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/paises/cambiarEstado') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
+              <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_paises') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
             </th>
 
           </tr>
@@ -46,7 +46,7 @@
     </table>
   </div>
   <!-- Modal -->
-  <form method="POST" action="<?php echo base_url('/paises/insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
+  <form method="POST" action="<?php echo base_url('/paises_insertar'); ?>" autocomplete="off" class="needs-validation" id="formulario" novalidate>
     <div class="modal fade" id="PaisModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -110,10 +110,10 @@
   const inputNombre = document.getElementById('nombre')
   const inputCodigo = document.getElementById('codigo')
   const NombreValido = document.getElementById('NombreValido');
-  const CodigoVaido = document.getElementById('CodigoValido');
+  const CodigoValido = document.getElementById('CodigoValido');
   const tpv = document.getElementById('tp')
   let id_registro = document.getElementById('id');
-  
+
   //VAlIDACION NOMBRE
   inputNombre.addEventListener("input", function() {
 
@@ -127,9 +127,9 @@
 
   inputCodigo.addEventListener('input', function() {
     if (tpv.value == 1) {
-      respuesta = validacionMejorada(inputCodigo.value, 'codigo', CodigoVaido, 'Codigo', 'paises', '0');
+      respuesta = validacionMejorada(inputCodigo.value, 'codigo', CodigoValido, 'Codigo', 'paises', '0');
     } else {
-      respuesta = validacionMejorada(inputCodigo.value, 'codigo', CodigoVaido, 'Codigo', 'paises', id_registro.value);
+      respuesta = validacionMejorada(inputCodigo.value, 'codigo', CodigoValido, 'Codigo', 'paises', id_registro.value);
     }
   })
 
@@ -138,13 +138,18 @@
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
   });
 
-  
-  $('#formulario').on('submit', function(e) {
-    nombre = $("#nombre").val();
-    codigo = $("#codigo").val();
-    codigo_valido = $("#CodigoValido").val();
-    nombre_valido = $("#NombreValido").val();
 
+  $('#formulario').on('submit', function(e) {
+    let nombre = $("#nombre").val();
+    let codigo = $("#codigo").val();
+    let codigo_valido = $("#CodigoValido").val();
+    let nombre_valido = $("#NombreValido").val();
+
+
+    console.log(nombre)
+    console.log(codigo)
+    console.log(codigo_valido)
+    console.log(nombre_valido)
 
     if (nombre == "" || codigo == "" || codigo_valido == "" || nombre_valido == "") {
       e.preventDefault()
@@ -163,7 +168,7 @@
 
   function seleccionaPais(id, tp) {
     if (tp == 2) {
-      dataURL = "<?php echo base_url('/paises/buscar_Pais'); ?>" + "/" + id;
+      dataURL = "<?php echo base_url('/buscar_pais'); ?>" + "/" + id;
       $.ajax({
         type: "POST",
         url: dataURL,
@@ -173,8 +178,9 @@
           $("#id").val(id)
           $("#codigo").val(rs[0]['codigo']);
           $("#nombre").val(rs[0]['nombre']);
-          NombreValido.setAttribute('value', '1')
-          CodigoVaido.setAttribute('value', '1')
+          $("#MensajeValidacionNombre").text('');
+          $("#NombreValido").val(1);
+          $("#CodigoValido").val(1);
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el país ' + rs[0]['nombre']);
           $("#PaisModal").modal("show");
@@ -185,8 +191,9 @@
       $("#id").val('');
       $("#codigo").val('');
       $("#nombre").val('');
-      NombreValido.setAttribute('value', '')
-      CodigoVaido.setAttribute('value', '')
+      $("#NombreValido").val('');
+      $("#CodigoValido").val('');
+      $("#MensajeValidacionNombre").text('');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo País');
       $("#PaisModal").modal("show");
@@ -197,4 +204,3 @@
     $("#modal-confirma").modal("hide");
   });
 </script>
-<script src="<?php echo base_url() ?>"></script>

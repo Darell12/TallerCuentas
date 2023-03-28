@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container  mt-4 shadow rounded-4">
   <div>
     <h1 class="titulo_Vista text-center"><?php echo $titulo ?></h1>
   </div>
   <div>
-    <a href="<?php echo base_url('/empleados'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
+    <a href="<?php echo base_url('/ver_empleados'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
   </div>
 
   <br>
@@ -19,74 +19,53 @@
           <th class="text-center">Departamento</th>
           <th class="text-center">País</th>
           <th class="text-center">Cargo</th>
-          <th class="text-center">Salario</th>
+
           <th class="text-center">Estado</th>
           <th class="text-center" colspan="2">Acciones</th>
         </tr>
       </thead>
       <tbody style="font-family:Arial;font-size:12px;" class="table-group-divider">
-        <?php foreach ($datos as $x => $valor) { ?>
+        <?php if ($datos == 'vacio') { ?>
           <tr>
-            <th class="text-center"><?php echo $valor['id']; ?></th>
-            <th class="text-center"><?php echo $valor['nombres']; ?></th>
-            <th class="text-center"><?php echo $valor['apellidos']; ?></th>
-            <th class="text-center"><?php echo $valor['nacimiento']; ?></th>
-            <th class="text-center">
-              <?php echo $valor['NMuni']; ?>
-              <?php echo $valor['estadoMuni'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
-            </th>
-            <th class="text-center">
-              <?php echo $valor['dpto_nombre']; ?>
-              <?php echo $valor['estadoDpto'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
-            </th>
-            <th class="text-center">
-              <?php echo $valor['pais_nombre']; ?>
-              <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
-            </th>
-            <th class="text-center">
-              <?php echo $valor['NCargo']; ?>
-              <?php echo $valor['estadoCargo'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
-            </th>
-            <th class="text-center">$ <?php echo $valor['salario']; ?></th>
-            <th class="text-center">
-              <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
-            </th>
-            <th class="grid grid text-center" colspan="2">
-              <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/empleados/cambiarEstado') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
-            </th>
-
+            <th class="text-center h1" colspan=11">SIN REGISTROS ELIMINADOS</th>
           </tr>
-        <?php } ?>
+        <?php } else { ?>
+          <?php foreach ($datos as $x => $valor) { ?>
+            <tr>
+              <th class="text-center"><?php echo $valor['id']; ?></th>
+              <th class="text-center"><?php echo $valor['nombres']; ?></th>
+              <th class="text-center"><?php echo $valor['apellidos']; ?></th>
+              <th class="text-center"><?php echo $valor['nacimiento']; ?></th>
+              <th class="text-center">
+                <?php echo $valor['NMuni']; ?>
+                <?php echo $valor['estadoMuni'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
+              <th class="text-center">
+                <?php echo $valor['dpto_nombre']; ?>
+                <?php echo $valor['estadoDpto'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
+              <th class="text-center">
+                <?php echo $valor['pais_nombre']; ?>
+                <?php echo $valor['estadoPais'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
+              <th class="text-center">
+                <?php echo $valor['NCargo']; ?>
+                <?php echo $valor['estadoCargo'] == 'E' ? '<span class="text-danger">  ~ Inactivo</span>' : '<span class="text-success"> ~ Activo </span>'; ?>
+              </th>
+              <th class="text-center">
+                <?php echo $valor['estado'] = 'A' ?  '<span class="text-success"> Activo </span>' : 'Inactivo'; ?>
+              </th>
+              <th class="grid grid text-center" colspan="2">
+                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_empleados') . '/' . $valor['id'] . '/' . 'A'; ?>" title="Restaurar"><i class="bi bi-arrow-clockwise"></i></button>
+              </th>
 
+            </tr>
+          <?php } ?>
+        <?php } ?>
       </tbody>
     </table>
   </div>
 
-  <form method="POST" action="<?php echo base_url('/departamentos/Restaurar'); ?>" class="form-check-inline">
-    <div class="modal fade" id="Restaurar" tabindex="-1" aria-labelledby="Resturar" aria-hidden="true" data-bs-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">¿Desea Restaurar este Dpto?</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <span>
-              <h3 class="text-center" id="DptoRestaurar"></h3>
-            </span>
-            <input type="text" id="idR" name="id" hidden>
-            <input type="text" id="estado" name="estado" hidden>
-          </div>
-          <div class="modal-footer">
-            <a href="<?php echo base_url('/departamentos/eliminados') ?>"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
-
-            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button> -->
-            <button type="submit" class="btn btn-outline-success">Restaurar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
 
   <!-- Modal Confirma Eliminar -->
   <div class="modal fade" id="modal-confirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

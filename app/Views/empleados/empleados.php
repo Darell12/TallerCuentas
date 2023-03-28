@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4 shadow rounded-4">
   <div>
     <h1 class="titulo_vista text-center"><?php echo $titulo; ?></h1>
 
@@ -67,12 +67,8 @@
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                   <button class="btn btn-outline-primary" onclick="seleccionarEmp(<?php echo $valor['id'] . ',' . 2 ?>);"><i class="bi bi-pencil"></i></button>
 
-                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/empleados/cambiarEstado') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
+                  <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_empleados') . '/' . $valor['id'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
                 </div>
-
-                <!-- <button class="btn btn-outline-danger">
-
-                </button> -->
               </th>
 
             </tr>
@@ -83,12 +79,12 @@
     </div>
 
     <!--   Modal agregar   --->
-    <form method="POST" action="<?php echo base_url(); ?>/empleados/insertar" autocomplete="off" id="formulario">
+    <form method="POST" action="<?php echo base_url(); ?>/empleados_insertar" autocomplete="off" id="formulario">
       <div class="modal fade" tabindex="-1" role="dialog" id="modalAgregar" data-bs-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Agregar Empleados</h4>
+              <h4 class="modal-title" id="tituloModal">Agregar Empleados</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
@@ -115,7 +111,7 @@
                 <select name="pais" class="form-select form-select" id="selectPais">
                   <option value="">-Seleccione un País-</option>
                   <?php foreach ($paises as $x => $valor) { ?>
-                    <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  ''?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
+                    <option value="<?php echo $valor['id'] ?>" name="pais" <?php echo $valor['estado'] != 'A' ? 'disabled' :  '' ?>><?php echo $valor['estado'] != 'A' ? $valor['nombre'] . '~ Inactivo' : $valor['nombre'] ?></option>
                   <?php } ?>
                 </select>
                 <label for="nombre" class="col-form-label">Departamento:</label>
@@ -126,10 +122,8 @@
 
                 <label for="nacimientoCliente" class="col-form-label">Municipio de Residencia</label>
                 <select name="municipio" id="municipio" class="form-select form-select ">
-                  <option value="" >-Seleccione un Municipio-</option>
-                  <?php foreach ($municipios as $x => $valor) { ?>
-                    <option value="<?php echo $valor['id'] ?>" name="municipio" id="municipio"><?php echo $valor['nombre'] ?></option>
-                  <?php } ?>
+                  <option value="">-Seleccione un Municipio-</option>
+
                 </select>
                 <label for="cargo" class="col-form-label">Cargo</label>
                 <select name="cargo" id="cargo" class="form-select form-select">
@@ -145,13 +139,13 @@
                   <input type="text" id="salario_id" name="salario_id" hidden>
                   <input type="text" id="tp" name="tp" hidden>
                   <input type="text" id="id" name="id" hidden>
-                
+
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-outline-primary">Guardar</button>
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-outline-primary" id="btn_Guardar">Guardar</button>
             </div>
           </div>
         </div>
@@ -207,6 +201,7 @@
                   <th class="text-center">ID</th>
                   <th class="text-center">Salario</th>
                   <th class="text-center">Periodo</th>
+                  <th class="text-center">Estado</th>
                   <th class="text-center" colspan="2">Acciones</th>
                 </tr>
               </thead>
@@ -218,8 +213,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+
         </div>
       </div>
     </div>
@@ -304,9 +298,10 @@
 
   $('#selectPais').on('change', () => {
     pais = $('#selectPais').val();
+    console.log('Obtener muncicipios')
     obtenerDepartamentos(pais)
   })
-  
+
   $('#departamento').on('change', () => {
     departamento = $('#departamento').val();
     obtenerMunicipios(departamento)
@@ -314,7 +309,7 @@
 
   function obtenerDepartamentos(pais, id_dpto, id_municipio) {
     $.ajax({
-      url: "<?php echo base_url('municipios/obtenerDepartamentosPais/'); ?>" + pais,
+      url: "<?php echo base_url('buscar_dptos_muni/'); ?>" + pais,
       type: 'POST',
       dataType: 'json',
       success: function(res) {
@@ -329,14 +324,13 @@
         $('#departamento').html(cadena)
         $('#departamento').val(id_dpto)
         municipio = $('#municipio').val();
-        // obtenerMunicipios(id_dpto, municipio)
       }
     })
   }
 
   function obtenerMunicipios(id_dpto, id_municipio) {
     $.ajax({
-      url: "<?php echo base_url('municipios/obtenerMuniDpto/'); ?>" + id_dpto,
+      url: "<?php echo base_url('buscar_muni_dptos/'); ?>" + id_dpto,
       type: 'POST',
       dataType: 'json',
       success: function(res) {
@@ -383,8 +377,8 @@
     console.log('Funcionando. salarios X empleado.')
 
     dataURL = estado == 'E' ?
-      "<?php echo base_url('/empleados/salario_empleado_eliminados'); ?>" + "/" + id :
-      "<?php echo base_url('/empleados/salario_empleado'); ?>" + "/" + id
+      "<?php echo base_url('/salarios_eliminado'); ?>" + "/" + id :
+      "<?php echo base_url('/salarios_empleado'); ?>" + "/" + id
 
     if (estado == 'E') {
       $.ajax({
@@ -401,6 +395,7 @@
                   <th class="text-center"> ${rs[i].id}</th>
                   <th class="text-center"> ${rs[i].sueldo}</th>
                   <th class="text-center"> ${rs[i].periodo}</th>
+                  <th class="text-center text-danger"> ${rs[i].estado == 'A' ? 'Activo' : 'Inactivo'}</th>
                   <th class="text-center">
     
                   <button class="btn btn-outline-warning" data-bs-toggle="modal" hidden-bs-modal(#modal) data-bs-target="#modal-confirma-salario" onclick="almacenarId(${rs[i].id},${rs[i].id_empleado}, 'A')" ?><i class="bi bi-arrow-clockwise"></i></button>
@@ -410,7 +405,7 @@
             }
             $('#titulo_salario').html('Administrar salarios eliminados de ' + rs[0].nombre_empleado);
           } else {
-            contenido = '<tr><th class="text-center h1" colspan="4">SIN SALARIOS ELIMINADOS</th></tr>'
+            contenido = '<tr><th class="text-center h1" colspan="5">SIN SALARIOS ELIMINADOS</th></tr>'
             console.log(rs)
           }
 
@@ -437,6 +432,7 @@
                 <th class="text-center"> ${rs[i].id}</th>
                 <th class="text-center"> ${rs[i].sueldo}</th>
                 <th class="text-center"> ${rs[i].periodo}</th>
+                <th class="text-center text-success"> ${rs[i].estado == 'A' ? 'Activo' : 'Inactivo'}</th>
                 <th class="text-center">
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button class="btn btn-outline-primary" onclick="seleccionarSalario( ${rs[i].id} ,2 );"><i class="bi bi-pencil"></i></button>
@@ -451,7 +447,7 @@
             $('#titulo_salario').html('Administrar salarios de ' + rs[0].nombre_empleado);
 
           } else {
-            contenido = '<tr><th class="text-center h1" colspan="4">SIN SALARIOS ASIGNADO</th></tr>'
+            contenido = '<tr><th class="text-center h1" colspan="5">SIN SALARIOS ASIGNADO</th></tr>'
             console.log(rs)
           }
           $('#titulo_salario').html('Administrar salarios');
@@ -470,7 +466,7 @@
 
   function seleccionarEmp(id, tp) {
     if (tp == 2) {
-      dataURL = "<?php echo base_url('/empleados/buscar_Emp'); ?>" + "/" + id;
+      dataURL = "<?php echo base_url('/buscar_empleado'); ?>" + "/" + id;
       $.ajax({
         type: "POST",
         url: dataURL,
@@ -497,7 +493,7 @@
 
 
           $("#btn_Guardar").text('Actualizar');
-          $("#tituloModal").text('Actualizar el país ' + rs[0]['nombre']);
+          $("#tituloModal").text('Actualizar el empleado ' + rs[0]['nombres']);
           $("#modalAgregar").modal("show");
         }
       })
@@ -517,7 +513,7 @@
       $("#periodo").val("");
       $("#salario_id").val("");
       $("#btn_Guardar").text('Guardar');
-      $("#tituloModal").text('Agregar Nuevo País');
+      $("#tituloModal").text('Agregar Nuevo Empleado');
       $("#modalAgregar").modal("show");
     }
   };
@@ -525,7 +521,7 @@
   function seleccionarSalario(id, tp) {
     console.log('Funcion seleciconar salario')
     if (tp == 2) {
-      dataURL = "<?php echo base_url('/empleados/salario_id'); ?>" + "/" + id;
+      dataURL = "<?php echo base_url('/salario_empleado'); ?>" + "/" + id;
       $.ajax({
         type: "POST",
         url: dataURL,
@@ -537,7 +533,7 @@
           $("#id_empleado").val(rs.id_empleado)
           $('#salario_modal').val(rs.sueldo);
           $('#periodo_modal').val(rs.periodo);
-          
+
 
           $("#btn_Guardar").text('Actualizar');
           $("#titulo_salario_modal").text('Actualizar el salario de ' + rs.nombre_empleado + ' en el periodo ' + rs.periodo);
@@ -571,7 +567,8 @@
       periodo_modal: $('#periodo_modal').val(),
       id_salario: $('#id_salario').val()
     };
-    if (data.salario_modal == "" || data.periodo_modal == "") {
+    console.log(data.periodo_modal)
+    if (data.salario_modal == "" || data.periodo_modal == 0) {
       return swal.fire({
         postition: 'top-end',
         icon: 'error',
@@ -581,9 +578,7 @@
         timer: 1500
       })
     }
-
-
-    $.post("<?php echo base_url('/salarios/insertar'); ?>", data, function(response) {
+    $.post("<?php echo base_url('/salarios_insertar'); ?>", data, function(response) {
       // Actualiza el contenido de la página
       salarios_empleados(data.id_empleado, 'A')
       $("#modalAgregarSalario").modal('hide');
@@ -598,7 +593,7 @@
       estado: $('#id_almacenar_estado').val(),
       id_empleado: $('#id_almacenar_empleado').val()
     };
-    $.post("<?php echo base_url('/salarios/cambiarEstado'); ?>", data, function(response) {
+    $.post("<?php echo base_url('/estado_salarios'); ?>", data, function(response) {
       // Actualiza el contenido de la página
       salarios_empleados(data.id_empleado, data.estado == 'A' ? 'E' : 'A')
       $("#modal-confirma-salario").modal('hide');
