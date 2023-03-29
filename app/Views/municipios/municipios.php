@@ -195,9 +195,9 @@
   $('#formulario').on('submit', function(e) {
     let pais = $("#selectPais").val();
     let dpto = $("#departamento").val();
-    let nombre = $("#nombre").val();
+    // let nombre = $("#nombre").val();
     let nombre_valido = $("#NombreValido").val();
-    if ([nombre, dpto, pais, nombre_valido].includes('')) {
+    if (pais == "" || pais == '0' || nombre_valido == "" || dpto == "" || dpto == '0') {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
@@ -209,6 +209,28 @@
       })
     }
   })
+
+  $.validator.addMethod("soloLetras", function(value, element) {
+    return this.optional(element) || /^[a-zA-ZñÑ\s]+$/.test(value);
+  }, "Por favor ingrese solamente letras.");
+
+  $("#formulario").validate({
+    rules: {
+      nombre: {
+        required: true,
+        maxlength: 20,
+        soloLetras: true,
+      }
+    },
+    messages: {
+      nombre: {
+        required: "El nombre es requerido",
+        minlength: "El nombre debe tener al menos {0} caracteres",
+        maxlength: "El nombre no puede tener más de 20 caracteres",
+      },
+    }
+  });
+
 
   $('.close').click(function() {
     $("#modal-confirma").modal("hide");

@@ -127,10 +127,10 @@
   });
 
   $('#formulario').on('submit', function(e) {
-    let nombre = $("#nombre").val();
+    // let nombre = $("#nombre").val();
     let pais = $('#pais').val()
     let nombre_valido = $("#NombreValido").val();
-    if (nombre == "" || pais == "" || pais == '0' || nombre_valido == "") {
+    if (pais == "" || pais == '0' || nombre_valido == "") {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
@@ -142,6 +142,27 @@
       })
     }
   })
+
+  $.validator.addMethod("soloLetras", function(value, element) {
+    return this.optional(element) || /^[a-zA-ZñÑ\s]+$/.test(value);
+  }, "Por favor ingrese solamente letras.");
+
+  $("#formulario").validate({
+    rules: {
+      nombre: {
+        required: true,
+        maxlength: 20,
+        soloLetras: true,
+      }
+    },
+    messages: {
+      nombre: {
+        required: "El nombre es requerido",
+        maxlength: "El nombre no puede tener más de 20 caracteres",
+      },
+    }
+  });
+
 
   function seleccionaDpto(id, tp) {
     if (tp == 2) {

@@ -98,4 +98,21 @@ class Paises extends BaseController
         }
         echo json_encode($returnData);  
     }
+    public function validar_CampoP() 
+    {
+        $returnData = array();
+        $coincidencia = $this->pais->validar_Campo('nombre', 'nombre');
+        $editando = $this->pais->traer_Pais('id');
+
+        if ('id' == 0) {
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia);
+            }
+        } else {
+            if (!empty($coincidencia)) {
+                array_push($returnData, $coincidencia, $editando);
+            }
+        }
+        echo json_encode($returnData);  
+    }
 }

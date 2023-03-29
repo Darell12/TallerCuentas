@@ -4,16 +4,16 @@
     
 }
 
-/* body {
+body {
     background-color: #242629;
-} */
+}
 .containerH {
     height: 80px;
     display: flex;
     flex-direction: row;
     justify-items: center;
     justify-content: space-between;
-    /* background-color: #16161a; */
+    background-color: #16161a;
     color: #fffffe;
    
 }
@@ -24,7 +24,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /* background-color: #16161a; */
+    background-color: #16161a;
      border-bottom: 1px solid #28353e;
 }
 button:hover {
@@ -89,9 +89,9 @@ button:hover {
   animation-name: slideIn;
 }
 
-/* #fondo-nav{
+#fondo-nav{
   background-color: #16161a; 
-} */
+}
 
 div#fondo-nav {
     background-color: #16161a;

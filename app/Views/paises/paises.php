@@ -57,19 +57,19 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="nombre" class="col-form-label">Nombre:</label>
-              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="20" placeholder="Digite el nombre de un país" required>
+              <input type="text" class="form-control" name="nombre" id="nombre" maxlength="20" placeholder="Digite el nombre de un país" pattern="[A-Za-z]+" required>
               <div id="MensajeValidacionNombre">
                 <!-- MENSAJE DINAMICO -->
               </div>
               <label for="codigo" class="col-form-label">Codigo:</label>
-              <input type="number" class="form-control" pattern="[0-9]{4}" name="codigo" id="codigo" maxlength="4" placeholder="Digite un codigo de 4 cifras">
+              <input type="number" class="form-control" name="codigo" id="codigo" maxlength="4" max="9999" placeholder="Digite un codigo de 4 cifras" required>
               <div id="MensajeValidacionCodigo">
 
               </div>
+              <input type="text" id="CodigoValido" name="CodigoValido" hidden>
               <input type="text" id="tp" name="tp" hidden>
               <input type="text" id="id" name="id" hidden>
-              <input type="text" id="NombreValido" hidden>
-              <input type="text" id="CodigoValido" hidden>
+              <input type="text" id="NombreValido" name="NombreValido" hidden>
 
             </div>
           </div>
@@ -140,12 +140,10 @@
 
 
   $('#formulario').on('submit', function(e) {
-    let nombre = $("#nombre").val();
-    let codigo = $("#codigo").val();
     let codigo_valido = $("#CodigoValido").val();
     let nombre_valido = $("#NombreValido").val();
 
-    if (nombre == "" || codigo == "" || codigo_valido == "" || nombre_valido == "") {
+    if (codigo_valido == "" || nombre_valido == "") {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
@@ -158,6 +156,40 @@
     }
   })
 
+  $.validator.addMethod("soloLetras", function(value, element) {
+    return this.optional(element) || /^[a-zA-ZñÑ\s]+$/.test(value);
+  }, "Por favor ingrese solamente letras.");
+
+  $("#formulario").validate({
+    rules: {
+      nombre: {
+        required: true,
+        maxlength: 20,
+        soloLetras: true,
+      },
+      codigo: {
+        required: true,
+        minlength: 3,
+        maxlength: 3,
+        digits: true
+      }
+    },
+    messages: {
+      nombre: {
+        required: "El nombre es requerido",
+        minlength: "El nombre debe tener al menos {0} caracteres",
+        maxlength: "El nombre no puede tener más de 20 caracteres",
+        pattern: "El nombre solo puede contener letras y espacios",
+        remote: "Campo invalido URL"
+      },
+      codigo: {
+        required: "El código es requerido",
+        minlength: "El código debe tener al menos 3 cifras",
+        maxlength: "El código no debe tener más de 3 cifras",
+        digits: "El código solo debe contener dígitos"
+      }
+    }
+  });
 
 
   function seleccionaPais(id, tp) {

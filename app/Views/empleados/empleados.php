@@ -89,23 +89,24 @@
             <div class="modal-body">
               <div class="form-group">
                 <label for="idcliente" class="col-form-label">Nombres</label>
-                <input type="text" class="form-control" id="nombres" name="nombres">
+                <input type="text" class="form-control" id="nombres" name="nombres" required>
                 <div id="MensajeValidacionNombre">
                   <!-- MENSAJE DINAMICO -->
                 </div>
                 <label for="nombrecliente" class="col-form-label">Apellidos</label>
-                <input type="text" class="form-control" id="apellidos" name="apellidos">
-
-                <label for="periodo" class="col-form-label">Año de Nacimiento </label>
-                <div class="flex ">
-                  <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento">
-                    <option id="Seleccionado" value="0">-- Seleccionar Año --</option>
-                    <?php $years = range(strftime("%Y", time()), 1940); ?>
-                    <?php foreach ($years as $year) : ?>
-                      <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-                    <?php endforeach; ?>
-                  </select>
+                <input type="text" class="form-control" id="apellidos" name="apellidos" pattern="[A-Za-z]+">
+                <div id="MensajeValidacionNombre">
+                  <!-- MENSAJE DINAMICO -->
                 </div>
+                <label for="periodo" class="col-form-label">Año de Nacimiento </label>
+                <select class="form-select" name="nacimiento" aria-label="periodo" id="nacimiento">
+                  <option id="Seleccionado" value="0">-- Seleccionar Año --</option>
+                  <?php $years = range(strftime("%Y", time()), 1940); ?>
+                  <?php foreach ($years as $year) : ?>
+                    <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+                  <?php endforeach; ?>
+                </select>
+
 
                 <label for="nombre" class="col-form-label">Pais:</label>
                 <select name="pais" class="form-select form-select" id="selectPais">
@@ -297,12 +298,12 @@
 
   $('#selectPais').on('change', () => {
     pais = $('#selectPais').val();
-    obtenerDepartamentos(pais)
+    obtenerDepartamentos(pais, 0)
   })
 
   $('#departamento').on('change', () => {
     departamento = $('#departamento').val();
-    obtenerMunicipios(departamento)
+    obtenerMunicipios(departamento, 0)
   })
 
   function obtenerDepartamentos(pais, id_dpto, id_municipio) {
@@ -348,15 +349,15 @@
   }
 
   $('#formulario').on('submit', function(e) {
-    nombres = $("#nombres").val();
-    apellidos = $("#apellidos").val();
+    // nombres = $("#nombres").val();
+    // apellidos = $("#apellidos").val();
     nacimiento = $("#nacimiento").val();
     pais = $("#selectPais").val();
     departamento = $("#departamento").val();
     municipio = $('#MunicipioSeleccionado').val();
     cargo = $('#cargo').val();
     periodo = $('#periodo').val();
-    if (nombres == "" || apellidos == "" || nacimiento == "" || pais == "" || departamento == "" || municipio == "" || cargo == "" || periodo == "") {
+    if (nacimiento == "" || pais == "" || departamento == "" || municipio == "" || cargo == "" || periodo == "") {
       e.preventDefault()
       return swal.fire({
         postition: 'top-end',
@@ -369,8 +370,37 @@
     }
   })
 
+  $.validator.addMethod("soloLetras", function(value, element) {
+    return this.optional(element) || /^[a-zA-ZñÑ\s]+$/.test(value);
+  }, "Por favor ingrese solamente letras.");
+
+  $("#formulario").validate({
+    rules: {
+      nombres: {
+        required: true,
+        maxlength: 50,
+        soloLetras: true,
+      },
+      apellidos: {
+        required: true,
+        maxlength: 50,
+        soloLetras: true,
+      },
+    },
+    messages: {
+      nombres: {
+        required: "Los nombres son requerido",
+        maxlength: "Los nombres no pueden tener más de 50 caracteres",
+      },
+      apellidos: {
+        required: "Los Apellidos son requerido",
+        maxlength: "Los Apellidos no puede tener más de 50 caracteres",
+      },
+    }
+  });
+
   function salarios_empleados(id, estado) {
-  
+
 
     dataURL = estado == 'E' ?
       "<?php echo base_url('/salarios_eliminado'); ?>" + "/" + id :
@@ -482,8 +512,8 @@
           $("#departamento").val(rs[0]['dpto_id']);
           obtenerDepartamentos(rs[0]['pais_id'], rs[0]['dpto_id']);
           obtenerMunicipios(rs[0]['dpto_id'], rs[0]['id_municipio']);
-          
-          
+
+
           $("#btn_Guardar").text('Actualizar');
           $("#tituloModal").text('Actualizar el empleado ' + rs[0]['nombres']);
           $("#modalAgregar").modal("show");
@@ -495,12 +525,12 @@
       $("#codigo").val("");
       $("#nombres").val("");
       $("#apellidos").val("");
-      
+
       $("#cargo").val('0');
       $("#municipio").val("0");
       $("#departamento").val("0");
-      obtenerDepartamentos(0,0);
-      obtenerMunicipios(0,0);
+      obtenerDepartamentos(0, 0);
+      obtenerMunicipios(0, 0);
       $("#departamento").val("");
       $("#selectPais").val("");
       $("#nacimiento").val(0);
@@ -566,6 +596,15 @@
         icon: 'error',
         title: 'Error campos incompletos',
         text: 'Debe llenar todos los campos',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    } else if (data.salario_modal == 0) {
+      return swal.fire({
+        postition: 'top-end',
+        icon: 'error',
+        title: 'Error Salario',
+        text: 'El salario no puede ser 0',
         showConfirmButton: false,
         timer: 1500
       })
