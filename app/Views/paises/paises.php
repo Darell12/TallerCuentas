@@ -169,7 +169,7 @@
       },
       codigo: {
         required: true,
-        minlength: 3,
+        // minlength: 3,
         maxlength: 3,
         digits: true
       }
@@ -177,14 +177,12 @@
     messages: {
       nombre: {
         required: "El nombre es requerido",
-        minlength: "El nombre debe tener al menos {0} caracteres",
         maxlength: "El nombre no puede tener más de 20 caracteres",
         pattern: "El nombre solo puede contener letras y espacios",
-        remote: "Campo invalido URL"
       },
       codigo: {
         required: "El código es requerido",
-        minlength: "El código debe tener al menos 3 cifras",
+        // minlength: "El código debe tener al menos 3 cifras",
         maxlength: "El código no debe tener más de 3 cifras",
         digits: "El código solo debe contener dígitos"
       }
@@ -205,6 +203,7 @@
           $("#codigo").val(rs[0]['codigo']);
           $("#nombre").val(rs[0]['nombre']);
           $("#MensajeValidacionNombre").text('');
+          $("#MensajeValidacionCodigo").text('');
           $("#NombreValido").val(1);
           $("#CodigoValido").val(1);
           $("#btn_Guardar").text('Actualizar');
@@ -220,6 +219,7 @@
       $("#NombreValido").val('');
       $("#CodigoValido").val('');
       $("#MensajeValidacionNombre").text('');
+      $("#MensajeValidacionCodigo").text('');
       $("#btn_Guardar").text('Guardar');
       $("#tituloModal").text('Agregar Nuevo País');
       $("#PaisModal").modal("show");

@@ -14,8 +14,8 @@
   <script src="<?php echo base_url('/js/funcione.js'); ?>"></script>
   <script src="<?php echo base_url('/bootstrap/bootstrap.bundle.min.js'); ?>"></script>
 
-  <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script> -->
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> -->
 
 
 

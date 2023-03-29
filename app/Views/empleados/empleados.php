@@ -393,8 +393,8 @@
         maxlength: "Los nombres no pueden tener más de 50 caracteres",
       },
       apellidos: {
-        required: "Los Apellidos son requerido",
-        maxlength: "Los Apellidos no puede tener más de 50 caracteres",
+        required: "Los apellidos son requerido",
+        maxlength: "Los apellidos no puede tener más de 50 caracteres",
       },
     }
   });
