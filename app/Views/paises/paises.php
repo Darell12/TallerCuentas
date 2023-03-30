@@ -220,7 +220,7 @@
       $("#CodigoValido").val('');
       $("#MensajeValidacionNombre").text('');
       $("#MensajeValidacionCodigo").text('');
-      $("#btn_Guardar").text('Guardar');
+      $("#btn_Guardar").text('Guardar');ñ
       $("#tituloModal").text('Agregar Nuevo País');
       $("#PaisModal").modal("show");
     }

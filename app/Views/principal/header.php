@@ -5,7 +5,7 @@
   <title>Cuentas Claras</title>
   <link rel="icon" href="<?php echo base_url() ?>/img/cuentasclaras.png" />
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="<?php echo base_url() ?>/css/head.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>/css/hed.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"> <!-- Bootstrap 5 hoja de estilos -->
   <link rel="stylesheet" href="<?php echo base_url() ?>/bootstrap-icons/bootstrap-icons.css"> <!-- Bootstrap 5 hoja de estilos iconos -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -64,6 +64,12 @@
           <a href="<?php echo base_url() ?>ver_cargos" class="nav-link text-light">
             <i class="bi bi-person-vcard-fill"></i>
             Cargos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url() ?>usuarios" class="nav-link text-light">
+            <i class="bi bi-person-vcard-fill"></i>
+            Usuarios
           </a>
         </li>
         <li class="nav-item dropdown">
