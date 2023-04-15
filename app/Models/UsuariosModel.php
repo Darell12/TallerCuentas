@@ -32,12 +32,33 @@ class UsuariosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
+    public function obtenerUsuariosEliminados()
+    {
+        $this->select('usuarios.*');
+        $this->where('estado', 'E');
+        $this->orderBy('nombre_p', 'ASC');
+        $datos = $this->findAll();
+        return $datos;
+    }
     public function buscarUsuario($id)
     {
         $this->select('usuarios.*');
         $this->where('id_usuario', $id);
         $this->where('estado', 'A');
         $datos = $this->first();
+        return $datos;
+    }
+    public function login($email)
+    {
+        $this->select('usuarios.*');
+        $this->where('email', $email);
+        $this->where('estado', 'A');
+        $datos = $this->findAll();
+        return $datos;
+    }
+    public function cambiar_Estado($id, $estado)
+    {
+        $datos = $this->update($id, ['estado' => $estado]);
         return $datos;
     }
 }

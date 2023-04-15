@@ -5,7 +5,7 @@
         </div>
         <div>
             <button type="button" onclick="seleccionaUsuario(<?php echo 1 . ',' . 1 ?>);" class="btn btn-outline-success " data-bs-toggle="modal" data-bs-target="#UsuarioModal"><i class="bi bi-plus-circle-fill"></i> Agregar</button>
-            <a href="<?php echo base_url('/eliminados_paises'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
+            <a href="<?php echo base_url('/usuarios/eliminados'); ?>"><button type="button" class="btn btn-outline-secondary"><i class="bi bi-file-x"></i> Eliminados</button></a>
             <a href="<?php echo base_url('/principal'); ?>"><button class="btn btn-outline-primary"><i class="bi bi-arrow-return-left"></i> Regresar</button></a>
         </div>
 
@@ -47,7 +47,7 @@
                                     <i class="bi bi-pencil"></i>
 
                                 </button>
-                                <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/estado_paises') . '/' . $valor['id_usuario'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
+                                <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirma" data-href="<?php echo base_url('/usuarios/cambiarEstado') . '/' . $valor['id_usuario'] . '/' . 'E'; ?>"><i class="bi bi-trash3"></i></button>
                             </th>
 
                         </tr>
@@ -208,54 +208,54 @@
         debug: true,
         success: "valid"
     });
-    $("#formulario").validate({
-        rules: {
-            n_documento: {
-                required: true,
-                digits: true
-            },
-            primer_nombre: {
-                required: true,
-                soloLetras: true,
-            },
-            segundo_nombre: {
-                required: true,
-                soloLetras: true,
-            },
-            primer_apellido: {
-                required: true,
-                soloLetras: true,
-            },
-            segundo_apellido: {
-                required: true,
-                soloLetras: true,
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            contraseña: {
-                required: true,
-            },
-            confirmar_contraseña: {
-                required: true,
-                equalTo: '#contraseña'
-            }
-        },
-        messages: {
-            email: {
-                required: "El Email es requerido",
-                email: "Por favor ingrese un email valido",
-            },
-            contraseña: {
-                required: "La Contraseña es requerida",
-            },
-            confirmar_contraseña: {
-                required: "La Contraseña es requerida",
-                equalTo: 'Debe coincidir'
-            }
-        }
-    });
+    // $("#formulario").validate({
+    //     rules: {
+    //         n_documento: {
+    //             required: true,
+    //             digits: true
+    //         },
+    //         primer_nombre: {
+    //             required: true,
+    //             soloLetras: true,
+    //         },
+    //         segundo_nombre: {
+    //             required: true,
+    //             soloLetras: true,
+    //         },
+    //         primer_apellido: {
+    //             required: true,
+    //             soloLetras: true,
+    //         },
+    //         segundo_apellido: {
+    //             required: true,
+    //             soloLetras: true,
+    //         },
+    //         email: {
+    //             required: true,
+    //             email: true
+    //         },
+    //         contraseña: {
+    //             required: true,
+    //         },
+    //         confirmar_contraseña: {
+    //             required: true,
+    //             equalTo: '#contraseña'
+    //         }
+    //     },
+    //     messages: {
+    //         email: {
+    //             required: "El Email es requerido",
+    //             email: "Por favor ingrese un email valido",
+    //         },
+    //         contraseña: {
+    //             required: "La Contraseña es requerida",
+    //         },
+    //         confirmar_contraseña: {
+    //             required: "La Contraseña es requerida",
+    //             equalTo: 'Debe coincidir'
+    //         }
+    //     }
+    // });
     $('.close').click(function() {
         $("#modal-confirma").modal("hide");
     });

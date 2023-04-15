@@ -31,6 +31,11 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 
 $routes->get('/', 'Principal::index');
+///! RUTAS DE SESION
+// $routes->get('login', 'Auth::login');
+// $routes->post('login', 'Auth::login');
+// $routes->get('logout', 'Auth::logout');
+
 // ! RUTAS DE VISTAS TABLAS
 $routes->get('/ver_paises', 'paises::index');
 $routes->get('/ver_dptos', 'departamentos::index');

@@ -67,6 +67,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="<?php echo base_url() ?>principal/inicio" class="nav-link text-light">
+            <i class="bi bi-person-vcard-fill"></i>
+            Login
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="<?php echo base_url() ?>usuarios" class="nav-link text-light">
             <i class="bi bi-person-vcard-fill"></i>
             Usuarios

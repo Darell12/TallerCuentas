@@ -1,0 +1,33 @@
+CRITICAL - 2023-04-05 19:43:37 --> Undefined array key "id"
+in APPPATH\Views\paises\eliminados.php on line 29.
+ 1 APPPATH\Views\paises\eliminados.php(29): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'APPPATH\\Views\\paises\\eliminados.php', 29)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\paises\\eliminados.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/paises/eliminados', [], true)
+ 5 APPPATH\Controllers\Usuarios.php(73): view('/paises/eliminados', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Usuarios->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-04-05 19:45:49 --> Undefined array key "id"
+in APPPATH\Views\paises\eliminados.php on line 29.
+ 1 APPPATH\Views\paises\eliminados.php(29): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'APPPATH\\Views\\paises\\eliminados.php', 29)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\paises\\eliminados.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/paises/eliminados', [], true)
+ 5 APPPATH\Controllers\Usuarios.php(73): view('/paises/eliminados', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Usuarios->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-04-05 19:46:00 --> Undefined array key "id"
+in APPPATH\Views\paises\eliminados.php on line 29.
+ 1 APPPATH\Views\paises\eliminados.php(29): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'APPPATH\\Views\\paises\\eliminados.php', 29)
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\paises\\eliminados.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1184): CodeIgniter\View\View->render('/paises/eliminados', [], true)
+ 5 APPPATH\Controllers\Usuarios.php(73): view('/paises/eliminados', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(934): App\Controllers\Usuarios->eliminados()
+ 7 SYSTEMPATH\CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Usuarios))
+ 8 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(67): CodeIgniter\CodeIgniter->run()

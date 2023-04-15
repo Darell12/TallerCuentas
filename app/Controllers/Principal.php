@@ -18,4 +18,8 @@ class Principal extends BaseController
 
         echo view('/principal/principal'); //mostramos la vista desde el controlador y le enviamos la data necesaria, en este caso, estamos enviando el titulo
     }
+    public function inicio()
+    {
+        echo view('/principal/login');
+    }
 }
