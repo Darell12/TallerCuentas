@@ -29,6 +29,9 @@ class Usuarios extends BaseController
     {
         $tp = $this->request->getPost('tp');
         if ($tp == 1) {
+            $password = $this->request->getPost('contraseña');
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
             $this->usuario->save([
                 'tipo_documento' => $this->request->getPost('tipo_documento'),
                 'n_documento' => $this->request->getPost('n_documento'),
@@ -36,8 +39,9 @@ class Usuarios extends BaseController
                 'nombre_s' => $this->request->getPost('segundo_nombre'),
                 'apellido_p' => $this->request->getPost('primer_apellido'),
                 'apellido_s' => $this->request->getPost('segundo_apellido'),
-                'contraseña' => $this->request->getPost('contraseña'),
                 'email' => $this->request->getPost('email'),
+                'contraseña' => $hashedPassword,
+
             ]);
         } else {
             $this->usuario->update($this->request->getPost('id'), [
@@ -102,58 +106,32 @@ class Usuarios extends BaseController
     }
     public function login()
     {
-        // $email = $this->request->getPost('email');
-        // $password = $this->request->getPost('password');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getVar('password');
 
-        // $usuarioDatos = $this->usuario->obtenerUsuarios(['email' => $email]);
+        $usuarioDatos = $this->usuario->login(['email' => $email]);
 
+        if (count($usuarioDatos) > 0 && password_verify($password, $usuarioDatos[0]['contraseña'])) {
 
-        // if (count($usuarioDatos) > 0 && password_verify($password, $usuarioDatos[0]['contraseña'])) {
+            $data = [
+                "usuario" => $usuarioDatos[0]['nombre_p'],
+                "id" => $usuarioDatos[0]['id_usuario'],
+                'logged_in' => true,
+            ];
 
-        //     $data = [
-        //         "usuario" => $usuarioDatos[0]['nombre_p'],
-        //         "id" => $usuarioDatos[0]['id_usuario']
-        //     ];
+            $session = session();
+            $session->set($data);
 
-        //     $session = session();
-        //     $session -> set($data);
-        //     // $session = set($data);
-
-        //     return redirect()->to(base_url('/ver_usuarios'))->with('mensaje', '1');
-        // } else {
-        //     return redirect()->to(base_url('principal/inicio'))->with('mensaje', '0');
-        //     return $email;
-        // }
-
-
-        // try {
-            $email = $this->request->getPost('email');
-            $password = $this->request->getVar('password');
-
-            $usuarioDatos = $this->usuario->login(['email' => $email]);
-
-            if (count($usuarioDatos) > 0 && $password == $usuarioDatos[0]['contraseña']) {
-
-                $data = [
-                    "usuario" => $usuarioDatos[0]['nombre_p'],
-                    "id" => $usuarioDatos[0]['id_usuario']
-                ];
-
-                $session = session();
-                $session->set($data);
-
-                echo $session->get('id');
-                return redirect()->to(base_url('/principal'))->with('mensaje', '1');
-            } else {
-                return redirect()->to(base_url('principal/inicio'))->with('mensaje', '0');
-            }
-        // } catch (\Exception $e) {
-        //     // Log error
-        //     log_message('error', $e->getMessage());
-
-        //     // Show error message to user
-        //     return redirect()->to(base_url('principal/inicio'))->with('mensaje', '0')->with('error', 'Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.');
-        // }
-
+            echo $session->get('id');
+            return redirect()->to(base_url('/principal'))->with('mensaje', '1');
+        } else {
+            return redirect()->to(base_url('iniciarSesion'))->with('mensaje', '0');
+        }
+    }
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to(base_url('iniciarSesion'));
     }
 }

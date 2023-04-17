@@ -38,6 +38,30 @@ class EmpleadosModel extends Model
         $datos = $this->findAll();
         return $datos;
     }
+    public function total()
+    {
+        $this->select('empleados.*, municipios.nombre as NMuni, municipios.estado as estadoMuni, cargos.nombre as NCargo, cargos.estado as estadoCargo, departamentos.nombre as dpto_nombre, departamentos.estado as estadoDpto, paises.nombre as pais_nombre, paises.estado as estadoPais');
+        $this->join('municipios', 'municipios.id = empleados.id_municipio');
+        $this->join('departamentos', 'municipios.id_dpto = departamentos.id');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
+        $this->join('cargos', 'cargos.id = empleados.id_cargo');
+        // $this->join('salarios', 'salarios.id_empleado = empleados.id', 'left');
+        $this->orderBy('nombres', 'ASC'); // ordena por el nombre de los empleados en orden alfabético ascendente
+        $datos = $this->findAll();
+        return $datos;
+    }
+    public function residencia()
+    {
+        $this->select('municipios.nombre as NMuni, municipios.estado as estadoMuni, departamentos.nombre as dpto_nombre, departamentos.estado as estadoDpto, paises.nombre as pais_nombre, paises.estado as estadoPais');
+        $this->join('municipios', 'municipios.id = empleados.id_municipio');
+        $this->join('departamentos', 'municipios.id_dpto = departamentos.id');
+        $this->join('paises', 'departamentos.id_pais = paises.id');
+        $this->join('cargos', 'cargos.id = empleados.id_cargo');
+        // $this->join('salarios', 'salarios.id_empleado = empleados.id', 'left');
+        $this->orderBy('nombres', 'ASC'); // ordena por el nombre de los empleados en orden alfabético ascendente
+        $datos = $this->findAll();
+        return $datos;
+    }
     public function obtenerUltimo()
     {
         $id = $this->getInsertID();

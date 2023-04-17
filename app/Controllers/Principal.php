@@ -18,8 +18,18 @@ class Principal extends BaseController
 
         echo view('/principal/principal'); //mostramos la vista desde el controlador y le enviamos la data necesaria, en este caso, estamos enviando el titulo
     }
-    public function inicio()
+    public function login()
     {
         echo view('/principal/login');
+    }
+    public function TPrincipal()
+    {
+        $data = ['titulo' => 'Proyecto Cuentas Claras', 'nombre' => 'Greed']; // le asignamos a la variable data, que es la que interactua con la vista, los datos obtenidos del modelo, ademas de enviarle una variable titulo para el reporte.
+
+        echo view('/tailwind/Theader', $data);
+
+
+        // echo view('/principal/principal'); //mostramos la vista desde el controlador y le enviamos la data necesaria, en este caso, estamos enviando el titulo
+  
     }
 }

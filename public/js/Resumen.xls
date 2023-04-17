@@ -1,0 +1,223 @@
+<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Resumen</x:Name><x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body><tr style="font-weight:bold;font-size;20px;">RESUMEN DE A.P.U.S x COTIZACION</tr><br>Cliente: KATLEEN DE JESUS PADILLA BLANCO</tr><br><tr>Proyecto ADSO S.A.S</tr><br><tr >Cotización:175Version:1Fecha:2023-04-15Valor: 177,180.74<br><br><table border='1px'>
+                                <thead>
+                                    <tr style="color:#98040a;font-weight:300;text-align:center;font-family:Arial;font-size:14px;">
+                                        <th style="width:40px;">Tipo</th>
+                                        <th style="width:300px;">Descripción</th>
+                                        <th style="width:60px">Cant</th>
+                                        <th style="width:90px">Costo</th>
+                                        <th style="width:90px">Utilidad</th>
+                                        <th style="width:70px">VrCompleto</th>
+                                        <th style="width:70px">Vr.TotalCosto</th>
+                                        <th style="width:90px">Vr.TotalUtil</th>
+                                        <th style="width:90px">Vr.TotalCompleto</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbl_item" style="font-family:Arial;font-size:10px;">
+
+                                
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">ABRAZADERA COLGANTE TIPO PERA 1/2"</td>    
+                            <td style="width:60px;">2.00</td>
+                            <td style="width:90px;text-align:right;">1,428.00</td>
+                            <td style="width:90px;text-align:right;">428.40</td>
+                            <td style="width:90px;text-align:right;">1,856.40</td>                            
+                            <td style="width:90px;text-align:right;">2,856.00</td>
+                            <td style="width:90px;text-align:right;">856.80</td>
+                            <td style="width:90px;text-align:right;">3,712.80</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">CABLE #12 EXZHELLENT NEGRO</td>    
+                            <td style="width:60px;">3.00</td>
+                            <td style="width:90px;text-align:right;">2,345.49</td>
+                            <td style="width:90px;text-align:right;">703.65</td>
+                            <td style="width:90px;text-align:right;">3,049.14</td>                            
+                            <td style="width:90px;text-align:right;">7,036.47</td>
+                            <td style="width:90px;text-align:right;">2,110.94</td>
+                            <td style="width:90px;text-align:right;">9,147.41</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">CABLE #12 THHN/THWN BLANCO</td>    
+                            <td style="width:60px;">3.00</td>
+                            <td style="width:90px;text-align:right;">2,469.25</td>
+                            <td style="width:90px;text-align:right;">740.78</td>
+                            <td style="width:90px;text-align:right;">3,210.03</td>                            
+                            <td style="width:90px;text-align:right;">7,407.75</td>
+                            <td style="width:90px;text-align:right;">2,222.33</td>
+                            <td style="width:90px;text-align:right;">9,630.08</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">CABLE #12 THHN/THWN VERDE</td>    
+                            <td style="width:60px;">3.00</td>
+                            <td style="width:90px;text-align:right;">2,190.79</td>
+                            <td style="width:90px;text-align:right;">657.24</td>
+                            <td style="width:90px;text-align:right;">2,848.03</td>                            
+                            <td style="width:90px;text-align:right;">6,572.37</td>
+                            <td style="width:90px;text-align:right;">1,971.71</td>
+                            <td style="width:90px;text-align:right;">8,544.08</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">CABLE ENCAUCHETADO 3 X 14 AWG THHN/THWN AWG 600V 90 X 1,30 Mts</td>    
+                            <td style="width:60px;">1.50</td>
+                            <td style="width:90px;text-align:right;">3,000.00</td>
+                            <td style="width:90px;text-align:right;">900.00</td>
+                            <td style="width:90px;text-align:right;">3,900.00</td>                            
+                            <td style="width:90px;text-align:right;">4,500.00</td>
+                            <td style="width:90px;text-align:right;">1,350.00</td>
+                            <td style="width:90px;text-align:right;">5,850.00</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">CAJA METALICA 12X12X5 BLANCA TAPA LISA</td>    
+                            <td style="width:60px;">1.00</td>
+                            <td style="width:90px;text-align:right;">7,794.50</td>
+                            <td style="width:90px;text-align:right;">2,338.35</td>
+                            <td style="width:90px;text-align:right;">10,132.85</td>                            
+                            <td style="width:90px;text-align:right;">7,794.50</td>
+                            <td style="width:90px;text-align:right;">2,338.35</td>
+                            <td style="width:90px;text-align:right;">10,132.85</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">CHAZO RL ROSCA INTERNA 3/8"</td>    
+                            <td style="width:60px;">2.00</td>
+                            <td style="width:90px;text-align:right;">430.93</td>
+                            <td style="width:90px;text-align:right;">215.47</td>
+                            <td style="width:90px;text-align:right;">646.40</td>                            
+                            <td style="width:90px;text-align:right;">861.86</td>
+                            <td style="width:90px;text-align:right;">430.93</td>
+                            <td style="width:90px;text-align:right;">1,292.79</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">CONECTOR DE EMPALME TIPO RESORTE ROJO 8-22 AWG 3M</td>    
+                            <td style="width:60px;">3.00</td>
+                            <td style="width:90px;text-align:right;">166.60</td>
+                            <td style="width:90px;text-align:right;">49.98</td>
+                            <td style="width:90px;text-align:right;">216.58</td>                            
+                            <td style="width:90px;text-align:right;">499.80</td>
+                            <td style="width:90px;text-align:right;">149.94</td>
+                            <td style="width:90px;text-align:right;">649.74</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">PRENSA ESTOPA PG-13,5 1/2"</td>    
+                            <td style="width:60px;">1.00</td>
+                            <td style="width:90px;text-align:right;">2,422.84</td>
+                            <td style="width:90px;text-align:right;">726.85</td>
+                            <td style="width:90px;text-align:right;">3,149.69</td>                            
+                            <td style="width:90px;text-align:right;">2,422.84</td>
+                            <td style="width:90px;text-align:right;">726.85</td>
+                            <td style="width:90px;text-align:right;">3,149.69</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">TERMINAL CONECTOR EMT DE 1/2"</td>    
+                            <td style="width:60px;">1.00</td>
+                            <td style="width:90px;text-align:right;">1,199.52</td>
+                            <td style="width:90px;text-align:right;">359.86</td>
+                            <td style="width:90px;text-align:right;">1,559.38</td>                            
+                            <td style="width:90px;text-align:right;">1,199.52</td>
+                            <td style="width:90px;text-align:right;">359.86</td>
+                            <td style="width:90px;text-align:right;">1,559.38</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">TUBO EMT GALVANIZADO 1/2" X 3 MTS</td>    
+                            <td style="width:60px;">2.00</td>
+                            <td style="width:90px;text-align:right;">23,415.00</td>
+                            <td style="width:90px;text-align:right;">7,024.50</td>
+                            <td style="width:90px;text-align:right;">30,439.50</td>                            
+                            <td style="width:90px;text-align:right;">46,830.00</td>
+                            <td style="width:90px;text-align:right;">14,049.00</td>
+                            <td style="width:90px;text-align:right;">60,879.00</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">UNION EMT DE 1/2"</td>    
+                            <td style="width:60px;">2.00</td>
+                            <td style="width:90px;text-align:right;">1,199.52</td>
+                            <td style="width:90px;text-align:right;">359.86</td>
+                            <td style="width:90px;text-align:right;">1,559.38</td>                            
+                            <td style="width:90px;text-align:right;">2,399.04</td>
+                            <td style="width:90px;text-align:right;">719.71</td>
+                            <td style="width:90px;text-align:right;">3,118.75</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MATERIALES</td>
+                            <td style="width:250px;">VARILLA ROSCADA 3/8" X 3 MTS</td>    
+                            <td style="width:60px;">1.00</td>
+                            <td style="width:90px;text-align:right;">5,000.38</td>
+                            <td style="width:90px;text-align:right;">1,500.11</td>
+                            <td style="width:90px;text-align:right;">6,500.49</td>                            
+                            <td style="width:90px;text-align:right;">5,000.38</td>
+                            <td style="width:90px;text-align:right;">1,500.11</td>
+                            <td style="width:90px;text-align:right;">6,500.49</td>
+                            </tr>
+                                <tr style="color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                                <td class="ln_Subtotal" nowrap="" colspan="2" align="right">Subtotal --&gt;MATERIALES</td>
+                                <td class="ln_Subtotal" nowrap="" colspan="5" align="right">95,380.53</td>
+                                <td class="ln_Subtotal" nowrap="" align="right">28,786.53</td>
+                                <td class="ln_Subtotal" nowrap="" align="right">124,167.06</td>
+                                </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MANO DE OBRA</td>
+                            <td style="width:250px;">MANO DE OBRA CABLE 1#14:12:10</td>    
+                            <td style="width:60px;">3.00</td>
+                            <td style="width:90px;text-align:right;">3,000.00</td>
+                            <td style="width:90px;text-align:right;">900.00</td>
+                            <td style="width:90px;text-align:right;">3,900.00</td>                            
+                            <td style="width:90px;text-align:right;">9,000.00</td>
+                            <td style="width:90px;text-align:right;">2,700.00</td>
+                            <td style="width:90px;text-align:right;">11,700.00</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MANO DE OBRA</td>
+                            <td style="width:250px;">MANO DE OBRA CAJA</td>    
+                            <td style="width:60px;">1.00</td>
+                            <td style="width:90px;text-align:right;">3,000.00</td>
+                            <td style="width:90px;text-align:right;">900.00</td>
+                            <td style="width:90px;text-align:right;">3,900.00</td>                            
+                            <td style="width:90px;text-align:right;">3,000.00</td>
+                            <td style="width:90px;text-align:right;">900.00</td>
+                            <td style="width:90px;text-align:right;">3,900.00</td>
+                            </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">MANO DE OBRA</td>
+                            <td style="width:250px;">MANO DE OBRA TUBERIA</td>    
+                            <td style="width:60px;">3.00</td>
+                            <td style="width:90px;text-align:right;">3,000.00</td>
+                            <td style="width:90px;text-align:right;">900.00</td>
+                            <td style="width:90px;text-align:right;">3,900.00</td>                            
+                            <td style="width:90px;text-align:right;">9,000.00</td>
+                            <td style="width:90px;text-align:right;">2,700.00</td>
+                            <td style="width:90px;text-align:right;">11,700.00</td>
+                            </tr>
+                                <tr style="color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                                <td class="ln_Subtotal" nowrap="" colspan="2" align="right">Subtotal --&gt;MANO DE OBRA</td>
+                                <td class="ln_Subtotal" nowrap="" colspan="5" align="right">21,000.00</td>
+                                <td class="ln_Subtotal" nowrap="" align="right">6,300.00</td>
+                                <td class="ln_Subtotal" nowrap="" align="right">27,300.00</td>
+                                </tr>
+                            <tr style="background-color:yellow;color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                            <td style="width:50px;">HERRAMIENTAS</td>
+                            <td style="width:250px;">HERRAMIENTAS MENORES</td>    
+                            <td style="width:60px;">1.00</td>
+                            <td style="width:90px;text-align:right;">3,000.00</td>
+                            <td style="width:90px;text-align:right;">600.00</td>
+                            <td style="width:90px;text-align:right;">3,600.00</td>                            
+                            <td style="width:90px;text-align:right;">3,000.00</td>
+                            <td style="width:90px;text-align:right;">600.00</td>
+                            <td style="width:90px;text-align:right;">3,600.00</td>
+                            </tr>
+                                <tr style="color:#070606;font-weight:300;text-align:center;font-family:Arial;font-size:12px;">
+                                <td class="ln_Subtotal" nowrap="" colspan="2" align="right">Subtotal --&gt;HERRAMIENTAS</td>
+                                <td class="ln_Subtotal" nowrap="" colspan="5" align="right">3,000.00</td>
+                                <td class="ln_Subtotal" nowrap="" align="right">600.00</td>
+                                <td class="ln_Subtotal" nowrap="" align="right">3,600.00</td>
+                                </tr></tbody>
+                            </table></body></html>

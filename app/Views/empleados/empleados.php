@@ -349,8 +349,6 @@
   }
 
   $('#formulario').on('submit', function(e) {
-    // nombres = $("#nombres").val();
-    // apellidos = $("#apellidos").val();
     nacimiento = $("#nacimiento").val();
     pais = $("#selectPais").val();
     departamento = $("#departamento").val();
@@ -379,12 +377,12 @@
       nombres: {
         required: true,
         maxlength: 50,
-        soloLetras: true,
+        // soloLetras: true,
       },
       apellidos: {
         required: true,
         maxlength: 50,
-        soloLetras: true,
+        // soloLetras: true,
       },
     },
     messages: {

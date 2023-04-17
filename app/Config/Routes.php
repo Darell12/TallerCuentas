@@ -32,9 +32,9 @@ $routes->setAutoRoute(true);
 
 $routes->get('/', 'Principal::index');
 ///! RUTAS DE SESION
-// $routes->get('login', 'Auth::login');
-// $routes->post('login', 'Auth::login');
-// $routes->get('logout', 'Auth::logout');
+$routes->get('iniciarSesion', 'Principal::login');
+$routes->post('login', 'Usuarios::login');
+$routes->get('logout', 'Usuarios::logout');
 
 // ! RUTAS DE VISTAS TABLAS
 $routes->get('/ver_paises', 'paises::index');

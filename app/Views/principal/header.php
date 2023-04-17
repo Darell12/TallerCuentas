@@ -10,13 +10,11 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>/bootstrap-icons/bootstrap-icons.css"> <!-- Bootstrap 5 hoja de estilos iconos -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="<?php echo base_url() ?>/css/jquery-3.6.0.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script> -->
   <script src="<?php echo base_url('/js/funcione.js'); ?>"></script>
   <script src="<?php echo base_url('/bootstrap/bootstrap.bundle.min.js'); ?>"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> -->
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
@@ -29,7 +27,7 @@
 
   <div class="titulo">
     <h1 style="text-align:center">Cuentas Claras</h1>
-    <h6 style="text-align:center "><?php echo $nombre; ?></h2>
+    <h6 style="text-align:center "><?php echo session('usuario') ?></h2>
   </div>
   <a href="https://oferta.senasofiaplus.edu.co/sofia-oferta/" target="_blank" class="logosena">
     <img src="<?php echo base_url(); ?>img/sena.png" alt="">
@@ -67,12 +65,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="<?php echo base_url() ?>principal/inicio" class="nav-link text-light">
-            <i class="bi bi-person-vcard-fill"></i>
-            Login
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="<?php echo base_url() ?>usuarios" class="nav-link text-light">
             <i class="bi bi-person-vcard-fill"></i>
             Usuarios
@@ -91,5 +83,9 @@
         </li>
       </ul>
     </div>
+    <a href="<?php echo base_url() ?>usuarios/logout" class="nav-link text-light">
+        <i class="bi bi-box-arrow-left"></i>
+          Log Out
+        </a>
   </div>
 </nav>

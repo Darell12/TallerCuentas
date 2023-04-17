@@ -97,6 +97,24 @@ class Empleados extends BaseController
         }
         echo json_encode($returnData);
     }
+    public function total()
+    {
+        $returnData = array();
+        $empleados = $this->empleados->total();
+        if (!empty($empleados)) {
+            array_push($returnData, $empleados);
+        }
+        echo json_encode($returnData[0]);
+    }
+    public function residencia()
+    {
+        $returnData = array();
+        $empleados = $this->empleados->residencia();
+        if (!empty($empleados)) {
+            array_push($returnData, $empleados);
+        }
+        echo json_encode($returnData[0]);
+    }
     public function obtenerMuniDpto($id)
     {
         $dataArray = array();
